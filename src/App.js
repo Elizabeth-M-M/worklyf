@@ -1,9 +1,11 @@
 import Guest from "./components/guest/Guest";
 
 function App() {
-  return < >
-    <Guest/>
-  </>
+  return (
+    <div className="font-poppins">
+      <Guest />
+    </div>
+  );
 }
 
 export default App;
