@@ -4,7 +4,7 @@ import Register from "./pages/guest/pages/Register.js";
 import GuestMain from "./pages/guest/pages";
 import Login from "./pages/guest/pages/Login";
 import User from "./pages/user";
-import UserLandingPage from "./pages/user/pages";
+import UserLandingPage from "./pages/user/pages/UserLandingPage";
 
 const router = createBrowserRouter([
   {
