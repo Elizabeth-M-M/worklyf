@@ -4,22 +4,40 @@ import { useNavigate } from "react-router-dom";
 
 export default function Register() {
 const navigate= useNavigate()
-
+const [signUpFormData, setSignUpFormData] = useState({
+  first_name: "",
+  email: "",
+  password: "",
+  password_confirmation: "",
+});
+const handleInputs=(event)=>{
+setSignUpFormData({...signUpFormData, [event.target.name]:event.target.value})
+}
+const handleSubmit=(event)=>{
+  event.preventDefault()
+  console.log(signUpFormData)
+  setSignUpFormData({
+    first_name: "",
+    email: "",
+    password: "",
+    password_confirmation: "",
+  });
+}
   return (
     <div className=" bg-white md:flex justify-between items-center h-screen text-black">
-      <div className="md:w-4/12 ">
+      <div className="md:w-5/12 ">
         <div className="ps-5  p-2">
           <GuestNavbar />
         </div>
 
-        <div>
+        <div className="w-3/4 mx-auto">
           <div className="text-center p-5">
             <h3 className="text-3xl font-bold mb-2">Welcome</h3>
             <p className="text-sm text-gray-light tracking-wide">
               Separate with ease, find personal peace
             </p>
           </div>
-          <form action="" className="p-8">
+          <form onSubmit={handleSubmit} className="p-8 ">
             <div className="mb-2">
               <label
                 className="block text-sm tracking-wide mb-1"
@@ -32,6 +50,9 @@ const navigate= useNavigate()
                 type="text"
                 id="first_name"
                 name="first_name"
+                value={signUpFormData.first_name}
+                onChange={handleInputs}
+                required
               />
             </div>
             <div className="mb-2">
@@ -46,6 +67,9 @@ const navigate= useNavigate()
                 type="email"
                 id="email"
                 name="email"
+                value={signUpFormData.email}
+                onChange={handleInputs}
+                required
               />
             </div>
             <div className="mb-2">
@@ -60,6 +84,9 @@ const navigate= useNavigate()
                 type="password"
                 id="password"
                 name="password"
+                value={signUpFormData.password}
+                onChange={handleInputs}
+                required
               />
             </div>
             <div className="mb-2">
@@ -74,15 +101,21 @@ const navigate= useNavigate()
                 id="password_confirmation"
                 name="password_confirmation"
                 className="w-full bg-pink-light appearance-none rounded p-1 drop-shadow-lg"
+                value={signUpFormData.password_confirmation}
+                onChange={handleInputs}
+                required
               />
             </div>
-            <p className="text-end text-xs mt-2 cursor-pointer hover:text-pink-dark">Already have an account?</p>
+            <p className="text-end text-xs mt-2 cursor-pointer hover:text-pink-dark">
+              Already have an account?
+            </p>
             <div className="text-center ">
-              <input
-                type="button"
-                value="Sign Up"
+              <button
+                type="submit"
                 className=" bg-gray-dark py-1 px-3 rounded-xl  text-white hover:bg-gray-light mt-9"
-              />
+              >
+                Sign Up
+              </button>
             </div>
           </form>
         </div>
