@@ -55,7 +55,7 @@ export const UserIcon = () => (
     viewBox="0 0 24 24"
     strokeWidth={1.5}
     stroke="currentColor"
-    className="w-6 h-6"
+    className="w-12 h-12 bg-gray-light rounded-full p-2"
   >
     <path
       strokeLinecap="round"
@@ -71,7 +71,7 @@ export const FilterIcon = () => (
     viewBox="0 0 24 24"
     strokeWidth={1.5}
     stroke="currentColor"
-    className="w-6 h-6"
+    className="w-12 h-12 bg-pink-light rounded-full p-2"
   >
     <path
       strokeLinecap="round"
