@@ -110,7 +110,6 @@ const handleSubmit=(event)=>{
             <p
               className="text-end text-xs mt-2 cursor-pointer hover:text-pink-dark"
               onClick={() => {
-                console.log("clicked");
                 navigate("/login");
               }}
             >
