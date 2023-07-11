@@ -106,7 +106,13 @@ const handleSubmit=(event)=>{
                 required
               />
             </div>
-            <p className="text-end text-xs mt-2 cursor-pointer hover:text-pink-dark">
+            <p
+              className="text-end text-xs mt-2 cursor-pointer hover:text-pink-dark"
+              onClick={() => {
+                console.log("clicked");
+                navigate("/login");
+              }}
+            >
               Already have an account?
             </p>
             <div className="text-center ">
