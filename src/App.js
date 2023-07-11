@@ -1,8 +1,8 @@
-import Guest from "./components/guest/Guest";
+import Guest from "./pages/guest/Guest";
 
 function App() {
   return (
-    <div className="font-poppins">
+    <div className="font-poppins text-gray-lighter">
       <Guest />
     </div>
   );
