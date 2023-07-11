@@ -17,6 +17,7 @@ setSignUpFormData({...signUpFormData, [event.target.name]:event.target.value})
 const handleSubmit=(event)=>{
   event.preventDefault()
   console.log(signUpFormData)
+  navigate('/login')
   setSignUpFormData({
     first_name: "",
     email: "",
@@ -47,7 +48,7 @@ const handleSubmit=(event)=>{
                 First Name
               </label>
               <input
-                className="w-full bg-pink-light appearance-none rounded p-1 drop-shadow-lg"
+                className="w-full bg-pink-light appearance-none rounded p-1 drop-shadow-lg text-white"
                 type="text"
                 id="first_name"
                 name="first_name"
@@ -64,7 +65,7 @@ const handleSubmit=(event)=>{
                 Email Address
               </label>
               <input
-                className="w-full bg-pink-light appearance-none rounded p-1 drop-shadow-lg"
+                className="w-full bg-pink-light appearance-none rounded p-1 drop-shadow-lg text-white"
                 type="email"
                 id="email"
                 name="email"
@@ -81,7 +82,7 @@ const handleSubmit=(event)=>{
                 Password
               </label>
               <input
-                className="w-full bg-pink-light appearance-none rounded p-1 drop-shadow-lg"
+                className="w-full bg-pink-light appearance-none rounded p-1 drop-shadow-lg text-white"
                 type="password"
                 id="password"
                 name="password"
@@ -101,7 +102,7 @@ const handleSubmit=(event)=>{
                 type="password"
                 id="password_confirmation"
                 name="password_confirmation"
-                className="w-full bg-pink-light appearance-none rounded p-1 drop-shadow-lg"
+                className="w-full bg-pink-light appearance-none rounded p-1 drop-shadow-lg text-white"
                 value={signUpFormData.password_confirmation}
                 onChange={handleInputs}
                 required

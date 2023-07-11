@@ -14,7 +14,7 @@ export default function Button({
   return (
     <button
       type={type == undefined ? "button" : type}
-      className={`text-xs py-1 px-6 rounded-full mt-4 text-white md:text-lg
+      className={` md:text-sm px-7 py-3 rounded-full mt-4 text-white md:text-lg
       ${
         bgStyle == undefined ? "bg-pink-dark" : bgStyle
       }
