@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import GuestNavbar from "../Guestnavbar";
 import { useNavigate } from "react-router-dom";
+import Button from "../../../components/Button";
 
 export default function Register() {
 const navigate= useNavigate()
@@ -24,7 +25,7 @@ const handleSubmit=(event)=>{
   });
 }
   return (
-    <div className=" bg-white md:flex justify-between items-center h-screen text-black">
+    <div className=" bg-white md:flex justify-between items-center h-screen text-gray-dark">
       <div className="md:w-5/12 ">
         <div className="ps-5  p-2">
           <GuestNavbar />
@@ -116,12 +117,14 @@ const handleSubmit=(event)=>{
               Already have an account?
             </p>
             <div className="text-center ">
-              <button
-                type="submit"
-                className=" bg-gray-dark py-1 px-3 rounded-xl  text-white hover:bg-gray-light mt-9"
-              >
-                Sign Up
-              </button>
+              <Button
+                text={"Sign Up"}
+                type={"submit"}
+                textStyle={"text-white"}
+                bgStyle={"bg-gray-dark"}
+                textHoverStyle={"text-white"}
+                bgHoverStyle={"bg-gray-light"}
+              />
             </div>
           </form>
         </div>

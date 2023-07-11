@@ -41,7 +41,11 @@ export default function GuestMain() {
           </div>
         </div>
         <div className="text-center mt-6 md:mt-3">
-          <Button text={"Let's Start"} clicked={"/register"} />
+          <Button
+            text={"Let's Start"}
+            clicked={"/register"}
+            
+          />
         </div>
       </div>
     </>

@@ -1,14 +1,34 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function Button({ text, click }) {
+export default function Button({
+  text,
+  clicked,
+  type,
+  textStyle,
+  bgStyle,
+  bgHoverStyle,
+  textHoverStyle,
+}) {
   const navigate = useNavigate();
   return (
     <button
-      className="font-bold tracking-wide text-sm bg-pink-light py-2 px-7 rounded-full mt-4 text-white md:text-lg hover:bg-white hover:text-pink-dark "
+      type={type == undefined ? "button" : type}
+      className={`text-xs py-1 px-6 rounded-full mt-4 text-white md:text-lg
+      ${
+        bgStyle == undefined ? "bg-pink-dark" : bgStyle
+      }
+      ${textStyle == undefined ? "text-white" : textStyle}
+      hover:${
+        bgHoverStyle == undefined ? "bg-white" : bgHoverStyle
+      }
+      hover:${
+        textHoverStyle == undefined ? "text-gray-dark" : textHoverStyle
+      }`}
       onClick={() => {
-        console.log("clicked")
-        navigate('/register');
+        if (clicked !== undefined) {
+          navigate(clicked);
+        }
       }}
     >
       {text}
