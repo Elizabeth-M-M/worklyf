@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import GuestNavbar from "../Guestnavbar";
+import GuestNavbar from "../guestnavbar";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../components/Button";
 
@@ -7,7 +7,7 @@ export default function Login() {
   const navigate = useNavigate();
   const [loginFormData, setloginFormData] = useState({
     email: "",
-    password: ""
+    password: "",
   });
   const handleInputs = (event) => {
     setloginFormData({
@@ -20,9 +20,9 @@ export default function Login() {
     console.log(loginFormData);
     setloginFormData({
       email: "",
-      password: ""
-
+      password: "",
     });
+    navigate('/welcome')
   };
   return (
     <div className=" bg-white md:flex flex-row-reverse justify-between items-center h-screen text-gray-dark">

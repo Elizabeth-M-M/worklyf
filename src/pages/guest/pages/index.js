@@ -1,7 +1,6 @@
 import React from "react";
 import Button from "../../../components/Button";
-import GuestNavbar from "../Guestnavbar";
-
+import GuestNavbar from "../guestnavbar";
 
 export default function GuestMain() {
   return (
@@ -41,11 +40,7 @@ export default function GuestMain() {
           </div>
         </div>
         <div className="text-center mt-6 md:mt-3">
-          <Button
-            text={"Let's Start"}
-            clicked={"/register"}
-            
-          />
+          <Button text={"Let's Start"} clicked={"/register"} />
         </div>
       </div>
     </>

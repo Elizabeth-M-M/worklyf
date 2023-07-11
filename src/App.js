@@ -3,6 +3,8 @@ import Guest from "./pages/guest";
 import Register from "./pages/guest/pages/Register.js";
 import GuestMain from "./pages/guest/pages";
 import Login from "./pages/guest/pages/Login";
+import User from "./pages/user";
+import UserLandingPage from "./pages/user/pages";
 
 const router = createBrowserRouter([
   {
@@ -19,8 +21,18 @@ const router = createBrowserRouter([
       },
       {
         path: "/login",
-        element: <Login/>,
+        element: <Login />,
       },
+    ],
+  },
+  {
+    path: "/welcome",
+    element: <User/>,
+    children: [
+      {
+        path: "/welcome",
+        element: <UserLandingPage/>,
+      }
     ],
   },
 ]);

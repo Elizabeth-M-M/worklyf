@@ -1,30 +1,33 @@
 import React, { useState } from "react";
-import GuestNavbar from "../Guestnavbar";
+import GuestNavbar from "../guestnavbar";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../components/Button";
 
 export default function Register() {
-const navigate= useNavigate()
-const [signUpFormData, setSignUpFormData] = useState({
-  first_name: "",
-  email: "",
-  password: "",
-  password_confirmation: "",
-});
-const handleInputs=(event)=>{
-setSignUpFormData({...signUpFormData, [event.target.name]:event.target.value})
-}
-const handleSubmit=(event)=>{
-  event.preventDefault()
-  console.log(signUpFormData)
-  navigate('/login')
-  setSignUpFormData({
+  const navigate = useNavigate();
+  const [signUpFormData, setSignUpFormData] = useState({
     first_name: "",
     email: "",
     password: "",
     password_confirmation: "",
   });
-}
+  const handleInputs = (event) => {
+    setSignUpFormData({
+      ...signUpFormData,
+      [event.target.name]: event.target.value,
+    });
+  };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(signUpFormData);
+    navigate("/login");
+    setSignUpFormData({
+      first_name: "",
+      email: "",
+      password: "",
+      password_confirmation: "",
+    });
+  };
   return (
     <div className=" bg-white md:flex justify-between items-center h-screen text-gray-dark">
       <div className="md:w-5/12 ">
