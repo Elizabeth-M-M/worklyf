@@ -6,6 +6,7 @@ import Login from "./pages/guest/pages/Login";
 import User from "./pages/user";
 import UserLandingPage from "./pages/user/pages/UserLandingPage";
 import Tasklist from "./pages/user/pages/Tasklist";
+import CreateTask from "./pages/user/pages/CreateTask";
 
 const router = createBrowserRouter([
   {
@@ -36,7 +37,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/tasks",
-        element: <Tasklist/>,
+        element: <Tasklist />,
+      },
+      {
+        path: "/create-task",
+        element: <CreateTask/>,
       },
     ],
   },
