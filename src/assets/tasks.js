@@ -180,3 +180,13 @@ export const tasks = [
     category_id: 5,
   },
 ];
+export const categories = [
+  { name: "Academic" },
+  { name: "Financial" },
+  { name: "Health and Fitness" },
+  { name: "Social and Relationship" },
+  { name: "Creative" },
+  { name: "Travel and Transportation" },
+  { name: "Organizational" },
+  { name: "Miscellaneous" },
+];

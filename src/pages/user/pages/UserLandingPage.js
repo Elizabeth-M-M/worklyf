@@ -24,9 +24,6 @@ const navigate = useNavigate();
       </div>
       <div className="md:grid grid-cols-2 gap-8">
         <div>
-         
-            <Button text={"Create a task"} clicked={"/create-task"} />
-          
           <Status />
           <Category />
         </div>
