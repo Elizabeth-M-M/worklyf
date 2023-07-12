@@ -5,6 +5,7 @@ import Category from '../Category';
 import { tasks } from '../../../assets/tasks';
 import TaskCard from '../TaskCard';
 import { useNavigate } from "react-router-dom";
+import Button from "../../../components/Button";
 
 export default function UserLandingPage() {
 const navigate = useNavigate();
@@ -23,6 +24,9 @@ const navigate = useNavigate();
       </div>
       <div className="md:grid grid-cols-2 gap-8">
         <div>
+         
+            <Button text={"Create a task"} clicked={"/create-task"} />
+          
           <Status />
           <Category />
         </div>
@@ -45,10 +49,11 @@ const navigate = useNavigate();
             <h4 className="font-bold tracking-wide text-xl pb-3">
               Ongoing Tasks
             </h4>
-            <p className="text-xs tracking-wide text-pink-light cursor-pointer hover:text-white" 
-            onClick={()=>{
-              navigate("/tasks")
-            }}
+            <p
+              className="text-xs tracking-wide text-pink-light cursor-pointer hover:text-white"
+              onClick={() => {
+                navigate("/tasks");
+              }}
             >
               See all
             </p>
