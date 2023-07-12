@@ -5,6 +5,7 @@ import GuestMain from "./pages/guest/pages";
 import Login from "./pages/guest/pages/Login";
 import User from "./pages/user";
 import UserLandingPage from "./pages/user/pages/UserLandingPage";
+import Tasklist from "./pages/user/pages/Tasklist";
 
 const router = createBrowserRouter([
   {
@@ -26,13 +27,17 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/welcome",
-    element: <User/>,
+    path: "/",
+    element: <User />,
     children: [
       {
         path: "/welcome",
-        element: <UserLandingPage/>,
-      }
+        element: <UserLandingPage />,
+      },
+      {
+        path: "/tasks",
+        element: <Tasklist/>,
+      },
     ],
   },
 ]);

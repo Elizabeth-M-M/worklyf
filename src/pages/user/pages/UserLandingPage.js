@@ -4,9 +4,10 @@ import Status from '../Status';
 import Category from '../Category';
 import { tasks } from '../../../assets/tasks';
 import TaskCard from '../TaskCard';
+import { useNavigate } from "react-router-dom";
 
 export default function UserLandingPage() {
-
+const navigate = useNavigate();
   return (
     <div className="py-5 px-8 text-gray-lighter">
       <div className="flex align-center justify-between">
@@ -44,7 +45,11 @@ export default function UserLandingPage() {
             <h4 className="font-bold tracking-wide text-xl pb-3">
               Ongoing Tasks
             </h4>
-            <p className="text-xs tracking-wide text-pink-light cursor-pointer">
+            <p className="text-xs tracking-wide text-pink-light cursor-pointer hover:text-white" 
+            onClick={()=>{
+              navigate("/tasks")
+            }}
+            >
               See all
             </p>
           </div>
