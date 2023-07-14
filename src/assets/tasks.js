@@ -1,5 +1,6 @@
 export const tasks = [
   {
+    id: 1,
     title: "Buy groceries",
     start_date: "2023-07-06",
     end_date: "2023-07-07",
@@ -12,6 +13,7 @@ export const tasks = [
     category_id: 1,
   },
   {
+    id: 2,
     title: "Prepare presentation",
     start_date: "2023-07-08",
     end_date: "2023-07-09",
@@ -25,6 +27,7 @@ export const tasks = [
     category_id: 2,
   },
   {
+    id: 3,
     title: "Submit research paper",
     start_date: "2023-07-10",
     end_date: "2023-07-12",
@@ -37,6 +40,7 @@ export const tasks = [
     category_id: 3,
   },
   {
+    id: 4,
     title: "Pay utility bills",
     start_date: "2023-07-13",
     end_date: "2023-07-14",
@@ -50,6 +54,7 @@ export const tasks = [
     category_id: 1,
   },
   {
+    id: 5,
     title: "Plan vacation",
     start_date: "2023-07-16",
     end_date: "2023-07-20",
@@ -63,6 +68,7 @@ export const tasks = [
     category_id: 8,
   },
   {
+    id: 6,
     title: "Update resume",
     start_date: "2023-07-22",
     end_date: "2023-07-22",
@@ -76,6 +82,7 @@ export const tasks = [
     category_id: 4,
   },
   {
+    id: 7,
     title: "Exercise for 30 minutes",
     start_date: "2023-07-24",
     end_date: "2023-07-24",
@@ -89,6 +96,7 @@ export const tasks = [
     category_id: 5,
   },
   {
+    id: 8,
     title: "Organize team meeting",
     start_date: "2023-07-26",
     end_date: "2023-07-26",
@@ -102,6 +110,7 @@ export const tasks = [
     category_id: 2,
   },
   {
+    id: 9,
     title: "Read book",
     start_date: "2023-07-28",
     end_date: "2023-07-30",
@@ -115,6 +124,7 @@ export const tasks = [
     category_id: 7,
   },
   {
+    id: 10,
     title: "Complete online course",
     start_date: "2023-08-02",
     end_date: "2023-08-10",
@@ -128,6 +138,7 @@ export const tasks = [
     category_id: 3,
   },
   {
+    id: 11,
     title: "Schedule dentist appointment",
     start_date: "2023-08-05",
     end_date: "2023-08-05",
@@ -141,6 +152,7 @@ export const tasks = [
     category_id: 6,
   },
   {
+    id: 12,
     title: "Write blog post",
     start_date: "2023-08-09",
     end_date: "2023-08-09",
@@ -154,6 +166,7 @@ export const tasks = [
     category_id: 7,
   },
   {
+    id: 13,
     title: "Review project proposal",
     start_date: "2023-08-12",
     end_date: "2023-08-13",
@@ -167,6 +180,7 @@ export const tasks = [
     category_id: 2,
   },
   {
+    id: 14,
     title: "Plan family gathering",
     start_date: "2023-08-15",
     end_date: "2023-08-15",

@@ -170,7 +170,9 @@ export default function CreateTask({ setShowCreateTask, showCreateTask }) {
                 required
               >
                 {categories.map((cat) => (
-                  <option value={cat.name}>{cat.name}</option>
+                  <option key={cat.name} value={cat.name}>
+                    {cat.name}
+                  </option>
                 ))}
               </select>
             </div>

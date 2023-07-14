@@ -6,6 +6,7 @@ import Button from "../../../components/Button";
 import GuestNavbar from "../../guest/guestnavbar";
 import Modal from "../../../components/Modal";
 import CreateTask from "../CreateTask";
+
 export default function Tasklist() {
   const [showCreateTask, setShowCreateTask] = useState(false);
   return (
@@ -43,7 +44,10 @@ export default function Tasklist() {
       </div>
       <div className="md:grid grid-cols-3 gap-4">
         {tasks.map((task) => (
-          <TaskCard task={task} />
+          <TaskCard
+            key={task.id}
+            task={task}
+          />
         ))}
       </div>
       {showCreateTask ? (
@@ -52,6 +56,7 @@ export default function Tasklist() {
             showCreateTask={showCreateTask}
             setShowCreateTask={setShowCreateTask}
           />
+
         </Modal>
       ) : null}
     </div>

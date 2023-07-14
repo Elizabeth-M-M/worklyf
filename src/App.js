@@ -7,6 +7,7 @@ import User from "./pages/user";
 import UserLandingPage from "./pages/user/pages/UserLandingPage";
 import Tasklist from "./pages/user/pages/Tasklist";
 import CreateTask from "./pages/user/CreateTask";
+import ViewTask from "./pages/user/pages/ViewTask";
 
 const router = createBrowserRouter([
   {
@@ -40,8 +41,8 @@ const router = createBrowserRouter([
         element: <Tasklist />,
       },
       {
-        path: "/create-task",
-        element: <CreateTask />,
+        path: "/tasks/:id",
+        element: <ViewTask />,
       },
     ],
   },
