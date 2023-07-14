@@ -2,16 +2,14 @@ import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../../components/Button";
 import { categories } from "../../../assets/tasks";
-import { ClockIcon } from "../../../assets/icons";
+import { BellIcon, ClockIcon } from "../../../assets/icons";
 import { tasks } from "../../../assets/tasks";
 
 export default function ViewTask() {
   const navigate = useNavigate();
   const { id } = useParams();
-
   const task = tasks.filter((task) => task.id == id)[0];
 
-  console.log(task);
   return (
     <div className="flex items-center bg-pink-dark h-screen w-full bg-opacity-40 mx-auto">
       <div className="text-gray-lighter w-1/2 bg-gray-dark p-5 rounded-xl mx-auto">
@@ -122,7 +120,7 @@ export default function ViewTask() {
               <div className=" bg-gray-light rounded  p-2 flex items-center justify-between mt-3">
                 <div className="flex items-center">
                   <div className="p-2 bg-gray-dark me-2">
-                    <ClockIcon />
+                    <BellIcon/>
                   </div>
 
                   <label
