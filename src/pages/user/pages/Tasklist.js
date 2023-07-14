@@ -6,19 +6,22 @@ import Button from "../../../components/Button";
 import GuestNavbar from "../../guest/guestnavbar";
 import Modal from "../../../components/Modal";
 import CreateTask from "../CreateTask";
+import { useDispatch, useSelector } from "react-redux";
+import { openCreateTask } from "../../../features/modal/ModalSlice";
 
 export default function Tasklist() {
-  const [showCreateTask, setShowCreateTask] = useState(false);
+  const dispatch = useDispatch()
+  const { showCreateTask } = useSelector((store) => store.modal);
+
+ 
   return (
     <div className="px-6 py-3 relative">
       <div>
         <div className="flex items-center justify-between">
           <GuestNavbar />
-          <div
-            onClick={() => {
-              setShowCreateTask(!showCreateTask);
-            }}
-          >
+          <div onClick={() => {
+            dispatch(openCreateTask())
+          }}>
             <Button text={"Create a task"} />
           </div>
         </div>
@@ -44,19 +47,14 @@ export default function Tasklist() {
       </div>
       <div className="md:grid grid-cols-3 gap-4">
         {tasks.map((task) => (
-          <TaskCard
-            key={task.id}
-            task={task}
-          />
+          <TaskCard key={task.id} task={task} />
         ))}
       </div>
       {showCreateTask ? (
         <Modal>
           <CreateTask
-            showCreateTask={showCreateTask}
-            setShowCreateTask={setShowCreateTask}
+            
           />
-
         </Modal>
       ) : null}
     </div>

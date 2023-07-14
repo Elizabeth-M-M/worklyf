@@ -3,9 +3,13 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import { categories } from "../../assets/tasks";
 import { ClockIcon } from "../../assets/icons";
+import { useDispatch, useSelector } from "react-redux";
+import { closeCreateTask } from "../../features/modal/ModalSlice";
 
-export default function CreateTask({ setShowCreateTask, showCreateTask }) {
+export default function CreateTask() {
+  const {showCreateTask }=useSelector((state)=>state.modal)
   const navigate = useNavigate();
+  const dispatch= useDispatch()
   const [taskFormData, settaskFormData] = useState({
     title: "",
     description: "",
@@ -220,7 +224,7 @@ export default function CreateTask({ setShowCreateTask, showCreateTask }) {
               <Button text={"Create Task"} type={"submit"} />
               <div
                 onClick={() => {
-                  setShowCreateTask(!showCreateTask);
+                  dispatch(closeCreateTask())
                 }}
               >
                 <Button text={"Close"} type={"submit"} />
