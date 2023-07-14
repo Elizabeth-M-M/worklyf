@@ -140,7 +140,7 @@ export default function ViewTask() {
                 </label>
               </div>
               <div className="text-center flex justify-between">
-                <Button text={"Edit Task"} type={"submit"} />
+                <Button text={"Edit Task"} clicked={`/tasks/${task.id}/edit`} />
                 <div>
                   <Button text={"Back"} clicked={"/tasks"} />
                 </div>

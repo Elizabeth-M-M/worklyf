@@ -8,6 +8,7 @@ import UserLandingPage from "./pages/user/pages/UserLandingPage";
 import Tasklist from "./pages/user/pages/Tasklist";
 import CreateTask from "./pages/user/CreateTask";
 import ViewTask from "./pages/user/pages/ViewTask";
+import EditTask from "./pages/user/pages/EditTask";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "/tasks/:id",
         element: <ViewTask />,
+      },
+      {
+        path: "/tasks/:id/edit",
+        element: <EditTask/>,
       },
     ],
   },
