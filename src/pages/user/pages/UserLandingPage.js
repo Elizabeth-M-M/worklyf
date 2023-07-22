@@ -1,14 +1,14 @@
-import React from 'react'
-import {FilterIcon, SearchIcon, UserIcon } from '../../../assets/icons';
-import Status from '../Status';
-import Category from '../Category';
-import { tasks } from '../../../assets/tasks';
-import TaskCard from '../TaskCard';
+import React from "react";
+import { FilterIcon, SearchIcon, UserIcon } from "../../../assets/icons";
+import Status from "../Status";
+import Category from "../Category";
+import { allTasks } from "../../../assets/tasks";
+import TaskCard from "../TaskCard";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../components/Button";
 
 export default function UserLandingPage() {
-const navigate = useNavigate();
+  const navigate = useNavigate();
   return (
     <div className="py-5 px-8 text-gray-lighter">
       <div className="flex align-center justify-between">
@@ -56,7 +56,7 @@ const navigate = useNavigate();
             </p>
           </div>
 
-          {tasks.slice(0, 3).map((task) => (
+          {allTasks.slice(0, 3).map((task) => (
             <TaskCard task={task} />
           ))}
         </div>

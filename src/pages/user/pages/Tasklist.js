@@ -12,6 +12,8 @@ import { openCreateTask } from "../../../features/modal/ModalSlice";
 export default function Tasklist() {
   const dispatch = useDispatch()
   const { showCreateTask } = useSelector((store) => store.modal);
+  const {tasks}= useSelector((store)=>store.task)
+  console.log(tasks)
 
  
   return (

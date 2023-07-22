@@ -1,4 +1,4 @@
-export const tasks = [
+export const allTasks = [
   {
     id: 1,
     title: "Buy groceries",

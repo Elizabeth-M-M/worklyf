@@ -3,31 +3,30 @@ import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../../components/Button";
 import { categories } from "../../../assets/tasks";
 import { BellIcon, ClockIcon, LinkIcon } from "../../../assets/icons";
-import { tasks } from "../../../assets/tasks";
+import { allTasks } from "../../../assets/tasks";
 import ToggleButton from "../../../components/ToggleButton";
 
 export default function EditTask() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const task = tasks.filter((task) => task.id == id)[0];
-   const [taskFormData, settaskFormData] = useState(task);
-   const handleInputs = (event) => {
-     const value =
-       event.target.type === "checkbox"
-         ? event.target.checked
-         : event.target.value;
-     settaskFormData({
-       ...taskFormData,
-       [event.target.name]: value,
-     });
-   };
-   const handleSubmit = (event) => {
-     event.preventDefault();
-     console.log(taskFormData);
-     navigate(`/tasks/${task.id}`);
-    
-   };
-  console.log(taskFormData)
+  const task = allTasks.filter((task) => task.id == id)[0];
+  const [taskFormData, settaskFormData] = useState(task);
+  const handleInputs = (event) => {
+    const value =
+      event.target.type === "checkbox"
+        ? event.target.checked
+        : event.target.value;
+    settaskFormData({
+      ...taskFormData,
+      [event.target.name]: value,
+    });
+  };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(taskFormData);
+    navigate(`/tasks/${task.id}`);
+  };
+  console.log(taskFormData);
   return (
     <div>
       <div className="text-gray-lighter">
@@ -183,7 +182,7 @@ export default function EditTask() {
                     onChange={handleInputs}
                     class="sr-only peer"
                   />
-                  <ToggleButton/>
+                  <ToggleButton />
                   <span class="ml-3 text-sm font-medium ">
                     {taskFormData.reminder ? "on" : "off"}
                   </span>
@@ -192,7 +191,7 @@ export default function EditTask() {
               <div className=" bg-gray-dark rounded  p-2 flex items-center justify-between mt-3">
                 <div className="flex items-center">
                   <div className="p-2 bg-gray-dark me-2">
-                    <LinkIcon/>
+                    <LinkIcon />
                   </div>
 
                   <label
