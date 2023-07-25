@@ -19,7 +19,7 @@ export default function Register() {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(signUpFormData);
+   
     navigate("/login");
     setSignUpFormData({
       first_name: "",

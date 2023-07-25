@@ -7,7 +7,7 @@ const modalSlice = createSlice({
   initialState,
   reducers: {
     openCreateTask: (state, action) => {
-      console.log("opening")
+
       state.showCreateTask = !state.showCreateTask;
     },
     closeCreateTask: (state, action) => {

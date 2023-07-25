@@ -9,6 +9,9 @@ import Tasklist from "./pages/user/pages/Tasklist";
 import CreateTask from "./pages/user/CreateTask";
 import ViewTask from "./pages/user/pages/ViewTask";
 import EditTask from "./pages/user/pages/EditTask";
+import { useDispatch } from "react-redux";
+import { getTasks } from "./features/tasks/TaskSlice";
+import { useEffect } from "react";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +57,10 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const dispatch= useDispatch()
+  useEffect(() => {
+    dispatch(getTasks());
+  }, []);
   return (
     <div className="font-poppins text-gray-lighter">
       <RouterProvider router={router} />

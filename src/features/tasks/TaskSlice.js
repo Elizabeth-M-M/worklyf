@@ -1,52 +1,105 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-const url = "http://localhost:3000/tasks";
 
-const initialState={
-  tasks:[],
-  isLoading:true
-}
-export const getTasks = createAsyncThunk('tasks/getTasks',
-async(name, thunkAPI)=>{
-  try{
-    const resp = await axios(url)
-
-  }catch(error){
-    return thunkAPI.rejectWithValue('something went wrong')
+export const getTasks = createAsyncThunk("task/getTasks", async (thunkAPI) => {
+  const res = await fetch("http://localhost:3000/users/1/tasks").then((data) =>
+    data.json()
+  );
+  return res;
+});
+export const addTaskToServer = createAsyncThunk(
+  "task/addTask",
+  async (task) => {
+    const res = await fetch(`http://localhost:3000/users/1/tasks`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(task),
+    }).then((resp) => resp.json());
+    return res;
   }
-})
+);
+export const editTaskToServer = createAsyncThunk(
+  "task/editTask",
+  async ({ id, task }) => {
+    const res = await fetch(`http://localhost:3000/tasks/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(task),
+    }).then((resp) => resp.json());
+    return res;
+  }
+);
+export const deleteTaskToServer = createAsyncThunk(
+  "task/deleteTask",
+  async ({ id }) => {
+    const res = await fetch(`http://localhost:3000/tasks/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return res;
+  }
+);
 
 const taskSlice = createSlice({
   name: "tasks",
-  initialState,
-  reducers: {
-    deleteTask: (state, action) => {
-      const taskId = action.payload;
-      state.tasks = state.tasks.filter((task) => task.id !== taskId);
-    },
-    addTask: (state, {payload}) => {
-      const task = payload;
-      state.tasks = [...state.tasks,task]
-    },
-    editTask: (state, {payload}) => {
-      const oneTask= state.tasks.find(task=>task.id==payload.id)
-      oneTask={...oneTask, payload}
-    },
+  initialState: {
+    tasks: [],
+    loading: false,
+    error: null,
+    body: "",
+    edit: false,
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(getTasks.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(getTasks.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.tasks = action.payload;
-      })
-      .addCase(getTasks.rejected, (state, action) => {
-        console.log(action);
-        state.isLoading = false;
-      });
+  reducers: {},
+  extraReducers: {
+    [getTasks.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [getTasks.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.tasks = [action.payload];
+    },
+    [getTasks.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    [addTaskToServer.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [addTaskToServer.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.tasks.push(action.payload);
+    },
+    [addTaskToServer.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    [editTaskToServer.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [editTaskToServer.fulfilled]: (state, { id, task }) => {
+      state.loading = false;
+    },
+    [editTaskToServer.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    [deleteTaskToServer.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [deleteTaskToServer.fulfilled]: (state, { id }) => {
+      state.loading = false;
+      state.tasks = state.tasks.filter((item) => item.id !== id);
+    },
+    [deleteTaskToServer.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
   },
 });
-export const {}=taskSlice.actions
-export default taskSlice.reducer
+export const { addTask } = taskSlice.actions;
+export default taskSlice.reducer;

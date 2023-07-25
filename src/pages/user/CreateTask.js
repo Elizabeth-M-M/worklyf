@@ -5,11 +5,16 @@ import { categories } from "../../assets/tasks";
 import { ClockIcon } from "../../assets/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { closeCreateTask } from "../../features/modal/ModalSlice";
+import {
+  addTaskToServer,
+  addTask,
+  getTasks,
+} from "../../features/tasks/TaskSlice";
 
 export default function CreateTask() {
-  const {showCreateTask }=useSelector((state)=>state.modal)
+  const { showCreateTask } = useSelector((state) => state.modal);
   const navigate = useNavigate();
-  const dispatch= useDispatch()
+  const dispatch = useDispatch();
   const [taskFormData, settaskFormData] = useState({
     title: "",
     description: "",
@@ -19,6 +24,7 @@ export default function CreateTask() {
     end_time: "",
     category_id: "",
     reminder: false,
+    group_id: 1,
   });
   const handleInputs = (event) => {
     const value =
@@ -30,9 +36,12 @@ export default function CreateTask() {
       [event.target.name]: value,
     });
   };
+ 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(taskFormData);
+ 
+    dispatch(addTaskToServer({ ...taskFormData, category_id: 1 }));
+    dispatch(getTasks());
     navigate("/tasks");
     settaskFormData({
       title: "",
@@ -194,17 +203,17 @@ export default function CreateTask() {
                 </label>
               </div>
 
-              <label class="relative inline-flex items-center cursor-pointer">
+              <label className="relative inline-flex items-center cursor-pointer">
                 <input
                   type="checkbox"
                   id="reminder"
                   name="reminder"
                   value={taskFormData.reminder}
                   onChange={handleInputs}
-                  class="sr-only peer"
+                  className="sr-only peer"
                 />
-                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-pink-dark dark:peer-focus:ring-pink-dark rounded-full peer dark:bg-gray-dark peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-pink-dark"></div>
-                <span class="ml-3 text-sm font-medium ">
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-pink-dark dark:peer-focus:ring-pink-dark rounded-full peer dark:bg-gray-dark peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-pink-dark"></div>
+                <span className="ml-3 text-sm font-medium ">
                   {taskFormData.reminder ? "on" : "off"}
                 </span>
               </label>
@@ -224,7 +233,7 @@ export default function CreateTask() {
               <Button text={"Create Task"} type={"submit"} />
               <div
                 onClick={() => {
-                  dispatch(closeCreateTask())
+                  dispatch(closeCreateTask());
                 }}
               >
                 <Button text={"Close"} type={"submit"} />

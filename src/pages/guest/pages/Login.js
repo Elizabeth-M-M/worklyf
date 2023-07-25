@@ -17,7 +17,7 @@ export default function Login() {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(loginFormData);
+   
     setloginFormData({
       email: "",
       password: "",
