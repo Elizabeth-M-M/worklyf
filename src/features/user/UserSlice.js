@@ -11,6 +11,7 @@ export const checkUserInServer = createAsyncThunk(
       body: JSON.stringify(user),
     }).then((resp) => resp.json());
     document.cookie = `userid=${res.id}`;
+    console.log(res)
     return res;
   }
 );
@@ -24,6 +25,7 @@ export const createUserInServer = createAsyncThunk(
       },
       body: JSON.stringify(user),
     }).then((resp) => resp.json());
+    console.log(res)
     return res;
   }
 );
@@ -47,7 +49,7 @@ const userSlice = createSlice({
     },
     [getUser.fulfilled]: (state, action) => {
       state.loading = false;
-      // state.user = [action.payload];
+      state.user = [action.payload];
     },
     [getUser.rejected]: (state, action) => {
       state.loading = false;
