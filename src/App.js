@@ -12,6 +12,8 @@ import EditTask from "./pages/user/pages/EditTask";
 import { useDispatch } from "react-redux";
 import { getTasks } from "./features/tasks/TaskSlice";
 import { useEffect } from "react";
+import { userCookieValue } from "./assets/extramethods";
+import { getUser } from "./features/user/UserSlice";
 
 const router = createBrowserRouter([
   {
@@ -57,10 +59,15 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  const dispatch= useDispatch()
+
+  const userId = userCookieValue("userid=");
   useEffect(() => {
-    dispatch(getTasks());
-  }, []);
+    dispatch(getUser({ id: userId }));
+  }, [userId]);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getTasks(userId));
+  }, [userId]);
   return (
     <div className="font-poppins text-gray-lighter">
       <RouterProvider router={router} />
