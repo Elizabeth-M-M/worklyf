@@ -74,7 +74,8 @@ export default function UserLandingPage() {
                   >
                     Edit Profile
                   </p>
-                  <p className={pillStyle} onClick={() => navigate("/login")}>
+                  <p className={pillStyle} onClick={() => {dispatch(displayProfileMenu());
+                    navigate("/")}}>
                     Logout
                   </p>
                 </div>
@@ -140,7 +141,7 @@ export default function UserLandingPage() {
                   ? "no"
                   : user[0].pending[0]
 
-                      .map((task) => <TaskCard task={task} />)}
+                      .map((task) => <TaskCard key={task.id} task={task} />)}
                 {/* {!loading && tasks[0] !== undefined?"no"
                   : tasks[0]
                       .slice(1, 3)
@@ -154,7 +155,7 @@ export default function UserLandingPage() {
                   ? "no"
                   : user[0].completed[0]
 
-                      .map((task) => <TaskCard task={task} />)}
+                      .map((task) => <TaskCard key={task.id} task={task} />)}
               </div>
             </div>
           </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import Button from "../../../components/Button";
 import { categories } from "../../../assets/tasks";
 import { BellIcon, ClockIcon, LinkIcon } from "../../../assets/icons";
@@ -11,6 +11,9 @@ import { editTaskToServer } from "../../../features/tasks/TaskSlice";
 export default function EditTask() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+   const [searchParams, setSearchParams] = useSearchParams();
+   let type = searchParams.get("type");
+   console.log(type);
   const { id } = useParams();
   const { tasks, loading } = useSelector((state) => state.task);
   const [taskFormData, settaskFormData] = useState([]);
@@ -37,7 +40,7 @@ export default function EditTask() {
     event.preventDefault();
 
     dispatch(editTaskToServer({ id: id, task: taskFormData }));
-    navigate(`/tasks`);
+    navigate(`/tasks/${id}?type=${type}`);
   };
 
 
@@ -45,8 +48,7 @@ export default function EditTask() {
 
   return (
     <div>
-      {!loading &&
-      taskFormData.hasOwnProperty("id") == true ? (
+      {!loading && taskFormData.hasOwnProperty("id") == true ? (
         <div className="text-gray-lighter">
           <div className="flex items-center bg-pink-dark h-screen w-full bg-opacity-40 mx-auto">
             <div className="text-gray-lighter w-1/2 bg-gray-dark p-5 rounded-xl mx-auto">
@@ -181,7 +183,7 @@ export default function EditTask() {
                     required
                   >
                     {categories.map((cat) => (
-                      <option value={cat.name}>{cat.name}</option>
+                      <option key={cat.id} value={cat.name}>{cat.name}</option>
                     ))}
                   </select>
                 </div>
@@ -248,7 +250,7 @@ export default function EditTask() {
                   <div>
                     <Button
                       text={"Back"}
-                      clicked={`/tasks/${id}`}
+                      clicked={`/tasks/${id}?type=${type}`}
                     />
                   </div>
                 </div>

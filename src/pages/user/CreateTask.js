@@ -16,6 +16,7 @@ export default function CreateTask() {
   let type = searchParams.get("type");
   const { showCreateTask } = useSelector((state) => state.modal);
   const { user } = useSelector((state) => state.user);
+  const { error } = useSelector((state) => state.task);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [taskFormData, settaskFormData] = useState({
@@ -42,29 +43,38 @@ export default function CreateTask() {
     });
   };
   // console.log(type)
+console.log(error)
   const handleSubmit = (event) => {
     event.preventDefault();
     const selectedGroup = type == "Personal" ? 2 : 1;
-
     dispatch(
       addTaskToServer({
         id: user[0].id,
         task: { ...taskFormData, group_id: selectedGroup },
       })
-    );
-    dispatch(getTasks());
-    navigate(`/tasks?type=${type}`);
-    settaskFormData({
-      title: "",
-      description: "",
-      start_date: "",
-      start_time: "",
-      end_date: "",
-      end_time: "",
-      category_id: "",
-      reminder: false,
-    });
+    ).unwrap();
+    function doThis(){
+       if (!error) {
+        console.log(error)
+         dispatch(getTasks(user[0].id));
+         dispatch(closeCreateTask())
+         navigate(`/tasks?type=${type}`);
+         settaskFormData({
+           title: "",
+           description: "",
+           start_date: "",
+           start_time: "",
+           end_date: "",
+           end_time: "",
+           category_id: "",
+           reminder: false,
+         });
+       }
+    }
+    setTimeout(doThis, 2000);
+
   };
+  // console.log(error);
   return (
     <div className="text-gray-lighter">
       <div>
@@ -272,6 +282,13 @@ export default function CreateTask() {
               </div>
             </div>
           </form>
+          {error
+            ? error.map((err) => (
+                <p key={err} className="text-xs text-pink-light mt-1">
+                  {err}
+                </p>
+              ))
+            : null}
         </div>
       </div>
     </div>

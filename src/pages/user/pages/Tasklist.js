@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 
 import TaskCard from "../TaskCard";
-import { FilterIcon, SearchIcon } from "../../../assets/icons";
+import { FilterIcon, HomeIcon, SearchIcon } from "../../../assets/icons";
 import Button from "../../../components/Button";
 import GuestNavbar from "../../guest/guestnavbar";
 import Modal from "../../../components/Modal";
 import CreateTask from "../CreateTask";
 import { useDispatch, useSelector } from "react-redux";
 import { openCreateTask } from "../../../features/modal/ModalSlice";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 export default function Tasklist() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -34,12 +34,18 @@ export default function Tasklist() {
       <div>
         <div className="flex items-center justify-between">
           <GuestNavbar />
-          <div
-            onClick={() => {
-              dispatch(openCreateTask());
-            }}
-          >
-            <Button text={"Create a task"} />
+          <div className="flex items-center">
+            <div
+              onClick={() => {
+                dispatch(openCreateTask());
+              }}
+            >
+              <Button text={"Create a task"} />
+            </div>
+            <Link to="/welcome" className="ms-4 text-sm ">
+              <HomeIcon />
+              <p>HOME</p>
+            </Link>
           </div>
         </div>
       </div>

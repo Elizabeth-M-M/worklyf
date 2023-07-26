@@ -1,15 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const getTasks = createAsyncThunk("task/getTasks", async (id) => {
-  const res = await fetch(`http://localhost:3000/users/${id}/tasks`).then((data) =>
-    data.json()
+  const res = await fetch(`http://localhost:3000/users/${id}/tasks`).then(
+    (data) => data.json()
   );
   return res;
 });
 export const addTaskToServer = createAsyncThunk(
   "task/addTask",
   async ({ id, task }) => {
-    console.log(id, task)
     const res = await fetch(`http://localhost:3000/users/${id}/tasks`, {
       method: "POST",
       headers: {
@@ -17,6 +16,7 @@ export const addTaskToServer = createAsyncThunk(
       },
       body: JSON.stringify(task),
     }).then((resp) => resp.json());
+    console.log(res);
     return res;
   }
 );
@@ -52,7 +52,6 @@ const taskSlice = createSlice({
     tasks: [],
     loading: false,
     error: null,
-
   },
   reducers: {},
   extraReducers: {
@@ -72,10 +71,16 @@ const taskSlice = createSlice({
     },
     [addTaskToServer.fulfilled]: (state, action) => {
       state.loading = false;
-      state.tasks.push(action.payload);
+      if (action.payload.hasOwnProperty("errors")) {
+        state.error = action.payload.errors;
+      } else {
+        state.error = null;
+        state.tasks.push(action.payload);
+      }
     },
     [addTaskToServer.rejected]: (state, action) => {
       state.loading = false;
+      console.log(action);
       state.error = action.payload;
     },
     [editTaskToServer.pending]: (state, action) => {

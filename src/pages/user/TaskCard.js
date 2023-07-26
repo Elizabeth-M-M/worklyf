@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import { ClockIcon } from "../../assets/icons";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Modal from "../../components/Modal";
 import ViewTask from "./pages/ViewTask";
 
 export default function TaskCard({ task }) {
   const navigate = useNavigate();
-
+  const [searchParams, setSearchParams] = useSearchParams();
+  let type = searchParams.get("type");
+  // console.log(type)
   return (
     <div
       className=" bg-gray-light rounded-xl overflow-hidden cursor-pointer mb-2"
       onClick={() => {
-        navigate(`/tasks/${task.id}`);
+        navigate(`/tasks/${task.id}?type=${type}`);
       }}
     >
       <div className="px-5 pt-4">
