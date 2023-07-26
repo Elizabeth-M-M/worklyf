@@ -27,9 +27,7 @@ export default function EditProfile() {
     console.log(profileFormData);
     navigate(`/welcome`);
   };
-  console.log(profileFormData)
-console.log(profileFormData.hasOwnProperty(0));
-// console.log(loading)
+
   return (
     <div>
       {!loading && profileFormData.hasOwnProperty(0) == true ? (
@@ -44,25 +42,25 @@ console.log(profileFormData.hasOwnProperty(0));
           <div className="">
             <div className="text-gray-lighter w-full bg-gray-dark p-5 rounded-xl mx-auto">
               <form onSubmit={handleSubmit} className=" ">
+                <div className="mb-2">
+                  <label
+                    className="block text-sm tracking-wide mb-1 text-pink-dark"
+                    htmlFor="full_name"
+                  >
+                    Full Name
+                  </label>
+                  <input
+                    className="w-full bg-gray-light appearance-none rounded p-2  outline-none text-white"
+                    type="text"
+                    id="full_name"
+                    name="full_name"
+                    value={profileFormData[0].profile.full_name}
+                    onChange={handleInputs}
+                    required
+                  />
+                </div>
                 <div className="grid grid-cols-2 gap-2">
-                  <div className="mb-2">
-                    <label
-                      className="block text-sm tracking-wide mb-1 text-pink-dark"
-                      htmlFor="full_name"
-                    >
-                      Full Name
-                    </label>
-                    <input
-                      className="w-full bg-gray-light appearance-none rounded p-2  outline-none text-white"
-                      type="text"
-                      id="full_name"
-                      name="full_name"
-                      value={profileFormData[0].profile.full_name}
-                      onChange={handleInputs}
-                      required
-                    />
-                  </div>
-                  <div >
+                  <div>
                     <label
                       className="block text-sm tracking-wide mb-1 text-pink-dark"
                       htmlFor="gender"
@@ -81,6 +79,23 @@ console.log(profileFormData.hasOwnProperty(0));
                       <option value="male">Male</option>
                       <option value="female">Female</option>
                     </select>
+                  </div>
+                  <div className="mb-2">
+                    <label
+                      className="block text-sm tracking-wide mb-1 text-pink-dark"
+                      htmlFor="age"
+                    >
+                      Age
+                    </label>
+                    <input
+                      className="w-full bg-gray-light appearance-none rounded p-2  outline-none text-white"
+                      type="text"
+                      id="age"
+                      name="age"
+                      value={profileFormData[0].profile.age}
+                      onChange={handleInputs}
+                      required
+                    />
                   </div>
                 </div>
 
