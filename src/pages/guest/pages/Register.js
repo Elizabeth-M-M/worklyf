@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import GuestNavbar from "../guestnavbar";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../components/Button";
+import { useDispatch } from "react-redux";
+import { createUserInServer } from "../../../features/user/UserSlice";
 
 export default function Register() {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
   const [signUpFormData, setSignUpFormData] = useState({
     first_name: "",
     email: "",
@@ -19,7 +22,7 @@ export default function Register() {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-   
+    dispatch(createUserInServer(signUpFormData))
     navigate("/login");
     setSignUpFormData({
       first_name: "",

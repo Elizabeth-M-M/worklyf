@@ -14,12 +14,23 @@ export const checkUserInServer = createAsyncThunk(
     return res;
   }
 );
+export const createUserInServer = createAsyncThunk(
+  "user/signupUser",
+  async (user) => {
+    const res = await fetch(`http://localhost:3000/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    }).then((resp) => resp.json());
+    return res;
+  }
+);
 export const getUser = createAsyncThunk("user/getUser", async ({id}) => {
-
   const res = await fetch(`http://localhost:3000/users/${id}`).then((data) =>
     data.json()
   );
-
   return res;
 });
 const userSlice = createSlice({
@@ -36,9 +47,31 @@ const userSlice = createSlice({
     },
     [getUser.fulfilled]: (state, action) => {
       state.loading = false;
-      state.user = [action.payload];
+      // state.user = [action.payload];
     },
     [getUser.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    [checkUserInServer.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [checkUserInServer.fulfilled]: (state, action) => {
+      state.loading = false;
+      // state.user = [action.payload];
+    },
+    [checkUserInServer.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    [createUserInServer.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [createUserInServer.fulfilled]: (state, action) => {
+      state.loading = false;
+      // state.user = [action.payload];
+    },
+    [createUserInServer.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
