@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Button from "../../components/Button";
 import { categories } from "../../assets/tasks";
 import { ClockIcon } from "../../assets/icons";
@@ -12,6 +12,8 @@ import {
 } from "../../features/tasks/TaskSlice";
 
 export default function CreateTask() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  let type = searchParams.get("type");
   const { showCreateTask } = useSelector((state) => state.modal);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -23,6 +25,7 @@ export default function CreateTask() {
     end_date: "",
     end_time: "",
     category_id: "",
+    label: "",
     reminder: false,
     group_id: 1,
   });
@@ -36,13 +39,14 @@ export default function CreateTask() {
       [event.target.name]: value,
     });
   };
- 
+
   const handleSubmit = (event) => {
     event.preventDefault();
- 
-    dispatch(addTaskToServer({ ...taskFormData, category_id: 1 }));
+    dispatch(
+      addTaskToServer({ id: 2, task: { ...taskFormData, category_id: 1 } })
+    );
     dispatch(getTasks());
-    navigate("/tasks");
+    navigate(`/tasks?type=${type}`);
     settaskFormData({
       title: "",
       description: "",
@@ -187,6 +191,27 @@ export default function CreateTask() {
                     {cat.name}
                   </option>
                 ))}
+              </select>
+            </div>
+            <div className="mb-2 mt-4">
+              <label
+                className="block text-sm tracking-wide mb-1"
+                htmlFor="label"
+              >
+                Urgency
+              </label>
+
+              <select
+                id="label"
+                name="label"
+                className="w-full bg-gray-light appearance-none rounded p-2 shadow-[inset_0_-2px_4px_rgba(0,0,0,0.6)] text-white"
+                value={taskFormData.label}
+                onChange={handleInputs}
+                required
+              >
+                <option value="urgent">urgent</option>
+                <option value="moderate">moderate</option>
+                <option value="non-urgent">non-urgent</option>
               </select>
             </div>
             <div className="shadow-[inset_0_-2px_4px_rgba(0,0,0,0.6)] bg-gray-light rounded  p-2 flex items-center justify-between mt-3">

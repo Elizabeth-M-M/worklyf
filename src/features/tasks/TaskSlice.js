@@ -1,15 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-export const getTasks = createAsyncThunk("task/getTasks", async (thunkAPI) => {
-  const res = await fetch("http://localhost:3000/users/1/tasks").then((data) =>
+export const getTasks = createAsyncThunk("task/getTasks", async (id) => {
+  const res = await fetch(`http://localhost:3000/users/${id}/tasks`).then((data) =>
     data.json()
   );
   return res;
 });
 export const addTaskToServer = createAsyncThunk(
   "task/addTask",
-  async (task) => {
-    const res = await fetch(`http://localhost:3000/users/1/tasks`, {
+  async ({ id, task }) => {
+    console.log(id, task)
+    const res = await fetch(`http://localhost:3000/users/${id}/tasks`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -51,8 +52,7 @@ const taskSlice = createSlice({
     tasks: [],
     loading: false,
     error: null,
-    body: "",
-    edit: false,
+
   },
   reducers: {},
   extraReducers: {
@@ -101,5 +101,5 @@ const taskSlice = createSlice({
     },
   },
 });
-export const { addTask } = taskSlice.actions;
+// export const {  } = taskSlice.actions;
 export default taskSlice.reducer;

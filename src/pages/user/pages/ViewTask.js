@@ -11,10 +11,11 @@ export default function ViewTask() {
   const { id } = useParams();
   const { tasks,loading } = useSelector((state) => state.task);
 
+
 const [task, setTask]= useState(null)
   useEffect(() => {
      if (!loading && tasks[0] !== undefined) {
-     
+
        let found = tasks[0].filter((task) => task.id == id)[0];
        setTask(found)
      }
@@ -23,7 +24,7 @@ const [task, setTask]= useState(null)
 
     dispatch(deleteTaskToServer({id}))
     navigate('/tasks')
-    
+
   }
   return (
     <>

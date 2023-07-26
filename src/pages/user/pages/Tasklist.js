@@ -8,8 +8,12 @@ import Modal from "../../../components/Modal";
 import CreateTask from "../CreateTask";
 import { useDispatch, useSelector } from "react-redux";
 import { openCreateTask } from "../../../features/modal/ModalSlice";
+import { useSearchParams } from "react-router-dom";
 
 export default function Tasklist() {
+  const [searchParams, setSearchParams] = useSearchParams()
+  let type = searchParams.get("type");
+
   const dispatch = useDispatch();
   const { showCreateTask } = useSelector((store) => store.modal);
   const { tasks, loading } = useSelector((store) => store.task);
@@ -20,15 +24,11 @@ export default function Tasklist() {
  }else if (loading) {
     renderTasks = <h2>Tasks loading....</h2>;
   } else if (!loading && tasks[0]!==undefined) {
-  
-    renderTasks = tasks[0].map((task) => {
+
+    renderTasks = tasks[0].filter(task=>task.group.name!==type).map((task) => {
     return <TaskCard key={task.id} task={task} />;
     });
-    
-  } 
- 
-
-
+  }
   return (
     <div className="px-6 py-3 relative">
       <div>

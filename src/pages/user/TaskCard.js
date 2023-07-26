@@ -15,6 +15,11 @@ export default function TaskCard({ task }) {
       }}
     >
       <div className="px-5 pt-4">
+        {task.category !== undefined ? (
+          <span className="bg-pink-light p-1 rounded text-xs text-white  text-center mb-2 block">
+            {task.category.name}
+          </span>
+        ) : null}
         <div className="flex align-center justify-between mb-3">
           <h4 className="font-bold tracking-wide text-sm">{task.title}</h4>
           <p
@@ -24,14 +29,11 @@ export default function TaskCard({ task }) {
                 : task.label == "moderate"
                 ? "bg-orange"
                 : "bg-green"
-            } p-1 rounded-xl text-xs text-black `}
+            } p-1 rounded text-xs text-black `}
           >
             {task.label}
           </p>
         </div>
-        <span className="bg-pink-light p-1 rounded-xl text-xs text-white  text-center">
-          category
-        </span>
 
         <div>
           <div className="flex align-center justify-start mt-3">
@@ -42,7 +44,7 @@ export default function TaskCard({ task }) {
                 Math.abs(new Date() - new Date(task.start_date)) /
                   (1000 * 60 * 60 * 24)
               )}{" "}
-              days: {task.start_date}
+              days
             </p>
           </div>
         </div>
