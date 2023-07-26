@@ -35,6 +35,20 @@ export const getUser = createAsyncThunk("user/getUser", async ({id}) => {
   );
   return res;
 });
+export const editUserProfileToServer = createAsyncThunk(
+  "user/editProfile",
+  async ({ id, profile }) => {
+    const res = await fetch(`http://localhost:3000/profiles/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(profile),
+    }).then((resp) => resp.json());
+    
+    return res;
+  }
+);
 const userSlice = createSlice({
   name: "user",
   initialState: {

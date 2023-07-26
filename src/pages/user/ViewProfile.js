@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../../components/Button";
-import { UserIcon } from "../../assets/icons";
+import { UserIcon, FingerPrintIcon, EmailIcon, BellIcon, GenderIcon, WorkIcon, AgeIcon } from "../../assets/icons";
+import { closeViewProfileTab } from "../../features/modal/ModalSlice";
 
 export default function ViewProfile() {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ export default function ViewProfile() {
           <div className="flex ">
             <div className="mx-auto">
               <div className="">
-                <UserIcon />
+                <FingerPrintIcon />
               </div>
               <h3 className="text-center mt-3">
                 Hello {user[0].profile.full_name}
@@ -45,48 +46,70 @@ export default function ViewProfile() {
           <div className="">
             <div className="text-gray-lighter w-full bg-gray-dark p-5 rounded-xl mx-auto">
               <form onSubmit={handleSubmit} className=" ">
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-2 gap-2 mb-2">
                   <div className="mb-2">
-                    <label
-                      className="block text-sm tracking-wide mb-1 text-pink-dark"
-                      htmlFor="full_name"
-                    >
-                      Email
-                    </label>
-                    <p>{profileFormData[0].email}</p>
+                    <div className="flex">
+                      <EmailIcon />
+                      <label
+                        className="block text-sm tracking-wide mb-1 text-pink-dark ms-3"
+                        htmlFor="full_name"
+                      >
+                        Email
+                      </label>
+                    </div>
+
+                    <p className="ps-8">{profileFormData[0].email}</p>
                   </div>
                   <div>
-                    <label
-                      className="block text-sm tracking-wide mb-1 text-pink-dark"
-                      htmlFor="gender"
-                    >
-                      Gender
-                    </label>
-                    <p>{profileFormData[0].profile.gender}</p>
+                    <div className="flex">
+                      <GenderIcon />
+                      <label
+                        className="block text-sm tracking-wide mb-1 text-pink-dark ms-3"
+                        htmlFor="gender"
+                      >
+                        Gender
+                      </label>
+                    </div>
+
+                    <p className="ps-8">{profileFormData[0].profile.gender}</p>
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-2">
                   <div className="mb-2">
-                    <label
-                      className="text-pink-dark block text-sm tracking-wide mb-1"
-                      htmlFor="occupation"
-                    >
-                      Occupation
-                    </label>
-                    <p>{profileFormData[0].profile.occupation}</p>
+                    <div className="flex">
+                      <WorkIcon />
+                      <label
+                        className="text-pink-dark block text-sm tracking-wide mb-1 ms-3"
+                        htmlFor="occupation"
+                      >
+                        Occupation
+                      </label>
+                    </div>
+
+                    <p className="ps-8">
+                      {profileFormData[0].profile.occupation}
+                    </p>
                   </div>
                   <div className="mb-2">
-                    <label
-                      className="text-pink-dark block text-sm tracking-wide mb-1"
-                      htmlFor="age"
-                    >
-                      Age
-                    </label>
-                    <p>{profileFormData[0].profile.age}</p>
+                    <div className="flex">
+                      <AgeIcon />
+                      <label
+                        className="text-pink-dark block text-sm tracking-wide mb-1 ms-3"
+                        htmlFor="age"
+                      >
+                        Age
+                      </label>
+                    </div>
+                    <div className="flex"></div>
+
+                    <p className="ps-8">{profileFormData[0].profile.age}</p>
                   </div>
                 </div>
                 <div className="text-center flex  items-center">
-                  <div className="mx-auto">
+                  <div
+                    className="mx-auto"
+                    onClick={() => dispatch(closeViewProfileTab())}
+                  >
                     <Button text={"Close"} />
                   </div>
                 </div>

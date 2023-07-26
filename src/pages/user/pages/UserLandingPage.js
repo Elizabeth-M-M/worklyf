@@ -10,6 +10,8 @@ import { getUser } from "../../../features/user/UserSlice";
 import {
   displayProfileMenu,
   displayTaskMenu,
+  openEditProfileTab,
+  openViewProfileTab,
 } from "../../../features/modal/ModalSlice";
 import Modal from "../../../components/Modal";
 import EditProfile from "../EditProfile";
@@ -25,6 +27,9 @@ export default function UserLandingPage() {
   const { user, loading } = useSelector((state) => state.user);
   const { tasks, loading: isLoading } = useSelector((state) => state.task);
   const { showProfileMenu } = useSelector((state) => state.modal);
+  const { showEditProfileTab } = useSelector((state) => state.modal);
+  const { showViewProfileTab } = useSelector((state) => state.modal);
+
   const { showTaskMenu } = useSelector((state) => state.modal);
 
   return (
@@ -51,9 +56,27 @@ export default function UserLandingPage() {
 
               {showProfileMenu ? (
                 <div className="absolute top-10 right-10  ">
-                  <p className={pillStyle}>View Profile</p>
-                  <p className={pillStyle}>Edit Profile</p>
-                  <p className={pillStyle}>Logout</p>
+                  <p
+                    className={pillStyle}
+                    onClick={() => {
+                              dispatch(displayProfileMenu());
+                       dispatch(openViewProfileTab());
+
+                    }}
+                  >
+                    View Profile
+                  </p>
+                  <p
+                    className={pillStyle}
+                    onClick={() => {
+                      dispatch(displayProfileMenu());
+                      dispatch(openEditProfileTab())}}
+                  >
+                    Edit Profile
+                  </p>
+                  <p className={pillStyle} onClick={() => navigate("/login")}>
+                    Logout
+                  </p>
                 </div>
               ) : null}
             </div>
@@ -76,7 +99,10 @@ export default function UserLandingPage() {
                 <div className="relative">
                   <p
                     className="text-xs tracking-wide text-pink-light cursor-pointer hover:text-white"
-                    onClick={() => dispatch(displayTaskMenu())}
+                    onClick={() => {
+                      dispatch(displayTaskMenu());
+
+                    }}
                   >
                     See all
                   </p>
@@ -85,7 +111,9 @@ export default function UserLandingPage() {
                       <p
                         className={pillStyle}
                         onClick={() => {
+                          dispatch(displayTaskMenu());
                           navigate("/tasks?type=Personal");
+
                         }}
                       >
                         Personal
@@ -93,6 +121,7 @@ export default function UserLandingPage() {
                       <p
                         className={pillStyle}
                         onClick={() => {
+                           dispatch(displayTaskMenu());
                           navigate("/tasks?type=Work");
                         }}
                       >
@@ -110,7 +139,7 @@ export default function UserLandingPage() {
                 {!user && !loading
                   ? "no"
                   : user[0].pending[0]
-                      .slice(1, 3)
+
                       .map((task) => <TaskCard task={task} />)}
                 {/* {!loading && tasks[0] !== undefined?"no"
                   : tasks[0]
@@ -124,30 +153,21 @@ export default function UserLandingPage() {
                 {!user && !loading
                   ? "no"
                   : user[0].completed[0]
-                      .slice(1, 2)
+
                       .map((task) => <TaskCard task={task} />)}
               </div>
             </div>
           </div>
-          {/* <Modal>
-            <div className="text-white">
-              <div className="flex ">
-                <div className="mx-auto">
-                  <div className="">
-                    <UserIcon />
-                  </div>
-
-                  <h3 className="text-center mt-3">
-                    Hello {user[0].profile.full_name}
-                  </h3>
-                </div>
-              </div>
-            </div>
-          </Modal> */}
-          <Modal>
-            {/* <EditProfile/> */}
-            <ViewProfile/>
-          </Modal>
+          {showEditProfileTab ? (
+            <Modal>
+              <EditProfile />
+            </Modal>
+          ) : null}
+          {showViewProfileTab ? (
+            <Modal>
+              <ViewProfile />
+            </Modal>
+          ) : null}
         </div>
       )}
     </>

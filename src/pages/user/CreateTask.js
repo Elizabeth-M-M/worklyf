@@ -15,6 +15,7 @@ export default function CreateTask() {
   const [searchParams, setSearchParams] = useSearchParams();
   let type = searchParams.get("type");
   const { showCreateTask } = useSelector((state) => state.modal);
+  const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [taskFormData, settaskFormData] = useState({
@@ -29,6 +30,7 @@ export default function CreateTask() {
     reminder: false,
     group_id: 1,
   });
+  console.log(user)
   const handleInputs = (event) => {
     const value =
       event.target.type === "checkbox"
@@ -42,8 +44,12 @@ export default function CreateTask() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+   
     dispatch(
-      addTaskToServer({ id: 2, task: { ...taskFormData, category_id: 1 } })
+      addTaskToServer({
+        id: user[0].id,
+        task: { ...taskFormData, category_id: 1 },
+      })
     );
     dispatch(getTasks());
     navigate(`/tasks?type=${type}`);

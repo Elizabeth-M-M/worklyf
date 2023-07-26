@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../../components/Button";
-import { UserIcon } from "../../assets/icons";
+import { FingerPrintIcon, UserIcon } from "../../assets/icons";
+import { closeEditProfileTab } from "../../features/modal/ModalSlice";
+import { editUserProfileToServer } from "../../features/user/UserSlice";
 
 export default function EditProfile() {
   const navigate = useNavigate();
@@ -12,7 +14,7 @@ export default function EditProfile() {
   let userData;
   useEffect(() => {
     if (!loading && user[0] !== undefined) {
-      setprofileFormData(user);
+      setprofileFormData(user[0].profile);
     }
   }, [user]);
 
@@ -24,19 +26,22 @@ export default function EditProfile() {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(profileFormData);
-    navigate(`/welcome`);
+    dispatch(editUserProfileToServer({id:profileFormData.id, profile:profileFormData}))
+    dispatch(closeEditProfileTab())
   };
+
 
   return (
     <div>
-      {!loading && profileFormData.hasOwnProperty(0) == true ? (
+      {!loading && profileFormData.hasOwnProperty("id") == true ? (
         <div className="w-full text-gray-lighter">
           <div className="flex ">
             <div className="mx-auto">
               <div className="">
-                <UserIcon />
+                <FingerPrintIcon />
               </div>
+              <h3 className="text-center mt-3">Edit your Profile
+              </h3>
             </div>
           </div>
           <div className="">
@@ -54,7 +59,7 @@ export default function EditProfile() {
                     type="text"
                     id="full_name"
                     name="full_name"
-                    value={profileFormData[0].profile.full_name}
+                    value={profileFormData.full_name}
                     onChange={handleInputs}
                     required
                   />
@@ -92,7 +97,7 @@ export default function EditProfile() {
                       type="text"
                       id="age"
                       name="age"
-                      value={profileFormData[0].profile.age}
+                      value={profileFormData.age}
                       onChange={handleInputs}
                       required
                     />
@@ -110,7 +115,7 @@ export default function EditProfile() {
                     className="w-full bg-gray-light appearance-none rounded p-2  text-white"
                     id="occupation"
                     name="occupation"
-                    value={profileFormData[0].profile.occupation}
+                    value={profileFormData.occupation}
                     onChange={handleInputs}
                     required
                   />
@@ -118,7 +123,7 @@ export default function EditProfile() {
 
                 <div className="text-center flex justify-between">
                   <Button text={"Edit"} type={"submit"} />
-                  <div>
+                  <div onClick={() => dispatch(closeEditProfileTab())}>
                     <Button text={"Close"} clicked={`/welcome`} />
                   </div>
                 </div>
