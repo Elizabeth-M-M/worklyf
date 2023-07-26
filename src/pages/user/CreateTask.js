@@ -28,9 +28,9 @@ export default function CreateTask() {
     category_id: "",
     label: "",
     reminder: false,
-    group_id: 1,
+    group_id: null,
   });
-  console.log(user)
+  // console.log(user)
   const handleInputs = (event) => {
     const value =
       event.target.type === "checkbox"
@@ -41,14 +41,15 @@ export default function CreateTask() {
       [event.target.name]: value,
     });
   };
-
+  // console.log(type)
   const handleSubmit = (event) => {
     event.preventDefault();
-   
+    const selectedGroup = type == "Personal" ? 2 : 1;
+
     dispatch(
       addTaskToServer({
         id: user[0].id,
-        task: { ...taskFormData, category_id: 1 },
+        task: { ...taskFormData, group_id: selectedGroup },
       })
     );
     dispatch(getTasks());
@@ -193,7 +194,7 @@ export default function CreateTask() {
                 required
               >
                 {categories.map((cat) => (
-                  <option key={cat.name} value={cat.name}>
+                  <option key={cat.id} value={cat.id}>
                     {cat.name}
                   </option>
                 ))}
