@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import GuestNavbar from "../guestnavbar";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../components/Button";
+import { useDispatch } from "react-redux";
+import { checkUserInServer, getUser } from "../../../features/user/UserSlice";
+import { userCookieValue } from "../../../assets/extramethods";
 
 export default function Login() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loginFormData, setloginFormData] = useState({
     email: "",
@@ -17,12 +21,14 @@ export default function Login() {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-   
+   dispatch(checkUserInServer(loginFormData));
+  
+
     setloginFormData({
       email: "",
       password: "",
     });
-    navigate('/welcome')
+    navigate("/welcome");
   };
   return (
     <div className=" bg-white md:flex flex-row-reverse justify-between items-center h-screen text-gray-dark">
