@@ -9,7 +9,7 @@ export default function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch()
   const [signUpFormData, setSignUpFormData] = useState({
-    first_name: "",
+    full_name: "",
     email: "",
     password: "",
     password_confirmation: "",
@@ -22,10 +22,11 @@ export default function Register() {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log(signUpFormData)
     dispatch(createUserInServer(signUpFormData))
     navigate("/login");
     setSignUpFormData({
-      first_name: "",
+      full_name: "",
       email: "",
       password: "",
       password_confirmation: "",
@@ -49,16 +50,16 @@ export default function Register() {
             <div className="mb-2">
               <label
                 className="block text-sm tracking-wide mb-1"
-                htmlFor="first_name"
+                htmlFor="full_name"
               >
                 First Name
               </label>
               <input
                 className="w-full bg-pink-light appearance-none rounded p-1 drop-shadow-lg text-white"
                 type="text"
-                id="first_name"
-                name="first_name"
-                value={signUpFormData.first_name}
+                id="full_name"
+                name="full_name"
+                value={signUpFormData.full_name}
                 onChange={handleInputs}
                 required
               />
