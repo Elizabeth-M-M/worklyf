@@ -22,7 +22,6 @@ export default function Register() {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(signUpFormData)
     dispatch(createUserInServer(signUpFormData))
     navigate("/login");
     setSignUpFormData({

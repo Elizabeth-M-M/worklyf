@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../../components/Button";
 import { categories } from "../../../assets/tasks";
 import { BellIcon, ClockIcon, LinkIcon } from "../../../assets/icons";
-import { allTasks } from "../../../assets/tasks";
+
 import ToggleButton from "../../../components/ToggleButton";
 import { useDispatch, useSelector } from "react-redux";
 import { editTaskToServer } from "../../../features/tasks/TaskSlice";
@@ -17,7 +17,7 @@ export default function EditTask() {
   let task;
   useEffect(() => {
     if (!loading && tasks[0] !== undefined) {
-     
+
      task = tasks[0].filter((task) => task.id == id)[0];
       settaskFormData(task);
     }
@@ -35,7 +35,7 @@ export default function EditTask() {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
- 
+
     dispatch(editTaskToServer({ id: id, task: taskFormData }));
     navigate(`/tasks`);
   };

@@ -11,6 +11,9 @@ import {
   displayProfileMenu,
   displayTaskMenu,
 } from "../../../features/modal/ModalSlice";
+import Modal from "../../../components/Modal";
+import EditProfile from "../EditProfile";
+import ViewProfile from "../ViewProfile";
 
 export default function UserLandingPage() {
   const navigate = useNavigate();
@@ -23,6 +26,7 @@ export default function UserLandingPage() {
   const { tasks, loading: isLoading } = useSelector((state) => state.task);
   const { showProfileMenu } = useSelector((state) => state.modal);
   const { showTaskMenu } = useSelector((state) => state.modal);
+
   return (
     <>
       {!user && !loading ? (
@@ -125,6 +129,25 @@ export default function UserLandingPage() {
               </div>
             </div>
           </div>
+          {/* <Modal>
+            <div className="text-white">
+              <div className="flex ">
+                <div className="mx-auto">
+                  <div className="">
+                    <UserIcon />
+                  </div>
+
+                  <h3 className="text-center mt-3">
+                    Hello {user[0].profile.full_name}
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </Modal> */}
+          <Modal>
+            {/* <EditProfile/> */}
+            <ViewProfile/>
+          </Modal>
         </div>
       )}
     </>
