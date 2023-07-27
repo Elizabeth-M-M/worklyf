@@ -208,7 +208,7 @@ export default function EditTask() {
                       ))}
                     </select>
                   </div>
-                  <div className=" bg-gray-dark rounded  p-2 flex items-center justify-between mt-3">
+                  <div className=" bg-gray-light rounded  p-2 flex items-center justify-between mt-3">
                     <div className="flex items-center">
                       <div className="p-2 bg-gray-dark me-2">
                         <BellIcon />
@@ -227,7 +227,7 @@ export default function EditTask() {
                         type="checkbox"
                         id="reminder"
                         name="reminder"
-                        value={taskFormData.reminder}
+                        checked={taskFormData.reminder}
                         onChange={handleInputs}
                         className="sr-only peer"
                       />
@@ -237,7 +237,7 @@ export default function EditTask() {
                       </span>
                     </label>
                   </div>
-                  <div className=" bg-gray-dark rounded  p-2 flex items-center justify-between mt-3">
+                  <div className=" bg-gray-light rounded  p-2 flex items-center justify-between mt-3">
                     <div className="flex items-center">
                       <div className="p-2 bg-gray-dark me-2">
                         <LinkIcon />
@@ -256,7 +256,7 @@ export default function EditTask() {
                         type="checkbox"
                         id="status"
                         name="status"
-                        value={taskFormData.status}
+                        checked={taskFormData.status}
                         onChange={handleInputs}
                         className="sr-only peer"
                       />

@@ -25,12 +25,41 @@ export default function Tasklist() {
     renderTasks = <h2>Tasks loading....</h2>;
   } else if (!loading && tasks[0]!==undefined) {
 
-    renderTasks = tasks[0].filter(task=>task.group.name!==type).map((task) => {
-    return <TaskCard key={task.id} task={task} />;
-    });
+    renderTasks = (
+      <div className="">
+        <div>
+          <h2 className="text-black text-center my-2 text-xl bg-white bg-opacity-40">
+            Pending Tasks
+          </h2>
+          <div className="md:grid grid-cols-3 gap-4">
+            {tasks[0]
+              .filter(
+                (task) =>
+                  task.group.name === type &&
+                  (task.status == false || task.status == null)
+              )
+              .map((task) => {
+                return <TaskCard key={task.id} task={task} />;
+              })}
+          </div>
+        </div>
+        <div>
+          <h2 className="text-black text-center my-2 text-xl bg-white bg-opacity-40">
+            Completed Tasks
+          </h2>
+          <div className="md:grid grid-cols-3 gap-4">
+            {tasks[0]
+              .filter((task) => task.group.name === type && task.status == true)
+              .map((task) => {
+                return <TaskCard key={task.id} task={task} />;
+              })}
+          </div>
+        </div>
+      </div>
+    );
   }
   return (
-    <div className="px-6 py-3 relative">
+    <div className="px-6 py-3 relative min-h-screen">
       <div>
         <div className="flex items-center justify-between">
           <GuestNavbar />
@@ -50,7 +79,9 @@ export default function Tasklist() {
         </div>
       </div>
       <div className="flex align-center justify-between mt-3">
-        <h4 className="font-bold tracking-wide text-xl pb-3">All Tasks</h4>
+        <h4 className="font-bold tracking-wide text-xl pb-3">
+          All {type} Tasks
+        </h4>
         {/* <p className="text-xs tracking-wide text-pink-light cursor-pointer hover:text-white">
           View on calender
         </p> */}
@@ -64,11 +95,11 @@ export default function Tasklist() {
             placeholder="search"
           />
         </div>
-        <div>
+        <div className="cursor-pointer">
           <FilterIcon />
         </div>
       </div>
-      <div className="md:grid grid-cols-3 gap-4">
+      <div>
         {renderTasks}
         {/* {!loading && tasks[0] !== undefined?tasks[0].map((task) => {
     return <TaskCard key={task.id} task={task} />;

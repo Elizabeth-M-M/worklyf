@@ -23,7 +23,7 @@ export default function Button({
         bgHoverStyle == undefined ? "bg-white" : bgHoverStyle
       }
       hover:${
-        textHoverStyle == undefined ? "text-gray-dark" : textHoverStyle
+        textHoverStyle == undefined ? "text-black" : textHoverStyle
       }`}
       onClick={() => {
         if (clicked !== undefined) {

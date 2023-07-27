@@ -13,7 +13,6 @@ export default function ViewTask() {
   const { id } = useParams();
   const { tasks,loading } = useSelector((state) => state.task);
 
-
 const [task, setTask]= useState(null)
   useEffect(() => {
      if (!loading && tasks[0] !== undefined) {
@@ -28,6 +27,8 @@ const [task, setTask]= useState(null)
     navigate(`/tasks?type=${type}`);
 
   }
+
+console.log(task);
   return (
     <>
       {task && tasks[0] !== undefined ? (
@@ -187,7 +188,7 @@ const [task, setTask]= useState(null)
                       <div onClick={handleDelete}>
                         <Button text={"Delete"} />
                       </div>
-                      
+
                     </div>
                   </form>
                 </div>

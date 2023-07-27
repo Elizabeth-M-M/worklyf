@@ -87,8 +87,8 @@ const taskSlice = createSlice({
     },
     [editTaskToServer.fulfilled]: (state, action) => {
       state.loading = false;
-      console.log(action.payload.hasOwnProperty("errors"));
-
+      
+console.log(action.payload)
       if (action.payload.hasOwnProperty("errors")) {
         state.error = action.payload.errors;
       } else {

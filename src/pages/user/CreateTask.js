@@ -10,6 +10,7 @@ import {
   addTask,
   getTasks,
 } from "../../features/tasks/TaskSlice";
+import { toggleBtnStyle } from "../../assets/extramethods";
 
 export default function CreateTask() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -42,11 +43,10 @@ export default function CreateTask() {
       [event.target.name]: value,
     });
   };
-  // console.log(type)
-console.log(error)
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const selectedGroup = type == "Personal" ? 2 : 1;
+    const selectedGroup = type == "Personal" ? 1 : 2;
     dispatch(
       addTaskToServer({
         id: user[0].id,
@@ -69,7 +69,7 @@ console.log(error)
         });
       }
     });
-   
+
 
   };
 
@@ -252,7 +252,7 @@ console.log(error)
                   onChange={handleInputs}
                   className="sr-only peer"
                 />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-pink-dark dark:peer-focus:ring-pink-dark rounded-full peer dark:bg-gray-dark peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-pink-dark"></div>
+                <div className={toggleBtnStyle}></div>
                 <span className="ml-3 text-sm font-medium ">
                   {taskFormData.reminder ? "on" : "off"}
                 </span>
