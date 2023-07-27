@@ -17,23 +17,22 @@ import Modal from "../../../components/Modal";
 import EditProfile from "../EditProfile";
 import ViewProfile from "../ViewProfile";
 import Button from "../../../components/Button";
-import CreateTask from "../CreateTask";
 
 export default function UserLandingPage() {
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userId = userCookieValue("userid=");
-  useEffect(() => {
-    dispatch(getUser({ id: userId }));
-  }, [userId]);
   const { user, loading } = useSelector((state) => state.user);
   const { tasks, loading: isLoading } = useSelector((state) => state.task);
   const { showProfileMenu } = useSelector((state) => state.modal);
   const { showEditProfileTab } = useSelector((state) => state.modal);
   const { showViewProfileTab } = useSelector((state) => state.modal);
   const { showTaskMenu } = useSelector((state) => state.modal);
-  // console.log(user)
+
+  useEffect(() => {
+    dispatch(getUser({ id: userId }));
+  }, [userId]);
+
   return (
     <>
       {!user && !loading ? (
@@ -55,7 +54,6 @@ export default function UserLandingPage() {
               <div onClick={() => dispatch(displayProfileMenu())}>
                 <UserIcon />
               </div>
-
               {showProfileMenu ? (
                 <div className="absolute top-10 right-10  z-10">
                   <p
@@ -100,7 +98,6 @@ export default function UserLandingPage() {
                 personal={user[0].summary.personal}
               />
             </div>
-
             <div className="mt-6 md:mt-0">
               <div className="flex items-center justify-between">
                 <h4 className="font-bold tracking-wide text-xl pb-3">Tasks</h4>
@@ -124,7 +121,6 @@ export default function UserLandingPage() {
                       See all
                     </p>
                   )}
-
                   {showTaskMenu ? (
                     <div className="absolute top-2 right-12  ">
                       <p

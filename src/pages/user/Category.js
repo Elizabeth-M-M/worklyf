@@ -1,8 +1,8 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function Category({work, personal}) {
-  const navigate= useNavigate()
+export default function Category({ work, personal }) {
+  const navigate = useNavigate();
   return (
     <div className="mt-6">
       <h4 className="font-bold tracking-wide text-xl pb-3">Categories</h4>

@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import Button from "../../../components/Button";
 import { categories } from "../../../assets/tasks";
-import { BellIcon, ClockIcon, HomeIcon, LinkIcon } from "../../../assets/icons";
-
+import { BellIcon, HomeIcon, LinkIcon } from "../../../assets/icons";
 import ToggleButton from "../../../components/ToggleButton";
 import { useDispatch, useSelector } from "react-redux";
 import { editTaskToServer } from "../../../features/tasks/TaskSlice";
@@ -11,17 +15,16 @@ import { editTaskToServer } from "../../../features/tasks/TaskSlice";
 export default function EditTask() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-   const [searchParams, setSearchParams] = useSearchParams();
-   let type = searchParams.get("type");
-
+  const [searchParams, setSearchParams] = useSearchParams();
+  let type = searchParams.get("type");
   const { id } = useParams();
   const { tasks, loading, error } = useSelector((state) => state.task);
   const [taskFormData, settaskFormData] = useState([]);
+
   let task;
   useEffect(() => {
     if (!loading && tasks[0] !== undefined) {
-
-     task = tasks[0].filter((task) => task.id == id)[0];
+      task = tasks[0].filter((task) => task.id == id)[0];
       settaskFormData(task);
     }
   }, [tasks]);
@@ -36,18 +39,15 @@ export default function EditTask() {
       [event.target.name]: value,
     });
   };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-
     dispatch(editTaskToServer({ id: id, task: taskFormData })).then((data) => {
       if (data.payload.errors === undefined) {
         navigate(`/tasks/${id}?type=${type}`);
       }
     });
   };
-
-
-
 
   return (
     <div>
@@ -192,7 +192,6 @@ export default function EditTask() {
                     >
                       Category
                     </label>
-
                     <select
                       id="category_id"
                       name="category_id"
@@ -213,7 +212,6 @@ export default function EditTask() {
                       <div className="p-2 bg-gray-dark me-2">
                         <BellIcon />
                       </div>
-
                       <label
                         className="block text-sm tracking-wide mb-1 "
                         htmlFor="reminder"
@@ -221,7 +219,6 @@ export default function EditTask() {
                         Reminder
                       </label>
                     </div>
-
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
                         type="checkbox"
@@ -242,7 +239,6 @@ export default function EditTask() {
                       <div className="p-2 bg-gray-dark me-2">
                         <LinkIcon />
                       </div>
-
                       <label
                         className="block text-sm tracking-wide mb-1 "
                         htmlFor="status"
@@ -250,7 +246,6 @@ export default function EditTask() {
                         Mark as complete
                       </label>
                     </div>
-
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
                         type="checkbox"
@@ -268,7 +263,6 @@ export default function EditTask() {
                   </div>
                   <div className="text-center flex justify-between">
                     <Button text={"Edit"} type={"submit"} />
-
                   </div>
                 </form>
                 {error

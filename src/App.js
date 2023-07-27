@@ -6,7 +6,6 @@ import Login from "./pages/guest/pages/Login";
 import User from "./pages/user";
 import UserLandingPage from "./pages/user/pages/UserLandingPage";
 import Tasklist from "./pages/user/pages/Tasklist";
-import CreateTask from "./pages/user/CreateTask";
 import ViewTask from "./pages/user/pages/ViewTask";
 import EditTask from "./pages/user/pages/EditTask";
 import { useDispatch } from "react-redux";
@@ -52,14 +51,13 @@ const router = createBrowserRouter([
       },
       {
         path: "/tasks/:id/edit",
-        element: <EditTask/>,
+        element: <EditTask />,
       },
     ],
   },
 ]);
 
 function App() {
-
   const userId = userCookieValue("userid=");
   useEffect(() => {
     dispatch(getUser({ id: userId }));

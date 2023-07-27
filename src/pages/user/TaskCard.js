@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { ClockIcon, OpenIcon } from "../../assets/icons";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import Modal from "../../components/Modal";
-import ViewTask from "./pages/ViewTask";
 import { toggleBtnStyle } from "../../assets/extramethods";
 import { useDispatch } from "react-redux";
-import { deleteTaskToServer, editTaskToServer } from "../../features/tasks/TaskSlice";
-import Button from "../../components/Button";
+import {
+  deleteTaskToServer,
+  editTaskToServer,
+} from "../../features/tasks/TaskSlice";
 
 export default function TaskCard({ task }) {
   const navigate = useNavigate();
@@ -50,7 +50,6 @@ export default function TaskCard({ task }) {
             {task.category.name}
           </span>
         ) : null}
-
         <div className="">
           <label className="relative inline-flex items-center cursor-pointer">
             <input
@@ -60,8 +59,6 @@ export default function TaskCard({ task }) {
               className="sr-only peer"
               checked={task.status}
               onChange={(event) => {
-                console.log(task);
-                console.log(event.target.checked);
                 dispatch(
                   editTaskToServer({
                     id: task.id,

@@ -2,7 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../../components/Button";
-import { UserIcon, FingerPrintIcon, EmailIcon, BellIcon, GenderIcon, WorkIcon, AgeIcon } from "../../assets/icons";
+import {
+  FingerPrintIcon,
+  EmailIcon,
+  GenderIcon,
+  WorkIcon,
+  AgeIcon,
+} from "../../assets/icons";
 import { closeViewProfileTab } from "../../features/modal/ModalSlice";
 
 export default function ViewProfile() {
@@ -10,7 +16,7 @@ export default function ViewProfile() {
   const dispatch = useDispatch();
   const { user, loading } = useSelector((state) => state.user);
   const [profileFormData, setprofileFormData] = useState([]);
-  let userData;
+
   useEffect(() => {
     if (!loading && user[0] !== undefined) {
       setprofileFormData(user);
@@ -23,9 +29,9 @@ export default function ViewProfile() {
       [event.target.name]: event.target.value,
     });
   };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(profileFormData);
     navigate(`/welcome`);
   };
 
@@ -57,7 +63,6 @@ export default function ViewProfile() {
                         Email
                       </label>
                     </div>
-
                     <p className="ps-8">{profileFormData[0].email}</p>
                   </div>
                   <div>
@@ -70,7 +75,6 @@ export default function ViewProfile() {
                         Gender
                       </label>
                     </div>
-
                     <p className="ps-8">{profileFormData[0].profile.gender}</p>
                   </div>
                 </div>
@@ -85,7 +89,6 @@ export default function ViewProfile() {
                         Occupation
                       </label>
                     </div>
-
                     <p className="ps-8">
                       {profileFormData[0].profile.occupation}
                     </p>
@@ -100,8 +103,6 @@ export default function ViewProfile() {
                         Age
                       </label>
                     </div>
-                    <div className="flex"></div>
-
                     <p className="ps-8">{profileFormData[0].profile.age}</p>
                   </div>
                 </div>

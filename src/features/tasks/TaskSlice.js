@@ -6,6 +6,7 @@ export const getTasks = createAsyncThunk("task/getTasks", async (id) => {
   );
   return res;
 });
+
 export const addTaskToServer = createAsyncThunk(
   "task/addTask",
   async ({ id, task }) => {
@@ -16,10 +17,10 @@ export const addTaskToServer = createAsyncThunk(
       },
       body: JSON.stringify(task),
     }).then((resp) => resp.json());
-    console.log(res);
     return res;
   }
 );
+
 export const editTaskToServer = createAsyncThunk(
   "task/editTask",
   async ({ id, task }) => {
@@ -33,6 +34,7 @@ export const editTaskToServer = createAsyncThunk(
     return res;
   }
 );
+
 export const deleteTaskToServer = createAsyncThunk(
   "task/deleteTask",
   async ({ id }) => {
@@ -87,21 +89,18 @@ const taskSlice = createSlice({
     },
     [editTaskToServer.fulfilled]: (state, action) => {
       state.loading = false;
-      
-console.log(action.payload)
       if (action.payload.hasOwnProperty("errors")) {
         state.error = action.payload.errors;
       } else {
         state.error = null;
-
-        const modified =state.tasks.map(task=>{
-          if(task.id==action.payload.id){
-            return action.payload
-          }else{
-            return task
+        const modified = state.tasks.map((task) => {
+          if (task.id == action.payload.id) {
+            return action.payload;
+          } else {
+            return task;
           }
-        })
-        state.tasks = modified
+        });
+        state.tasks = modified;
       }
     },
     [editTaskToServer.rejected]: (state, action) => {
@@ -121,5 +120,5 @@ console.log(action.payload)
     },
   },
 });
-// export const {  } = taskSlice.actions;
+
 export default taskSlice.reducer;

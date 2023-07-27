@@ -8,23 +8,24 @@ import { createUserInServer } from "../../../features/user/UserSlice";
 export default function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+    const { user, error } = useSelector((state) => state.user);
   const [signUpFormData, setSignUpFormData] = useState({
     full_name: "",
     email: "",
     password: "",
     password_confirmation: "",
   });
+
   const handleInputs = (event) => {
     setSignUpFormData({
       ...signUpFormData,
       [event.target.name]: event.target.value,
     });
   };
-  const { user, error } = useSelector((state) => state.user);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(createUserInServer(signUpFormData)).then((data) => {
-      console.log(data.payload);
       if (data.payload.errors === undefined) {
         navigate("/login");
         setSignUpFormData({
@@ -43,7 +44,6 @@ export default function Register() {
         <div className="ps-5  p-2">
           <GuestNavbar />
         </div>
-
         <div className="w-3/4 mx-auto">
           <div className="text-center p-5">
             <h3 className="text-3xl font-bold mb-2">Welcome</h3>

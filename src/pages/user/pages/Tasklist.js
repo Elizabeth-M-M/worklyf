@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-
+import React from "react";
 import TaskCard from "../TaskCard";
 import { FilterIcon, HomeIcon, SearchIcon } from "../../../assets/icons";
 import Button from "../../../components/Button";
@@ -11,20 +10,18 @@ import { openCreateTask } from "../../../features/modal/ModalSlice";
 import { Link, useSearchParams } from "react-router-dom";
 
 export default function Tasklist() {
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams();
   let type = searchParams.get("type");
-
   const dispatch = useDispatch();
   const { showCreateTask } = useSelector((store) => store.modal);
   const { tasks, loading } = useSelector((store) => store.task);
+
   let renderTasks;
- if (!loading && tasks.length === 0){
-  renderTasks = <h2>You currently have no tasks</h2>;
-
- }else if (loading) {
+  if (!loading && tasks.length === 0) {
+    renderTasks = <h2>You currently have no tasks</h2>;
+  } else if (loading) {
     renderTasks = <h2>Tasks loading....</h2>;
-  } else if (!loading && tasks[0]!==undefined) {
-
+  } else if (!loading && tasks[0] !== undefined) {
     renderTasks = (
       <div className="">
         <div>
@@ -82,9 +79,6 @@ export default function Tasklist() {
         <h4 className="font-bold tracking-wide text-xl pb-3">
           All {type} Tasks
         </h4>
-        {/* <p className="text-xs tracking-wide text-pink-light cursor-pointer hover:text-white">
-          View on calender
-        </p> */}
       </div>
       <div className="flex align-center justify-between mb-6">
         <div className="bg-gray-light rounded-full flex ps-4 py-1 items-center w-3/4 ">
@@ -101,9 +95,6 @@ export default function Tasklist() {
       </div>
       <div>
         {renderTasks}
-        {/* {!loading && tasks[0] !== undefined?tasks[0].map((task) => {
-    return <TaskCard key={task.id} task={task} />;
-    }):renderTasks} */}
       </div>
       {showCreateTask ? (
         <Modal>

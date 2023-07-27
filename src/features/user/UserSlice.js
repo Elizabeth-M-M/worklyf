@@ -14,6 +14,7 @@ export const checkUserInServer = createAsyncThunk(
     return res;
   }
 );
+
 export const createUserInServer = createAsyncThunk(
   "user/signupUser",
   async (user) => {
@@ -24,16 +25,17 @@ export const createUserInServer = createAsyncThunk(
       },
       body: JSON.stringify(user),
     }).then((resp) => resp.json());
-    console.log(res)
     return res;
   }
 );
-export const getUser = createAsyncThunk("user/getUser", async ({id}) => {
+
+export const getUser = createAsyncThunk("user/getUser", async ({ id }) => {
   const res = await fetch(`http://localhost:3000/users/${id}`).then((data) =>
     data.json()
   );
   return res;
 });
+
 export const editUserProfileToServer = createAsyncThunk(
   "user/editProfile",
   async ({ id, profile }) => {
@@ -44,10 +46,10 @@ export const editUserProfileToServer = createAsyncThunk(
       },
       body: JSON.stringify(profile),
     }).then((resp) => resp.json());
-
     return res;
   }
 );
+
 const userSlice = createSlice({
   name: "user",
   initialState: {
@@ -79,7 +81,6 @@ const userSlice = createSlice({
         state.error = null;
         state.user = [action.payload];
       }
-      // state.user = [action.payload];
     },
     [checkUserInServer.rejected]: (state, action) => {
       state.loading = false;
@@ -90,12 +91,11 @@ const userSlice = createSlice({
     },
     [createUserInServer.fulfilled]: (state, action) => {
       state.loading = false;
-       if (action.payload.hasOwnProperty("errors")) {
-         state.error = action.payload.errors;
-       } else {
-         state.error = null;
-
-       }
+      if (action.payload.hasOwnProperty("errors")) {
+        state.error = action.payload.errors;
+      } else {
+        state.error = null;
+      }
     },
     [createUserInServer.rejected]: (state, action) => {
       state.loading = false;

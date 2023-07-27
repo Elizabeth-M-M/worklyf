@@ -1,34 +1,35 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import Button from "../../../components/Button";
 import { BellIcon, HomeIcon } from "../../../assets/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteTaskToServer } from "../../../features/tasks/TaskSlice";
 
 export default function ViewTask() {
-   const [searchParams, setSearchParams] = useSearchParams();
-   let type = searchParams.get("type");
+  const [searchParams, setSearchParams] = useSearchParams();
+  let type = searchParams.get("type");
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { id } = useParams();
-  const { tasks,loading } = useSelector((state) => state.task);
-
-const [task, setTask]= useState(null)
+  const { tasks, loading } = useSelector((state) => state.task);
+  const [task, setTask] = useState(null);
+  
   useEffect(() => {
-     if (!loading && tasks[0] !== undefined) {
+    if (!loading && tasks[0] !== undefined) {
+      let found = tasks[0].filter((task) => task.id == id)[0];
+      setTask(found);
+    }
+  }, [loading, tasks]);
 
-       let found = tasks[0].filter((task) => task.id == id)[0];
-       setTask(found)
-     }
-  }, [loading, tasks])
-  const handleDelete=()=>{
-
-    dispatch(deleteTaskToServer({id}))
+  const handleDelete = () => {
+    dispatch(deleteTaskToServer({ id }));
     navigate(`/tasks?type=${type}`);
-
-  }
-
-console.log(task);
+  };
   return (
     <>
       {task && tasks[0] !== undefined ? (
@@ -188,7 +189,6 @@ console.log(task);
                       <div onClick={handleDelete}>
                         <Button text={"Delete"} />
                       </div>
-
                     </div>
                   </form>
                 </div>

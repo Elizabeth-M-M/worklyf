@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../../components/Button";
-import { FingerPrintIcon, UserIcon } from "../../assets/icons";
+import { FingerPrintIcon } from "../../assets/icons";
 import { closeEditProfileTab } from "../../features/modal/ModalSlice";
 import { editUserProfileToServer } from "../../features/user/UserSlice";
 
 export default function EditProfile() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user, loading } = useSelector((state) => state.user);
   const [profileFormData, setprofileFormData] = useState([]);
-  let userData;
+
   useEffect(() => {
     if (!loading && user[0] !== undefined) {
       setprofileFormData(user[0].profile);
@@ -24,6 +22,7 @@ export default function EditProfile() {
       [event.target.name]: event.target.value,
     });
   };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(
@@ -106,7 +105,6 @@ export default function EditProfile() {
                     />
                   </div>
                 </div>
-
                 <div className="mb-2">
                   <label
                     className="text-pink-dark block text-sm tracking-wide mb-1"
@@ -123,7 +121,6 @@ export default function EditProfile() {
                     required
                   />
                 </div>
-
                 <div className="text-center flex justify-between">
                   <Button text={"Edit"} type={"submit"} />
                   <div onClick={() => dispatch(closeEditProfileTab())}>

@@ -8,7 +8,6 @@ export default function GuestMain() {
       <div className="py-3 px-5 md:mx-32">
         <GuestNavbar />
       </div>
-
       <div className="p-5 ">
         <div className="md:flex justify-between items-center">
           <h3 className="text-3xl  text-white tracking-wide leading-relaxed  md:w-1/3 md:mx-32 md:text-5xl md:leading-tight text-center md:text-start">
@@ -32,7 +31,6 @@ export default function GuestMain() {
                 />
               </div>
             </div>
-
             <p className="text-xs md:text-sm text-center md:w-2/3">
               Find your balance, draw the line. Unleash the power of separate
               realms!.

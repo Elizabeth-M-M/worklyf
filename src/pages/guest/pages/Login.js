@@ -3,23 +3,25 @@ import GuestNavbar from "../guestnavbar";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../components/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { checkUserInServer, getUser } from "../../../features/user/UserSlice";
-import { userCookieValue } from "../../../assets/extramethods";
+import { checkUserInServer } from "../../../features/user/UserSlice";
+
 
 export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { error } = useSelector((state) => state.user);
   const [loginFormData, setloginFormData] = useState({
     email: "",
     password: "",
   });
-  const { user, error } = useSelector((state) => state.user);
+
   const handleInputs = (event) => {
     setloginFormData({
       ...loginFormData,
       [event.target.name]: event.target.value,
     });
   };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(checkUserInServer(loginFormData)).then((data) => {
@@ -39,7 +41,6 @@ export default function Login() {
         <div className="ps-5  p-2">
           <GuestNavbar />
         </div>
-
         <div className="w-3/4 mx-auto">
           <div className="text-center p-5">
             <h3 className="text-3xl font-bold mb-2">Welcome Back</h3>

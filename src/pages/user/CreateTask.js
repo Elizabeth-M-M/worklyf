@@ -5,21 +5,16 @@ import { categories } from "../../assets/tasks";
 import { ClockIcon } from "../../assets/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { closeCreateTask } from "../../features/modal/ModalSlice";
-import {
-  addTaskToServer,
-  addTask,
-  getTasks,
-} from "../../features/tasks/TaskSlice";
+import { addTaskToServer, getTasks } from "../../features/tasks/TaskSlice";
 import { toggleBtnStyle } from "../../assets/extramethods";
 
 export default function CreateTask() {
   const [searchParams, setSearchParams] = useSearchParams();
   let type = searchParams.get("type");
-  const { showCreateTask } = useSelector((state) => state.modal);
-  const { user } = useSelector((state) => state.user);
-  const { error } = useSelector((state) => state.task);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
+  const { error } = useSelector((state) => state.task);
   const [taskFormData, settaskFormData] = useState({
     title: "",
     description: "",
@@ -32,7 +27,7 @@ export default function CreateTask() {
     reminder: false,
     group_id: null,
   });
-  // console.log(user)
+
   const handleInputs = (event) => {
     const value =
       event.target.type === "checkbox"
@@ -69,8 +64,6 @@ export default function CreateTask() {
         });
       }
     });
-
-
   };
 
   return (
@@ -78,7 +71,6 @@ export default function CreateTask() {
       <div>
         <div className="w-full mx-auto">
           <h3 className="text-3xl font-bold mb-1 py-3">Create New Task</h3>
-
           <form onSubmit={handleSubmit} className=" ">
             <div className="mb-2">
               <label
@@ -192,7 +184,6 @@ export default function CreateTask() {
               >
                 Category
               </label>
-
               <select
                 id="category_id"
                 name="category_id"
@@ -215,7 +206,6 @@ export default function CreateTask() {
               >
                 Urgency
               </label>
-
               <select
                 id="label"
                 name="label"
@@ -234,7 +224,6 @@ export default function CreateTask() {
                 <div className="p-2 bg-gray-dark me-2">
                   <ClockIcon />
                 </div>
-
                 <label
                   className="block text-sm tracking-wide mb-1 "
                   htmlFor="reminder"
@@ -242,7 +231,6 @@ export default function CreateTask() {
                   Reminder
                 </label>
               </div>
-
               <label className="relative inline-flex items-center cursor-pointer">
                 <input
                   type="checkbox"
@@ -257,18 +245,7 @@ export default function CreateTask() {
                   {taskFormData.reminder ? "on" : "off"}
                 </span>
               </label>
-
-              {/* <input
-                className="w-full   text-white"
-                type="checkbox"
-                id="reminder"
-                name="reminder"
-                value={taskFormData.reminder}
-                onChange={handleInputs}
-                required
-              /> */}
             </div>
-
             <div className="text-center flex justify-between">
               <Button text={"Create Task"} type={"submit"} />
               <div
