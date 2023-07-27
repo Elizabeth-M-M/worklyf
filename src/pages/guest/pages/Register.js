@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import GuestNavbar from "../guestnavbar";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../components/Button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createUserInServer } from "../../../features/user/UserSlice";
 
 export default function Register() {
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [signUpFormData, setSignUpFormData] = useState({
     full_name: "",
     email: "",
@@ -20,17 +20,23 @@ export default function Register() {
       [event.target.name]: event.target.value,
     });
   };
+  const { user, error } = useSelector((state) => state.user);
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(createUserInServer(signUpFormData))
-    navigate("/login");
-    setSignUpFormData({
-      full_name: "",
-      email: "",
-      password: "",
-      password_confirmation: "",
+    dispatch(createUserInServer(signUpFormData)).then((data) => {
+      console.log(data.payload);
+      if (data.payload.errors === undefined) {
+        navigate("/login");
+        setSignUpFormData({
+          full_name: "",
+          email: "",
+          password: "",
+          password_confirmation: "",
+        });
+      }
     });
   };
+
   return (
     <div className=" bg-white md:flex justify-between items-center h-screen text-gray-dark">
       <div className="md:w-5/12 ">
@@ -45,13 +51,13 @@ export default function Register() {
               Separate with ease, find personal peace
             </p>
           </div>
-          <form onSubmit={handleSubmit} className="p-8 ">
+          <form onSubmit={handleSubmit} className="p-7 pb-1">
             <div className="mb-2">
               <label
                 className="block text-sm tracking-wide mb-1"
                 htmlFor="full_name"
               >
-                First Name
+                Full Name
               </label>
               <input
                 className="w-full bg-pink-light appearance-none rounded p-1 drop-shadow-lg text-white"
@@ -133,6 +139,13 @@ export default function Register() {
               />
             </div>
           </form>
+          {error && error !== undefined
+            ? error.map((err) => (
+                <p key={err} className="text-xs text-black mt-1 text-center">
+                  {err}
+                </p>
+              ))
+            : null}
         </div>
       </div>
       <div className=" hidden md:block w-7/12 h-screen bg-gray-light">

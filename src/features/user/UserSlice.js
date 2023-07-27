@@ -91,7 +91,12 @@ const userSlice = createSlice({
     },
     [createUserInServer.fulfilled]: (state, action) => {
       state.loading = false;
-      // state.user = [action.payload];
+       if (action.payload.hasOwnProperty("errors")) {
+         state.error = action.payload.errors;
+       } else {
+         state.error = null;
+         
+       }
     },
     [createUserInServer.rejected]: (state, action) => {
       state.loading = false;
