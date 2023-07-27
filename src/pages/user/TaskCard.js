@@ -8,12 +8,11 @@ export default function TaskCard({ task }) {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   let type = searchParams.get("type");
-  // console.log(type)
   return (
     <div
       className=" bg-gray-light rounded-xl overflow-hidden cursor-pointer mb-2"
       onClick={() => {
-        navigate(`/tasks/${task.id}?type=${type}`);
+        navigate(`/tasks/${task.id}?type=${type ? type : task.group_id==1?"Work":"Personal"}`);
       }}
     >
       <div className="px-5 pt-4">

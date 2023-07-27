@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import GuestNavbar from "../guestnavbar";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../components/Button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { checkUserInServer, getUser } from "../../../features/user/UserSlice";
 import { userCookieValue } from "../../../assets/extramethods";
 
@@ -13,6 +13,7 @@ export default function Login() {
     email: "",
     password: "",
   });
+  const { user, error } = useSelector((state) => state.user);
   const handleInputs = (event) => {
     setloginFormData({
       ...loginFormData,
@@ -21,15 +22,17 @@ export default function Login() {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-   dispatch(checkUserInServer(loginFormData));
-  
-
-    setloginFormData({
-      email: "",
-      password: "",
+    dispatch(checkUserInServer(loginFormData)).then((data) => {
+      if (data.payload.errors === undefined) {
+        setloginFormData({
+          email: "",
+          password: "",
+        });
+        navigate("/welcome");
+      }
     });
-    navigate("/welcome");
   };
+
   return (
     <div className=" bg-white md:flex flex-row-reverse justify-between items-center h-screen text-gray-dark">
       <div className="md:w-5/12 ">
@@ -98,6 +101,13 @@ export default function Login() {
               />
             </div>
           </form>
+          {error && error !== undefined
+            ? error.map((err) => (
+                <p key={err} className="text-xs text-black mt-1 text-center">
+                  {err}
+                </p>
+              ))
+            : null}
         </div>
       </div>
       <div className=" hidden md:block w-7/12 h-screen bg-gray-light  items-center">

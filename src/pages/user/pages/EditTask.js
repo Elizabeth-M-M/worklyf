@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import Button from "../../../components/Button";
 import { categories } from "../../../assets/tasks";
-import { BellIcon, ClockIcon, LinkIcon } from "../../../assets/icons";
+import { BellIcon, ClockIcon, HomeIcon, LinkIcon } from "../../../assets/icons";
 
 import ToggleButton from "../../../components/ToggleButton";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,9 +13,9 @@ export default function EditTask() {
   const dispatch = useDispatch();
    const [searchParams, setSearchParams] = useSearchParams();
    let type = searchParams.get("type");
-   console.log(type);
+
   const { id } = useParams();
-  const { tasks, loading } = useSelector((state) => state.task);
+  const { tasks, loading, error } = useSelector((state) => state.task);
   const [taskFormData, settaskFormData] = useState([]);
   let task;
   useEffect(() => {
@@ -39,8 +39,11 @@ export default function EditTask() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    dispatch(editTaskToServer({ id: id, task: taskFormData }));
-    navigate(`/tasks/${id}?type=${type}`);
+    dispatch(editTaskToServer({ id: id, task: taskFormData })).then((data) => {
+      if (data.payload.errors === undefined) {
+        navigate(`/tasks/${id}?type=${type}`);
+      }
+    });
   };
 
 
@@ -49,212 +52,233 @@ export default function EditTask() {
   return (
     <div>
       {!loading && taskFormData.hasOwnProperty("id") == true ? (
-        <div className="text-gray-lighter">
-          <div className="flex items-center bg-pink-dark h-screen w-full bg-opacity-40 mx-auto">
-            <div className="text-gray-lighter w-1/2 bg-gray-dark p-5 rounded-xl mx-auto">
-              <form onSubmit={handleSubmit} className=" ">
-                <div className="mb-2">
-                  <label
-                    className="block text-sm tracking-wide mb-1 text-pink-dark"
-                    htmlFor="title"
-                  >
-                    Task Title
-                  </label>
-                  <input
-                    className="w-full bg-gray-light appearance-none rounded p-2  outline-none text-white"
-                    type="text"
-                    id="title"
-                    name="title"
-                    value={taskFormData.title}
-                    onChange={handleInputs}
-                    required
-                  />
-                </div>
-                <div className="mb-2">
-                  <label
-                    className="text-pink-dark block text-sm tracking-wide mb-1"
-                    htmlFor="description"
-                  >
-                    Description
-                  </label>
-                  <textarea
-                    className="w-full bg-gray-light appearance-none rounded p-2  text-white"
-                    id="description"
-                    name="description"
-                    value={taskFormData.description}
-                    onChange={handleInputs}
-                    required
-                  />
-                </div>
-                <div className="mb-2 flex items-center justify-between">
-                  <div className=" bg-gray-dark rounded bg-gray-light  p-2">
+        <div>
+          <div className="flex items-center justify-between">
+            <div></div>
+            <div className="flex px-4">
+              <Link to={`/tasks?type=${type}`} className="ms-4 text-sm ">
+                <p className="p-3 hover:text-pink-light">TASKS</p>
+              </Link>
+              <Link
+                to="/welcome"
+                className="ms-4 text-sm hover:text-pink-light"
+              >
+                <HomeIcon />
+                <p>HOME</p>
+              </Link>
+            </div>
+          </div>
+          <div className="text-gray-lighter">
+            <div className="flex items-center bg-pink-dark h-screen w-full bg-opacity-40 mx-auto">
+              <div className="text-gray-lighter w-1/2 bg-gray-dark p-5 rounded-xl mx-auto">
+                <form onSubmit={handleSubmit} className=" ">
+                  <div className="mb-2">
                     <label
-                      className="block text-sm tracking-wide mb-1 text-pink-light"
-                      htmlFor="start_date"
+                      className="block text-sm tracking-wide mb-1 text-pink-dark"
+                      htmlFor="title"
                     >
-                      Start Date
+                      Task Title
                     </label>
                     <input
-                      className="w-full bg-gray-light appearance-none text-white"
-                      type="date"
-                      id="start_date"
-                      name="start_date"
-                      value={taskFormData.start_date.split("T")[0]}
+                      className="w-full bg-gray-light appearance-none rounded p-2  outline-none text-white"
+                      type="text"
+                      id="title"
+                      name="title"
+                      value={taskFormData.title}
                       onChange={handleInputs}
                       required
                     />
                   </div>
-                  <div className=" bg-gray-dark rounded bg-gray-light  p-2">
+                  <div className="mb-2">
                     <label
-                      className="block text-sm tracking-wide mb-1 text-pink-light"
-                      htmlFor="start_time"
+                      className="text-pink-dark block text-sm tracking-wide mb-1"
+                      htmlFor="description"
                     >
-                      Start Time
+                      Description
                     </label>
-                    <input
-                      className="w-full bg-gray-light appearance-none  text-white"
-                      type="time"
-                      id="start_time"
-                      name="start_time"
-                      value={
-                        new Date(taskFormData.start_time)
-                          .toUTCString()
-                          .split(" ")[4]
-                      }
+                    <textarea
+                      className="w-full bg-gray-light appearance-none rounded p-2  text-white"
+                      id="description"
+                      name="description"
+                      value={taskFormData.description}
                       onChange={handleInputs}
                       required
                     />
                   </div>
-                </div>
-                <div className="mb-2 flex items-center justify-between">
-                  <div className=" bg-gray-dark rounded bg-gray-light  p-2">
-                    <label
-                      className="block text-sm tracking-wide mb-1 text-pink-light"
-                      htmlFor="end_date"
-                    >
-                      End Date
-                    </label>
-                    <input
-                      className="w-full bg-gray-light appearance-none  text-white placeholder:text-xs"
-                      type="date"
-                      id="end_date"
-                      name="end_date"
-                      value={taskFormData.end_date.split("T")[0]}
-                      onChange={handleInputs}
-                      required
-                    />
+                  <div className="mb-2 flex items-center justify-between">
+                    <div className=" bg-gray-dark rounded bg-gray-light  p-2">
+                      <label
+                        className="block text-sm tracking-wide mb-1 text-pink-light"
+                        htmlFor="start_date"
+                      >
+                        Start Date
+                      </label>
+                      <input
+                        className="w-full bg-gray-light appearance-none text-white"
+                        type="date"
+                        id="start_date"
+                        name="start_date"
+                        value={taskFormData.start_date.split("T")[0]}
+                        onChange={handleInputs}
+                        required
+                      />
+                    </div>
+                    <div className=" bg-gray-dark rounded bg-gray-light  p-2">
+                      <label
+                        className="block text-sm tracking-wide mb-1 text-pink-light"
+                        htmlFor="start_time"
+                      >
+                        Start Time
+                      </label>
+                      <input
+                        className="w-full bg-gray-light appearance-none  text-white"
+                        type="time"
+                        id="start_time"
+                        name="start_time"
+                        value={
+                          new Date(taskFormData.start_time)
+                            .toUTCString()
+                            .split(" ")[4]
+                        }
+                        onChange={handleInputs}
+                        required
+                      />
+                    </div>
                   </div>
-                  <div className=" bg-gray-dark rounded bg-gray-light  p-2">
-                    <label
-                      className="block text-sm tracking-wide mb-1 text-pink-light"
-                      htmlFor="end_time"
-                    >
-                      End Time
-                    </label>
-                    <input
-                      className="w-full bg-gray-light appearance-none text-white "
-                      type="time"
-                      id="end_time"
-                      name="end_time"
-                      value={
-                        new Date(taskFormData.end_time)
-                          .toUTCString()
-                          .split(" ")[4]
-                      }
-                      onChange={handleInputs}
-                      required
-                    />
+                  <div className="mb-2 flex items-center justify-between">
+                    <div className=" bg-gray-dark rounded bg-gray-light  p-2">
+                      <label
+                        className="block text-sm tracking-wide mb-1 text-pink-light"
+                        htmlFor="end_date"
+                      >
+                        End Date
+                      </label>
+                      <input
+                        className="w-full bg-gray-light appearance-none  text-white placeholder:text-xs"
+                        type="date"
+                        id="end_date"
+                        name="end_date"
+                        value={taskFormData.end_date.split("T")[0]}
+                        onChange={handleInputs}
+                        required
+                      />
+                    </div>
+                    <div className=" bg-gray-dark rounded bg-gray-light  p-2">
+                      <label
+                        className="block text-sm tracking-wide mb-1 text-pink-light"
+                        htmlFor="end_time"
+                      >
+                        End Time
+                      </label>
+                      <input
+                        className="w-full bg-gray-light appearance-none text-white "
+                        type="time"
+                        id="end_time"
+                        name="end_time"
+                        value={
+                          new Date(taskFormData.end_time)
+                            .toUTCString()
+                            .split(" ")[4]
+                        }
+                        onChange={handleInputs}
+                        required
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="mb-2 mt-4">
-                  <label
-                    className="block text-sm tracking-wide mb-1 text-pink-dark"
-                    htmlFor="category_id"
-                  >
-                    Category
-                  </label>
+                  <div className="mb-2 mt-4">
+                    <label
+                      className="block text-sm tracking-wide mb-1 text-pink-dark"
+                      htmlFor="category_id"
+                    >
+                      Category
+                    </label>
 
-                  <select
-                    id="category_id"
-                    name="category_id"
-                    className="w-full bg-gray-light appearance-none rounded p-2  text-white"
-                    value={taskFormData.category_id}
-                    onChange={handleInputs}
-                    required
-                  >
-                    {categories.map((cat) => (
-                      <option key={cat.id} value={cat.name}>{cat.name}</option>
-                    ))}
-                  </select>
-                </div>
-                <div className=" bg-gray-dark rounded  p-2 flex items-center justify-between mt-3">
-                  <div className="flex items-center">
-                    <div className="p-2 bg-gray-dark me-2">
-                      <BellIcon />
+                    <select
+                      id="category_id"
+                      name="category_id"
+                      className="w-full bg-gray-light appearance-none rounded p-2  text-white"
+                      value={taskFormData.category_id}
+                      onChange={handleInputs}
+                      required
+                    >
+                      {categories.map((cat) => (
+                        <option key={cat.id} value={cat.name}>
+                          {cat.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className=" bg-gray-dark rounded  p-2 flex items-center justify-between mt-3">
+                    <div className="flex items-center">
+                      <div className="p-2 bg-gray-dark me-2">
+                        <BellIcon />
+                      </div>
+
+                      <label
+                        className="block text-sm tracking-wide mb-1 "
+                        htmlFor="reminder"
+                      >
+                        Reminder
+                      </label>
                     </div>
 
-                    <label
-                      className="block text-sm tracking-wide mb-1 "
-                      htmlFor="reminder"
-                    >
-                      Reminder
+                    <label className="relative inline-flex items-center cursor-pointer">
+                      <input
+                        type="checkbox"
+                        id="reminder"
+                        name="reminder"
+                        value={taskFormData.reminder}
+                        onChange={handleInputs}
+                        className="sr-only peer"
+                      />
+                      <ToggleButton />
+                      <span className="ml-3 text-sm font-medium ">
+                        {taskFormData.reminder ? "on" : "off"}
+                      </span>
                     </label>
                   </div>
+                  <div className=" bg-gray-dark rounded  p-2 flex items-center justify-between mt-3">
+                    <div className="flex items-center">
+                      <div className="p-2 bg-gray-dark me-2">
+                        <LinkIcon />
+                      </div>
 
-                  <label className="relative inline-flex items-center cursor-pointer">
-                    <input
-                      type="checkbox"
-                      id="reminder"
-                      name="reminder"
-                      value={taskFormData.reminder}
-                      onChange={handleInputs}
-                      className="sr-only peer"
-                    />
-                    <ToggleButton />
-                    <span className="ml-3 text-sm font-medium ">
-                      {taskFormData.reminder ? "on" : "off"}
-                    </span>
-                  </label>
-                </div>
-                <div className=" bg-gray-dark rounded  p-2 flex items-center justify-between mt-3">
-                  <div className="flex items-center">
-                    <div className="p-2 bg-gray-dark me-2">
-                      <LinkIcon />
+                      <label
+                        className="block text-sm tracking-wide mb-1 "
+                        htmlFor="status"
+                      >
+                        Mark as complete
+                      </label>
                     </div>
 
-                    <label
-                      className="block text-sm tracking-wide mb-1 "
-                      htmlFor="status"
-                    >
-                      Mark as complete
+                    <label className="relative inline-flex items-center cursor-pointer">
+                      <input
+                        type="checkbox"
+                        id="status"
+                        name="status"
+                        value={taskFormData.status}
+                        onChange={handleInputs}
+                        className="sr-only peer"
+                      />
+                      <ToggleButton />
+                      <span className="ml-3 text-sm font-medium ">
+                        {taskFormData.status ? "on" : "off"}
+                      </span>
                     </label>
                   </div>
+                  <div className="text-center flex justify-between">
+                    <Button text={"Edit"} type={"submit"} />
 
-                  <label className="relative inline-flex items-center cursor-pointer">
-                    <input
-                      type="checkbox"
-                      id="status"
-                      name="status"
-                      value={taskFormData.status}
-                      onChange={handleInputs}
-                      className="sr-only peer"
-                    />
-                    <ToggleButton />
-                    <span className="ml-3 text-sm font-medium ">
-                      {taskFormData.status ? "on" : "off"}
-                    </span>
-                  </label>
-                </div>
-                <div className="text-center flex justify-between">
-                  <Button text={"Edit"} type={"submit"} />
-                  <div>
-                    <Button
-                      text={"Back"}
-                      clicked={`/tasks/${id}?type=${type}`}
-                    />
                   </div>
-                </div>
-              </form>
+                </form>
+                {error
+                  ? error.map((err) => (
+                      <p key={err} className="text-xs text-pink-light mt-1">
+                        {err}
+                      </p>
+                    ))
+                  : null}
+              </div>
             </div>
           </div>
         </div>

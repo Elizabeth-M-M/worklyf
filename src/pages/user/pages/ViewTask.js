@@ -187,9 +187,7 @@ const [task, setTask]= useState(null)
                       <div onClick={handleDelete}>
                         <Button text={"Delete"} />
                       </div>
-                      <div>
-                        <Button text={"Back"} clicked={`/tasks?type=${type}`} />
-                      </div>
+                      
                     </div>
                   </form>
                 </div>

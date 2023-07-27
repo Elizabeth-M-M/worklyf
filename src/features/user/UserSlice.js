@@ -45,7 +45,7 @@ export const editUserProfileToServer = createAsyncThunk(
       },
       body: JSON.stringify(profile),
     }).then((resp) => resp.json());
-    
+
     return res;
   }
 );
@@ -74,6 +74,12 @@ const userSlice = createSlice({
     },
     [checkUserInServer.fulfilled]: (state, action) => {
       state.loading = false;
+      if (action.payload.hasOwnProperty("errors")) {
+        state.error = action.payload.errors;
+      } else {
+        state.error = null;
+        state.user = [action.payload];
+      }
       // state.user = [action.payload];
     },
     [checkUserInServer.rejected]: (state, action) => {

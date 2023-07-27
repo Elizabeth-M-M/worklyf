@@ -31,7 +31,7 @@ export default function UserLandingPage() {
   const { showViewProfileTab } = useSelector((state) => state.modal);
 
   const { showTaskMenu } = useSelector((state) => state.modal);
-
+// console.log(user)
   return (
     <>
       {!user && !loading ? (

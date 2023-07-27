@@ -26,10 +26,14 @@ export default function EditProfile() {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(editUserProfileToServer({id:profileFormData.id, profile:profileFormData}))
-    dispatch(closeEditProfileTab())
+    dispatch(
+      editUserProfileToServer({
+        id: profileFormData.id,
+        profile: profileFormData,
+      })
+    );
+    dispatch(closeEditProfileTab());
   };
-
 
   return (
     <div>
@@ -40,8 +44,7 @@ export default function EditProfile() {
               <div className="">
                 <FingerPrintIcon />
               </div>
-              <h3 className="text-center mt-3">Edit your Profile
-              </h3>
+              <h3 className="text-center mt-3">Edit your Profile</h3>
             </div>
           </div>
           <div className="">

@@ -80,14 +80,29 @@ const taskSlice = createSlice({
     },
     [addTaskToServer.rejected]: (state, action) => {
       state.loading = false;
-      console.log(action);
       state.error = action.payload;
     },
     [editTaskToServer.pending]: (state, action) => {
       state.loading = true;
     },
-    [editTaskToServer.fulfilled]: (state, { id, task }) => {
+    [editTaskToServer.fulfilled]: (state, action) => {
       state.loading = false;
+      console.log(action.payload.hasOwnProperty("errors"));
+
+      if (action.payload.hasOwnProperty("errors")) {
+        state.error = action.payload.errors;
+      } else {
+        state.error = null;
+
+        const modified =state.tasks.map(task=>{
+          if(task.id==action.payload.id){
+            return action.payload
+          }else{
+            return task
+          }
+        })
+        state.tasks = modified
+      }
     },
     [editTaskToServer.rejected]: (state, action) => {
       state.loading = false;
