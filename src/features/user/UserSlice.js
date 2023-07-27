@@ -11,7 +11,6 @@ export const checkUserInServer = createAsyncThunk(
       body: JSON.stringify(user),
     }).then((resp) => resp.json());
     document.cookie = `userid=${res.id}`;
-    console.log(res)
     return res;
   }
 );
@@ -95,7 +94,7 @@ const userSlice = createSlice({
          state.error = action.payload.errors;
        } else {
          state.error = null;
-         
+
        }
     },
     [createUserInServer.rejected]: (state, action) => {
