@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { FilterIcon, SearchIcon, UserIcon } from "../../../assets/icons";
+import { UserIcon } from "../../../assets/icons";
 import Status from "../Status";
 import Category from "../Category";
 import TaskCard from "../TaskCard";
@@ -10,7 +10,6 @@ import { getUser } from "../../../features/user/UserSlice";
 import {
   displayProfileMenu,
   displayTaskMenu,
-  openCreateTask,
   openEditProfileTab,
   openViewProfileTab,
 } from "../../../features/modal/ModalSlice";
@@ -21,7 +20,7 @@ import Button from "../../../components/Button";
 import CreateTask from "../CreateTask";
 
 export default function UserLandingPage() {
-   const { showCreateTask } = useSelector((store) => store.modal);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userId = userCookieValue("userid=");
@@ -33,7 +32,6 @@ export default function UserLandingPage() {
   const { showProfileMenu } = useSelector((state) => state.modal);
   const { showEditProfileTab } = useSelector((state) => state.modal);
   const { showViewProfileTab } = useSelector((state) => state.modal);
-
   const { showTaskMenu } = useSelector((state) => state.modal);
   // console.log(user)
   return (
@@ -59,7 +57,7 @@ export default function UserLandingPage() {
               </div>
 
               {showProfileMenu ? (
-                <div className="absolute top-10 right-10  ">
+                <div className="absolute top-10 right-10  z-10">
                   <p
                     className={pillStyle}
                     onClick={() => {
@@ -155,7 +153,10 @@ export default function UserLandingPage() {
                 user[0].completed[0].length == 0 ? (
                 <div>
                   <p className="text-pink-light">You have no tasks</p>
-                  <p className="text-xs mt-2">Click on "start here" and choose whether the task is for personal or work</p>
+                  <p className="text-xs mt-2">
+                    Click on "start here" and choose whether the task is for
+                    personal or work
+                  </p>
                 </div>
               ) : null}
               {!user && !loading ? null : user[0].pending[0].length == 0 &&
@@ -167,9 +168,13 @@ export default function UserLandingPage() {
                   <h4 className="font-bold tracking-wide text-lg text-pink-light pb-3 ">
                     Pending Tasks
                   </h4>
-                  {user[0].pending[0].map((task) => (
-                    <TaskCard key={task.id} task={task} />
-                  ))}
+                  {user[0].pending[0].length > 3
+                    ? user[0].pending[0]
+                        .slice(1, 3)
+                        .map((task) => <TaskCard key={task.id} task={task} />)
+                    : user[0].pending[0].map((task) => (
+                        <TaskCard key={task.id} task={task} />
+                      ))}
                 </div>
               )}
               {!user && !loading ? null : user[0].pending[0].length > 0 &&
@@ -181,9 +186,13 @@ export default function UserLandingPage() {
                   <h4 className="font-bold tracking-wide text-lg text-pink-light pb-3">
                     Completed Tasks
                   </h4>
-                  {user[0].completed[0].map((task) => (
-                    <TaskCard key={task.id} task={task} />
-                  ))}
+                  {user[0].completed[0].length > 3
+                    ? user[0].completed[0]
+                        .slice(1, 3)
+                        .map((task) => <TaskCard key={task.id} task={task} />)
+                    : user[0].completed[0].map((task) => (
+                        <TaskCard key={task.id} task={task} />
+                      ))}
                 </div>
               )}
             </div>
@@ -196,11 +205,6 @@ export default function UserLandingPage() {
           {showViewProfileTab ? (
             <Modal>
               <ViewProfile />
-            </Modal>
-          ) : null}
-          {showCreateTask ? (
-            <Modal>
-              <CreateTask />
             </Modal>
           ) : null}
         </div>
