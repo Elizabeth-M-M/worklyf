@@ -10,7 +10,7 @@ import { categories } from "../../../assets/tasks";
 import { BellIcon, HomeIcon, LinkIcon } from "../../../assets/icons";
 import ToggleButton from "../../../components/ToggleButton";
 import { useDispatch, useSelector } from "react-redux";
-import { editTaskToServer } from "../../../features/tasks/TaskSlice";
+import { editTaskToServer, taskAdded, taskUpdated } from "../../../features/tasks/TaskSlice";
 
 export default function EditTask() {
   const navigate = useNavigate();
@@ -44,6 +44,7 @@ export default function EditTask() {
     event.preventDefault();
     dispatch(editTaskToServer({ id: id, task: taskFormData })).then((data) => {
       if (data.payload.errors === undefined) {
+        dispatch(taskUpdated(data.payload))
         navigate(`/tasks/${id}?type=${type}`);
       }
     });
@@ -201,7 +202,7 @@ export default function EditTask() {
                       required
                     >
                       {categories.map((cat) => (
-                        <option key={cat.id} value={cat.name}>
+                        <option key={cat.id} value={cat.id}>
                           {cat.name}
                         </option>
                       ))}

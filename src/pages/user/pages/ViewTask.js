@@ -8,7 +8,8 @@ import {
 import Button from "../../../components/Button";
 import { BellIcon, HomeIcon } from "../../../assets/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteTaskToServer } from "../../../features/tasks/TaskSlice";
+import { deleteTaskToServer, getTasks, taskDeleted } from "../../../features/tasks/TaskSlice";
+import { userCookieValue } from "../../../assets/extramethods";
 
 export default function ViewTask() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -18,17 +19,29 @@ export default function ViewTask() {
   const { id } = useParams();
   const { tasks, loading } = useSelector((state) => state.task);
   const [task, setTask] = useState(null);
-  
+   const userId = userCookieValue("userid=");
+
+   useEffect(() => {
+     dispatch(getTasks(userId));
+   }, [userId]);
+
   useEffect(() => {
-    if (!loading && tasks[0] !== undefined) {
+    if ( tasks[0] !== undefined && !loading) {
+
       let found = tasks[0].filter((task) => task.id == id)[0];
       setTask(found);
     }
   }, [loading, tasks]);
 
+
   const handleDelete = () => {
-    dispatch(deleteTaskToServer({ id }));
-    navigate(`/tasks?type=${type}`);
+    dispatch(deleteTaskToServer({ id })).then((data) => {
+      if (data.payload.errors === undefined) {
+        dispatch(taskDeleted(id));
+         navigate(`/tasks?type=${type}`);
+      }
+    });
+
   };
   return (
     <>
@@ -157,7 +170,7 @@ export default function ViewTask() {
                       <input
                         className="w-full bg-gray-dark appearance-none text-white "
                         type="text"
-                        value={task.category_id}
+                        value={task.category.name}
                         readOnly="readOnly"
                       />
                     </div>

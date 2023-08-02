@@ -55,7 +55,23 @@ const taskSlice = createSlice({
     loading: false,
     error: null,
   },
-  reducers: {},
+  reducers: {
+    taskUpdated(state, action) {
+      const modified = state.tasks.map((task) => {
+        if (task.id == action.payload.id) {
+          return action.payload;
+        } else {
+          return task;
+        }
+      });
+      state.tasks = modified;
+    },
+    taskDeleted(state, action) {
+      console.log(action.payload)
+     state.tasks = state.tasks.filter((task) => task.id !== action.payload);
+
+    },
+  },
   extraReducers: {
     [getTasks.pending]: (state, action) => {
       state.loading = true;
@@ -93,14 +109,15 @@ const taskSlice = createSlice({
         state.error = action.payload.errors;
       } else {
         state.error = null;
-        const modified = state.tasks.map((task) => {
-          if (task.id == action.payload.id) {
-            return action.payload;
-          } else {
-            return task;
-          }
-        });
-        state.tasks = modified;
+
+        // const modified = state.tasks.map((task) => {
+        //   if (task.id == action.payload.id) {
+        //     return action.payload;
+        //   } else {
+        //     return task;
+        //   }
+        // });
+        // state.tasks = modified;
       }
     },
     [editTaskToServer.rejected]: (state, action) => {
@@ -120,5 +137,6 @@ const taskSlice = createSlice({
     },
   },
 });
+export const {taskUpdated, taskDeleted } = taskSlice.actions;
 
 export default taskSlice.reducer;
