@@ -20,7 +20,7 @@ export default function Button({
       }
       ${textStyle == undefined ? "text-white" : textStyle}
       hover:${
-        bgHoverStyle == undefined ? "bg-white" : bgHoverStyle
+        bgHoverStyle == undefined ? "bg-pink-light" : bgHoverStyle
       }
       hover:${
         textHoverStyle == undefined ? "text-black" : textHoverStyle

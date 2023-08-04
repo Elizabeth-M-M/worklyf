@@ -1,16 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const getTasks = createAsyncThunk("task/getTasks", async (id) => {
-  const res = await fetch(`http://localhost:3000/users/${id}/tasks`).then(
-    (data) => data.json()
-  );
+  const res = await fetch(
+    `https://worklyf.onrender.com/users/${id}/tasks`
+  ).then((data) => data.json());
   return res;
 });
 
 export const addTaskToServer = createAsyncThunk(
   "task/addTask",
   async ({ id, task }) => {
-    const res = await fetch(`http://localhost:3000/users/${id}/tasks`, {
+    const res = await fetch(`https://worklyf.onrender.com/users/${id}/tasks`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -24,7 +24,7 @@ export const addTaskToServer = createAsyncThunk(
 export const editTaskToServer = createAsyncThunk(
   "task/editTask",
   async ({ id, task }) => {
-    const res = await fetch(`http://localhost:3000/tasks/${id}`, {
+    const res = await fetch(`https://worklyf.onrender.com/tasks/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -38,7 +38,7 @@ export const editTaskToServer = createAsyncThunk(
 export const deleteTaskToServer = createAsyncThunk(
   "task/deleteTask",
   async ({ id }) => {
-    const res = await fetch(`http://localhost:3000/tasks/${id}`, {
+    const res = await fetch(`https://worklyf.onrender.com/tasks/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -67,9 +67,8 @@ const taskSlice = createSlice({
       state.tasks = modified;
     },
     taskDeleted(state, action) {
-      console.log(action.payload)
-     state.tasks = state.tasks.filter((task) => task.id !== action.payload);
-
+      console.log(action.payload);
+      state.tasks = state.tasks.filter((task) => task.id !== action.payload);
     },
   },
   extraReducers: {
@@ -137,6 +136,6 @@ const taskSlice = createSlice({
     },
   },
 });
-export const {taskUpdated, taskDeleted } = taskSlice.actions;
+export const { taskUpdated, taskDeleted } = taskSlice.actions;
 
 export default taskSlice.reducer;
