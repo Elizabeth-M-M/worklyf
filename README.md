@@ -24,11 +24,11 @@ A user can:-
 
 #### Technologies used
 
-HTML
-CSS
-Javascript
-React
-Tailwind
+- HTML
+- CSS
+- Javascript
+- React
+- Tailwind
 
 #### Prerequisites
 
