@@ -11,7 +11,7 @@ Elizabeth Mwende Muthusi
 5/08/2023.
 
 ### Description
-This is the front end of the Worklyf application site that utilises the React framework. It is a comprehensive task management application designed to streamline your productivity journey. This app was built while practising redux and redux toolkit.
+This is the front end of the Worklyf application site that utilises the React framework. It is a comprehensive task management application designed to streamline your productivity journey,  work-related or personal. It mainly seperates tasks into work or personal, leaving room to focus . This app was built while practising redux and redux toolkit.
 
 ### Features
 
@@ -61,7 +61,7 @@ The app uses an already deployed api for its backend. The backend repository for
 
 As a user, you can sign up and use those credentials to sign in later after logging out
 
-## Screenshots of the Front End Design
+## Screenshots
 
 - Guest homepage
   ![alt text](./public/images/WorkLyf(6).png "WorkLyf")
