@@ -64,21 +64,21 @@ As a user, you can sign up and use those credentials to sign in later after logg
 ## Screenshots of the Front End Design
 
 - Guest homepage
-  ![alt text](./images/WorkLyf(6).png "WorkLyf")
+  ![alt text](./public/images/WorkLyf(6).png "WorkLyf")
 - Signup page
-  ![alt text](./images/WorkLyf(8).png "WorkLyf")
+  ![alt text](./public/images/WorkLyf(8).png "WorkLyf")
 - Login page
-  ![alt text](./images/WorkLyf(7).png "WorkLyf")
+  ![alt text](./public/images/WorkLyf(7).png "WorkLyf")
 - Logged in user homepage
-  ![alt text](./images/WorkLyf(4).png "WorkLyf")
+  ![alt text](./public/images/WorkLyf(4).png "WorkLyf")
 - Create task modal
-  ![alt text](./images/WorkLyf.png "WorkLyf")
+  ![alt text](./public/images/WorkLyf.png "WorkLyf")
 - View tasks of a particular category, whether work or personal tasks
-  ![alt text](./images/WorkLyf(3).png "WorkLyf")
+  ![alt text](./public/images/WorkLyf(3).png "WorkLyf")
 - View Profile
-  ![alt text](./images/WorkLyf(2).png "WorkLyf")
+  ![alt text](./public/images/WorkLyf(2).png "WorkLyf")
 - Edit profile
-  ![alt text](./images/WorkLyf(1).png "WorkLyf")
+  ![alt text](./public/images/WorkLyf(1).png "WorkLyf")
 
 #### Known Bugs
 
