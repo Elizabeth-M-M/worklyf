@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import TaskCard from "../TaskCard";
 import { FilterIcon, HomeIcon, SearchIcon } from "../../../assets/icons";
 import Button from "../../../components/Button";
@@ -15,45 +15,61 @@ export default function Tasklist() {
   const dispatch = useDispatch();
   const { showCreateTask } = useSelector((store) => store.modal);
   const { tasks, loading } = useSelector((store) => store.task);
+  useEffect(()=>{
+      console.log("tasks changed")
+  },[tasks])
 
   let renderTasks;
   if (!loading && tasks.length === 0) {
-    renderTasks = <h2>You currently have no tasks</h2>;
+    renderTasks = (
+      <h2 className="text-center pt-6">
+        You currently have no tasks. Click on 'Create a task' button to add a
+        new task
+      </h2>
+    );
   } else if (loading) {
     renderTasks = <h2>Tasks loading....</h2>;
   } else if (!loading && tasks[0] !== undefined) {
-    renderTasks = (
-      <div className="">
-        <div>
-          <h2 className="text-black text-center my-2 text-xl bg-white bg-opacity-40">
-            Pending Tasks
-          </h2>
-          <div className="md:grid grid-cols-3 gap-4">
-            {tasks[0]
-              .filter(
-                (task) =>
-                  task.group.name === type &&
-                  (task.status == false || task.status == null)
-              )
-              .map((task) => {
-                return <TaskCard key={task.id} task={task} />;
-              })}
+    console.log(tasks[0].length)
+    if(tasks[0].length==0){
+       renderTasks = <h2 className="text-center pt-6">You currently have no tasks. Click on 'Create a task' button to add a new task</h2>;
+    }else{
+      renderTasks = (
+        <div className="">
+          <div>
+            <h2 className="text-black text-center my-2 text-xl bg-white bg-opacity-40">
+              Pending Tasks
+            </h2>
+            <div className="md:grid grid-cols-3 gap-4">
+              {tasks[0]
+                .filter(
+                  (task) =>
+                    task.group.name === type &&
+                    (task.status == false || task.status == null)
+                )
+                .map((task) => {
+                  return <TaskCard key={task.id} task={task} />;
+                })}
+            </div>
+          </div>
+          <div>
+            <h2 className="text-black text-center my-2 text-xl bg-white bg-opacity-40">
+              Completed Tasks
+            </h2>
+            <div className="md:grid grid-cols-3 gap-4">
+              {tasks[0]
+                .filter(
+                  (task) => task.group.name === type && task.status == true
+                )
+                .map((task) => {
+                  return <TaskCard key={task.id} task={task} />;
+                })}
+            </div>
           </div>
         </div>
-        <div>
-          <h2 className="text-black text-center my-2 text-xl bg-white bg-opacity-40">
-            Completed Tasks
-          </h2>
-          <div className="md:grid grid-cols-3 gap-4">
-            {tasks[0]
-              .filter((task) => task.group.name === type && task.status == true)
-              .map((task) => {
-                return <TaskCard key={task.id} task={task} />;
-              })}
-          </div>
-        </div>
-      </div>
-    );
+      );
+    }
+
   }
   return (
     <div className="px-6 py-3 relative min-h-screen">

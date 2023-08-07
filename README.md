@@ -11,7 +11,8 @@ Elizabeth Mwende Muthusi
 5/08/2023.
 
 ### Description
-This is the front end of the Worklyf application site that utilises the React framework. It is a comprehensive task management application designed to streamline your productivity journey,  work-related or personal. It mainly seperates tasks into work or personal, leaving room to focus . This app was built while practising redux and redux toolkit.
+
+This is the front end of the Worklyf application site that utilises the React framework. It is a comprehensive task management application designed to streamline your productivity journey, work-related or personal. It mainly seperates tasks into work or personal, leaving room to focus . This app was built while practising redux and redux toolkit.
 
 ### Features
 
@@ -20,7 +21,6 @@ A user can:-
 1. Successfully create an account and log in
 2. Add, edit or delete a task
 3. View tasks and see the deadline
-
 
 #### Technologies used
 
@@ -52,11 +52,12 @@ $ npm install
 $ npm start
 ```
 
-5. The api should now be running on `https://worklyf.onrender.com`
+5. The api should now be running on `http://localhost:3000`
 
-The app uses an already deployed api for its backend. The backend repository for this front end is `https://github.com/Elizabeth-M-M/worklyf-backend-sqlite` and it's deployed version is at https://worklyf.onrender.com/
+The app uses an already deployed api for its backend. The backend repository for this front end is `https://github.com/Elizabeth-M-M/worklyf-backend-sqlite` and it's deployed version is at http://localhost:3000/
 
 ### Using the deployed front end
+
 - Navigate to https://worklyf.vercel.app
 
 As a user, you can sign up and use those credentials to sign in later after logging out
@@ -64,21 +65,21 @@ As a user, you can sign up and use those credentials to sign in later after logg
 ## Screenshots
 
 - Guest homepage
-  ![alt text](./public/images/WorkLyf(6).png "WorkLyf")
+  ![alt text](<./public/images/WorkLyf(6).png> "WorkLyf")
 - Signup page
-  ![alt text](./public/images/WorkLyf(8).png "WorkLyf")
+  ![alt text](<./public/images/WorkLyf(8).png> "WorkLyf")
 - Login page
-  ![alt text](./public/images/WorkLyf(7).png "WorkLyf")
+  ![alt text](<./public/images/WorkLyf(7).png> "WorkLyf")
 - Logged in user homepage
-  ![alt text](./public/images/WorkLyf(4).png "WorkLyf")
+  ![alt text](<./public/images/WorkLyf(4).png> "WorkLyf")
 - Create task modal
   ![alt text](./public/images/WorkLyf.png "WorkLyf")
 - View tasks of a particular category, whether work or personal tasks
-  ![alt text](./public/images/WorkLyf(3).png "WorkLyf")
+  ![alt text](<./public/images/WorkLyf(3).png> "WorkLyf")
 - View Profile
-  ![alt text](./public/images/WorkLyf(2).png "WorkLyf")
+  ![alt text](<./public/images/WorkLyf(2).png> "WorkLyf")
 - Edit profile
-  ![alt text](./public/images/WorkLyf(1).png "WorkLyf")
+  ![alt text](<./public/images/WorkLyf(1).png> "WorkLyf")
 
 #### Known Bugs
 
