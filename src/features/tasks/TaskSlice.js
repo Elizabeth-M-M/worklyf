@@ -67,7 +67,7 @@ const taskSlice = createSlice({
       state.tasks = modified;
     },
     taskDeleted(state, action) {
-      console.log(action.payload);
+
       state.tasks = state.tasks.filter((task) => task.id !== action.payload);
     },
   },

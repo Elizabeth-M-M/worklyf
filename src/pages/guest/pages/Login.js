@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../../components/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { checkUserInServer } from "../../../features/user/UserSlice";
+import { getTasks } from "../../../features/tasks/TaskSlice";
 
 
 export default function Login() {
@@ -26,6 +27,8 @@ export default function Login() {
     event.preventDefault();
     dispatch(checkUserInServer(loginFormData)).then((data) => {
       if (data.payload.errors === undefined) {
+
+         dispatch(getTasks(data.payload.id));
         setloginFormData({
           email: "",
           password: "",

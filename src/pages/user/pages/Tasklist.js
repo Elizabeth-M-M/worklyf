@@ -28,13 +28,21 @@ export default function Tasklist() {
   } else if (loading) {
     renderTasks = <h2>Tasks loading....</h2>;
   } else if (!loading && tasks[0] !== undefined) {
-    if (tasks[0].length == 0) {
+
+    if (tasks[0].errors !== undefined) {
       renderTasks = (
         <h2 className="text-center pt-6">
-          You currently have no tasks. Click on 'Create a task' button to add a
-          new task
+          Loading...
         </h2>
       );
+    } else if (tasks[0].length == 0) {
+       renderTasks = (
+         <h2 className="text-center pt-6">
+           You currently have no tasks. Click on 'Create a task' button to add a
+           new task
+         </h2>
+       );
+
     } else {
       renderTasks = (
         <div className="">

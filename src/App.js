@@ -58,13 +58,18 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const dispatch = useDispatch();
   const userId = userCookieValue("userid=");
   useEffect(() => {
-    dispatch(getUser({ id: userId }));
+    if (userId !== undefined) {
+      dispatch(getUser({ id: userId }));
+    }
   }, [userId]);
-  const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(getTasks(userId));
+    if(userId!==undefined){
+      dispatch(getTasks(userId));
+    }
   }, [userId]);
   return (
     <div className="font-poppins text-gray-lighter">
