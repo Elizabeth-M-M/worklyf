@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Button from "../../components/Button";
 import { categories } from "../../assets/tasks";
-import { ClockIcon } from "../../assets/icons";
+import { ClockIcon } from "../../assets/iconsandsvgs";
 import { useDispatch, useSelector } from "react-redux";
 import { closeCreateTask } from "../../features/modal/ModalSlice";
 import { addTaskToServer, getTasks } from "../../features/tasks/TaskSlice";

@@ -1,5 +1,5 @@
 import React from "react";
-import { ClockIcon, OpenIcon } from "../../assets/icons";
+import { ClockIcon, OpenIcon } from "../../assets/iconsandsvgs";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { toggleBtnStyle } from "../../assets/extramethods";
 import { useDispatch } from "react-redux";

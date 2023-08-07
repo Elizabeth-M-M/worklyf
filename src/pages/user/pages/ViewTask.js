@@ -6,7 +6,7 @@ import {
   useSearchParams,
 } from "react-router-dom";
 import Button from "../../../components/Button";
-import { BellIcon, HomeIcon } from "../../../assets/icons";
+import { BellIcon, HomeIcon } from "../../../assets/iconsandsvgs";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteTaskToServer, getTasks, taskDeleted } from "../../../features/tasks/TaskSlice";
 import { userCookieValue } from "../../../assets/extramethods";

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import TaskCard from "../TaskCard";
-import { FilterIcon, HomeIcon, SearchIcon } from "../../../assets/icons";
+import { FilterIcon, HomeIcon, SearchIcon } from "../../../assets/iconsandsvgs";
 import Button from "../../../components/Button";
 import GuestNavbar from "../../guest/guestnavbar";
 import Modal from "../../../components/Modal";
@@ -15,9 +15,7 @@ export default function Tasklist() {
   const dispatch = useDispatch();
   const { showCreateTask } = useSelector((store) => store.modal);
   const { tasks, loading } = useSelector((store) => store.task);
-  useEffect(()=>{
-
-  },[tasks])
+  useEffect(() => {}, [tasks]);
 
   let renderTasks;
   if (!loading && tasks.length === 0) {
@@ -30,9 +28,14 @@ export default function Tasklist() {
   } else if (loading) {
     renderTasks = <h2>Tasks loading....</h2>;
   } else if (!loading && tasks[0] !== undefined) {
-    if(tasks[0].length==0){
-       renderTasks = <h2 className="text-center pt-6">You currently have no tasks. Click on 'Create a task' button to add a new task</h2>;
-    }else{
+    if (tasks[0].length == 0) {
+      renderTasks = (
+        <h2 className="text-center pt-6">
+          You currently have no tasks. Click on 'Create a task' button to add a
+          new task
+        </h2>
+      );
+    } else {
       renderTasks = (
         <div className="">
           <div>
@@ -68,7 +71,6 @@ export default function Tasklist() {
         </div>
       );
     }
-
   }
   return (
     <div className="px-6 py-3 relative min-h-screen">
@@ -108,9 +110,7 @@ export default function Tasklist() {
           <FilterIcon />
         </div>
       </div>
-      <div>
-        {renderTasks}
-      </div>
+      <div>{renderTasks}</div>
       {showCreateTask ? (
         <Modal>
           <CreateTask />

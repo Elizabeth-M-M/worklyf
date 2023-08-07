@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../../components/Button";
-import { FingerPrintIcon } from "../../assets/icons";
+import { FingerPrintIcon } from "../../assets/iconsandsvgs";
 import { closeEditProfileTab } from "../../features/modal/ModalSlice";
 import { editUserProfileToServer } from "../../features/user/UserSlice";
 

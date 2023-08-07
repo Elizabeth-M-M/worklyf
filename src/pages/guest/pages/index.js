@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "../../../components/Button";
 import GuestNavbar from "../guestnavbar";
-import { BokeDots } from "../../../assets/icons";
+import { BokeDots } from "../../../assets/iconsandsvgs";
 
 export default function GuestMain() {
   return (

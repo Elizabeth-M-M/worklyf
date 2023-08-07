@@ -8,7 +8,7 @@ import {
   GenderIcon,
   WorkIcon,
   AgeIcon,
-} from "../../assets/icons";
+} from "../../assets/iconsandsvgs";
 import { closeViewProfileTab } from "../../features/modal/ModalSlice";
 
 export default function ViewProfile() {

@@ -7,10 +7,14 @@ import {
 } from "react-router-dom";
 import Button from "../../../components/Button";
 import { categories } from "../../../assets/tasks";
-import { BellIcon, HomeIcon, LinkIcon } from "../../../assets/icons";
+import { BellIcon, HomeIcon, LinkIcon } from "../../../assets/iconsandsvgs";
 import ToggleButton from "../../../components/ToggleButton";
 import { useDispatch, useSelector } from "react-redux";
-import { editTaskToServer, taskAdded, taskUpdated } from "../../../features/tasks/TaskSlice";
+import {
+  editTaskToServer,
+  taskAdded,
+  taskUpdated,
+} from "../../../features/tasks/TaskSlice";
 
 export default function EditTask() {
   const navigate = useNavigate();
@@ -44,7 +48,7 @@ export default function EditTask() {
     event.preventDefault();
     dispatch(editTaskToServer({ id: id, task: taskFormData })).then((data) => {
       if (data.payload.errors === undefined) {
-        dispatch(taskUpdated(data.payload))
+        dispatch(taskUpdated(data.payload));
         navigate(`/tasks/${id}?type=${type}`);
       }
     });

@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import { UserIcon } from "../../../assets/icons";
+import { Spinner, UserIcon } from "../../../assets/iconsandsvgs";
 import Status from "../Status";
 import Category from "../Category";
 import TaskCard from "../TaskCard";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { pillStyle, userCookieValue } from "../../../assets/extramethods";
+import { DeleteAllCookies, pillStyle, userCookieValue } from "../../../assets/extramethods";
 import { getUser } from "../../../features/user/UserSlice";
 import {
   displayProfileMenu,
@@ -36,9 +36,25 @@ export default function UserLandingPage() {
   return (
     <>
       {!user && !loading ? (
-        <p>Please wait....</p>
+        <div className="flex items-center w-full h-screen">
+          <div className="mx-auto">
+
+            <div role="status" className="mx-auto">
+              <Spinner />
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+        </div>
       ) : !user ? (
-        <p>Please wait....</p>
+        <div className="flex items-center w-full h-screen">
+          <div className="mx-auto">
+
+            <div role="status">
+              <Spinner />
+              <span class="sr-only" className="mx-auto">Loading...</span>
+            </div>
+          </div>
+        </div>
       ) : (
         <div className="py-5 px-8 text-gray-lighter">
           <div className="flex align-center justify-between">
@@ -77,6 +93,7 @@ export default function UserLandingPage() {
                   <p
                     className={pillStyle}
                     onClick={() => {
+                      DeleteAllCookies();
                       dispatch(displayProfileMenu());
                       navigate("/");
                     }}
