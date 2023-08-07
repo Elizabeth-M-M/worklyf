@@ -38,7 +38,7 @@ export default function ViewProfile() {
   return (
     <div>
       {!loading && profileFormData.hasOwnProperty(0) == true ? (
-        <div className="w-full text-gray-lighter">
+        <div className="w-2/3 mx-auto text-gray-lighter bg-gray-dark rounded-lg">
           <div className="flex ">
             <div className="mx-auto">
               <div className="">

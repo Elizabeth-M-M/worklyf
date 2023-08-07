@@ -16,7 +16,7 @@ export default function Tasklist() {
   const { showCreateTask } = useSelector((store) => store.modal);
   const { tasks, loading } = useSelector((store) => store.task);
   useEffect(()=>{
-      console.log("tasks changed")
+
   },[tasks])
 
   let renderTasks;
@@ -30,14 +30,13 @@ export default function Tasklist() {
   } else if (loading) {
     renderTasks = <h2>Tasks loading....</h2>;
   } else if (!loading && tasks[0] !== undefined) {
-    console.log(tasks[0].length)
     if(tasks[0].length==0){
        renderTasks = <h2 className="text-center pt-6">You currently have no tasks. Click on 'Create a task' button to add a new task</h2>;
     }else{
       renderTasks = (
         <div className="">
           <div>
-            <h2 className="text-black text-center my-2 text-xl bg-white bg-opacity-40">
+            <h2 className="text-white uppercase text-center my-2 text-xl bg-gray-light bg-opacity-40">
               Pending Tasks
             </h2>
             <div className="md:grid grid-cols-3 gap-4">
@@ -53,7 +52,7 @@ export default function Tasklist() {
             </div>
           </div>
           <div>
-            <h2 className="text-black text-center my-2 text-xl bg-white bg-opacity-40">
+            <h2 className="text-white uppercase text-center my-2 text-xl bg-gray-light bg-opacity-40">
               Completed Tasks
             </h2>
             <div className="md:grid grid-cols-3 gap-4">

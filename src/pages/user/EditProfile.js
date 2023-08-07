@@ -37,7 +37,10 @@ export default function EditProfile() {
   return (
     <div>
       {!loading && profileFormData.hasOwnProperty("id") == true ? (
-        <div className="w-full text-gray-lighter">
+        <div
+          className="w-2/3 text-gray-lighter
+        bg-gray-dark rounded-lg mx-auto"
+        >
           <div className="flex ">
             <div className="mx-auto">
               <div className="">
