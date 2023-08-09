@@ -3,7 +3,7 @@ import { ClockIcon, OpenIcon } from "../../assets/iconsandsvgs";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { toggleBtnStyle } from "../../assets/extramethods";
 import { useDispatch } from "react-redux";
-import { deleteTask, editTaskToServer } from "../../features/tasks/TaskSlice";
+import { deleteTask, editTask } from "../../features/tasks/TaskSlice";
 
 export default function TaskCard({ task }) {
   const navigate = useNavigate();
@@ -56,12 +56,12 @@ export default function TaskCard({ task }) {
               className="sr-only peer"
               checked={task.status}
               onChange={(event) => {
-                // dispatch(
-                //   editTaskToServer({
-                //     id: task.id,
-                //     task: { ...task, status: event.target.checked },
-                //   })
-                // );
+                dispatch(
+                  editTask({
+                    id: task.id,
+                    task: { ...task, status: event.target.checked },
+                  })
+                );
               }}
             />
             <div className={toggleBtnStyle}></div>
@@ -85,9 +85,7 @@ export default function TaskCard({ task }) {
                 <p className="text-xs tracking-wide ms-2 mb-2">Expired</p>
               )}
             </div>
-            <div
-            onClick={() => dispatch(deleteTask({ id: task.id }))}
-            >
+            <div onClick={() => dispatch(deleteTask({ id: task.id }))}>
               <button className="text-xs bg-pink-dark rounded py-1 px-3 hover:bg-white text-black">
                 Delete
               </button>

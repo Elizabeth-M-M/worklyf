@@ -24,19 +24,19 @@ export const addTask = createAsyncThunk(
   }
 );
 
-// export const editTaskToServer = createAsyncThunk(
-//   "task/editTask",
-//   async ({ id, task }) => {
-//     const res = await fetch(`http://localhost:3000/tasks/${id}`, {
-//       method: "PATCH",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(task),
-//     }).then((resp) => resp.json());
-//     return res;
-//   }
-// );
+export const editTask = createAsyncThunk(
+  "task/editTask",
+  async ({ id, task }) => {
+    const res = await fetch(`http://localhost:3000/tasks/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(task),
+    }).then((resp) => resp.json());
+    return res;
+  }
+);
 
 export const deleteTask = createAsyncThunk(
   "task/deleteTask",
@@ -85,22 +85,30 @@ const taskSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    // [editTaskToServer.pending]: (state, action) => {
-    //   state.loading = true;
-    // },
-    // [editTaskToServer.fulfilled]: (state, action) => {
-    //   state.loading = false;
-    //   if (action.payload.hasOwnProperty("errors")) {
-    //     state.error = action.payload.errors;
-    //   } else {
-    //     state.error = null;
-
-    //   }
-    // },
-    // [editTaskToServer.rejected]: (state, action) => {
-    //   state.loading = false;
-    //   state.error = action.payload;
-    // },
+    [editTask.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [editTask.fulfilled]: (state, action) => {
+      state.loading = false;
+      if (action.payload.hasOwnProperty("errors")) {
+        state.error = action.payload.errors;
+      } else {
+        console.log(action.payload);
+        state.loading = false;
+        state.error = null;
+        state.tasks = state.tasks.map((task) => {
+          if (task.id == action.payload.id) {
+            return action.payload;
+          } else {
+            return task;
+          }
+        });
+      }
+    },
+    [editTask.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
     [deleteTask.pending]: (state, action) => {
       state.loading = true;
     },
