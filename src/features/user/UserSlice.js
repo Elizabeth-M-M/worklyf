@@ -5,7 +5,7 @@ const initialState = {
   error: null,
 };
 export const loginUser = createAsyncThunk("user/loginUser", async (user) => {
-  const res = await fetch(`http://localhost:3000/login`, {
+  const res = await fetch(`https://worklyf.onrender.com/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -17,7 +17,7 @@ export const loginUser = createAsyncThunk("user/loginUser", async (user) => {
 });
 
 export const signupUser = createAsyncThunk("user/signupUser", async (user) => {
-  const res = await fetch(`http://localhost:3000/signup`, {
+  const res = await fetch(`https://worklyf.onrender.com/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -28,8 +28,8 @@ export const signupUser = createAsyncThunk("user/signupUser", async (user) => {
 });
 
 export const getUser = createAsyncThunk("user/getUser", async ({ id }) => {
-  const res = await fetch(`http://localhost:3000/users/${id}`).then((data) =>
-    data.json()
+  const res = await fetch(`https://worklyf.onrender.com/users/${id}`).then(
+    (data) => data.json()
   );
   return res;
 });
@@ -37,7 +37,7 @@ export const getUser = createAsyncThunk("user/getUser", async ({ id }) => {
 export const editProfile = createAsyncThunk(
   "user/editProfile",
   async ({ id, profile }) => {
-    const res = await fetch(`http://localhost:3000/profiles/${id}`, {
+    const res = await fetch(`https://worklyf.onrender.com/profiles/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -106,7 +106,7 @@ const userSlice = createSlice({
         state.error = action.payload.errors;
       } else {
         state.error = null;
-        console.log(action.payload)
+        console.log(action.payload);
       }
     },
     [editProfile.rejected]: (state, action) => {

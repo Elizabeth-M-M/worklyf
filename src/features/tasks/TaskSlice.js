@@ -6,7 +6,7 @@ const initialState = {
   error: null,
 };
 export const getTasks = createAsyncThunk("task/getTasks", async ({ id }) => {
-  return fetch(`http://localhost:3000/users/${id}/tasks`).then((res) =>
+  return fetch(`https://worklyf.onrender.com/users/${id}/tasks`).then((res) =>
     res.json()
   );
 });
@@ -14,7 +14,7 @@ export const getTasks = createAsyncThunk("task/getTasks", async ({ id }) => {
 export const addTask = createAsyncThunk(
   "task/addTask",
   async ({ id, task }) => {
-    return fetch(`http://localhost:3000/users/${id}/tasks`, {
+    return fetch(`https://worklyf.onrender.com/users/${id}/tasks`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,7 +27,7 @@ export const addTask = createAsyncThunk(
 export const editTask = createAsyncThunk(
   "task/editTask",
   async ({ id, task }) => {
-    const res = await fetch(`http://localhost:3000/tasks/${id}`, {
+    const res = await fetch(`https://worklyf.onrender.com/tasks/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -41,7 +41,7 @@ export const editTask = createAsyncThunk(
 export const deleteTask = createAsyncThunk(
   "task/deleteTask",
   async ({ id }) => {
-    const res = await fetch(`http://localhost:3000/tasks/${id}`, {
+    const res = await fetch(`https://worklyf.onrender.com/tasks/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -93,7 +93,6 @@ const taskSlice = createSlice({
       if (action.payload.hasOwnProperty("errors")) {
         state.error = action.payload.errors;
       } else {
-
         state.loading = false;
         state.error = null;
         state.tasks = state.tasks.map((task) => {
