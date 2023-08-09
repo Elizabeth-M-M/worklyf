@@ -1,5 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
+const initialState={
+    tasks: [],
+    loading: false,
+    error: null,
+  }
 export const getTasks = createAsyncThunk("task/getTasks", async ({ id }) => {
   return fetch(`http://localhost:3000/users/${id}/tasks`).then((data) =>
     data.json()
@@ -49,12 +54,9 @@ export const getTasks = createAsyncThunk("task/getTasks", async ({ id }) => {
 
 const taskSlice = createSlice({
   name: "tasks",
-  initialState: {
-    tasks: [],
-    loading: false,
-    error: null,
-  },
+  initialState,
   reducers: {
+    resetTasks:()=>initialState
     // taskUpdated(state, action) {
     //   const modified = state.tasks.map((task) => {
     //     if (task.id == action.payload.id) {
@@ -126,6 +128,6 @@ const taskSlice = createSlice({
     // },
   },
 });
-// export const { taskUpdated, taskDeleted } = taskSlice.actions;
+export const {resetTasks } = taskSlice.actions;
 
 export default taskSlice.reducer;

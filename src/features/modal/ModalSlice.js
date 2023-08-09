@@ -34,7 +34,8 @@ const modalSlice = createSlice({
     closeEditProfileTab: (state, action) => {
       state.showEditProfileTab = !state.showEditProfileTab;
     },
+    resetDisplays:()=>initialState
   },
 });
-export const { openCreateTask, closeCreateTask, displayProfileMenu, displayTaskMenu, openViewProfileTab, closeViewProfileTab, openEditProfileTab, closeEditProfileTab } = modalSlice.actions;
+export const { openCreateTask, closeCreateTask, displayProfileMenu, displayTaskMenu, openViewProfileTab, closeViewProfileTab, openEditProfileTab, closeEditProfileTab, resetDisplays } = modalSlice.actions;
 export default modalSlice.reducer;

@@ -1,5 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
+const initialState = {
+  user: null,
+  loading: false,
+  error: null,
+};
 export const checkUserInServer = createAsyncThunk(
   "user/loginUser",
   async (user) => {
@@ -52,12 +56,10 @@ export const editUserProfileToServer = createAsyncThunk(
 
 const userSlice = createSlice({
   name: "user",
-  initialState: {
-    user: null,
-    loading: false,
-    error: null,
+  initialState,
+  reducers: {
+    resetUser: () => initialState,
   },
-  reducers: {},
   extraReducers: {
     [getUser.pending]: (state, action) => {
       state.loading = true;
@@ -103,4 +105,5 @@ const userSlice = createSlice({
     },
   },
 });
+export const { resetUser} = userSlice.actions;
 export default userSlice.reducer;

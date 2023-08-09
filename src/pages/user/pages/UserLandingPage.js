@@ -6,19 +6,20 @@ import TaskCard from "../TaskCard";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { DeleteAllCookies, pillStyle, userCookieValue } from "../../../assets/extramethods";
-import { getUser } from "../../../features/user/UserSlice";
+import { getUser, resetUser } from "../../../features/user/UserSlice";
 import {
   displayProfileMenu,
   displayTaskMenu,
   openEditProfileTab,
   openViewProfileTab,
+  resetDisplays,
 } from "../../../features/modal/ModalSlice";
 import Modal from "../../../components/Modal";
 import EditProfile from "../EditProfile";
 import ViewProfile from "../ViewProfile";
 import Button from "../../../components/Button";
 import LoadingSpinner from "../../../components/LoadingSpinner";
-import { getTasks } from "../../../features/tasks/TaskSlice";
+import { getTasks, resetTasks } from "../../../features/tasks/TaskSlice";
 
 export default function UserLandingPage() {
   const navigate = useNavigate();
@@ -93,7 +94,9 @@ export default function UserLandingPage() {
                     className={pillStyle}
                     onClick={() => {
                       DeleteAllCookies();
-                      dispatch(displayProfileMenu());
+                     dispatch(resetDisplays());
+                     dispatch(resetTasks())
+                     dispatch(resetUser())
                       navigate("/");
                     }}
                   >
