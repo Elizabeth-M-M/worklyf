@@ -5,7 +5,11 @@ import Category from "../Category";
 import TaskCard from "../TaskCard";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { DeleteAllCookies, pillStyle, userCookieValue } from "../../../assets/extramethods";
+import {
+  DeleteAllCookies,
+  pillStyle,
+  userCookieValue,
+} from "../../../assets/extramethods";
 import { getUser, resetUser } from "../../../features/user/UserSlice";
 import {
   displayProfileMenu,
@@ -27,26 +31,31 @@ export default function UserLandingPage() {
   const userId = userCookieValue("userid=");
   // const userId = 2
   const { user, loading } = useSelector((state) => state.user);
-  const { tasks, loading: isLoading } = useSelector((state) => ({...state.task}));
+  const { tasks, loading: isLoading } = useSelector((state) => ({
+    ...state.task,
+  }));
   const { showProfileMenu } = useSelector((state) => state.modal);
   const { showEditProfileTab } = useSelector((state) => state.modal);
   const { showViewProfileTab } = useSelector((state) => state.modal);
   const { showTaskMenu } = useSelector((state) => state.modal);
+  useEffect(() => {
+    if (!loading && tasks.length > 0) {
+      dispatch(getUser({ id: userId }));
+    }
+  }, [tasks]);
 
   return (
     <>
       {!user && !loading ? (
         <div className="flex items-center w-full h-screen">
           <div className="mx-auto">
-
-            <LoadingSpinner/>
+            <LoadingSpinner />
           </div>
         </div>
       ) : !user ? (
         <div className="flex items-center w-full h-screen">
           <div className="mx-auto">
-
-            <LoadingSpinner/>
+            <LoadingSpinner />
           </div>
         </div>
       ) : (
@@ -88,9 +97,9 @@ export default function UserLandingPage() {
                     className={pillStyle}
                     onClick={() => {
                       DeleteAllCookies();
-                     dispatch(resetDisplays());
-                     dispatch(resetTasks())
-                     dispatch(resetUser())
+                      dispatch(resetDisplays());
+                      dispatch(resetTasks());
+                      dispatch(resetUser());
                       navigate("/");
                     }}
                   >

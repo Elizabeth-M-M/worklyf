@@ -35,7 +35,7 @@ export default function Tasklist() {
       </h2>
     );
   } else {
-    const typeTasks = tasks[0].filter((task) => task.group.name === type);
+    const typeTasks = tasks.filter((task) => task.group.name === type);
     if (typeTasks.length == 0) {
       renderTasks = (
         <h2 className="text-center pt-6">

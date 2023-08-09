@@ -27,8 +27,8 @@ export default function EditTask() {
 
   let task;
   useEffect(() => {
-    if (!loading && tasks[0] !== undefined) {
-      task = tasks[0].filter((task) => task.id == id)[0];
+    if (!loading && tasks !== undefined) {
+      task = tasks.filter((task) => task.id == id)[0];
       settaskFormData(task);
     }
   }, [tasks]);

@@ -8,12 +8,9 @@ import {
 import Button from "../../../components/Button";
 import { BellIcon, HomeIcon } from "../../../assets/iconsandsvgs";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteTaskToServer,
-
-  taskDeleted,
-} from "../../../features/tasks/TaskSlice";
+import { deleteTask, taskDeleted } from "../../../features/tasks/TaskSlice";
 import { userCookieValue } from "../../../assets/extramethods";
+import { getUser } from "../../../features/user/UserSlice";
 
 export default function ViewTask() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -26,23 +23,21 @@ export default function ViewTask() {
   const userId = userCookieValue("userid=");
 
   useEffect(() => {
-    if (tasks[0] !== undefined && !loading) {
-      let found = tasks[0].filter((task) => task.id == id)[0];
+    if (tasks !== undefined && !loading) {
+      let found = tasks.filter((task) => task.id == id)[0];
       setTask(found);
     }
   }, [loading, tasks]);
 
   const handleDelete = () => {
-    // dispatch(deleteTaskToServer({ id })).then((data) => {
-    //   if (data.payload.errors === undefined) {
-    //     dispatch(taskDeleted(id));
-    //     navigate(`/tasks?type=${type}`);
-    //   }
-    // });
+    dispatch(deleteTask({ id }));
+    dispatch(getUser({ id: userId }));
+    navigate(`/tasks?type=${type}`);
+
   };
   return (
     <>
-      {task && tasks[0] !== undefined ? (
+      {task && tasks !== undefined ? (
         <div>
           <div className="flex items-center justify-between">
             <div></div>

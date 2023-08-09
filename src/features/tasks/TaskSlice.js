@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const initialState={
-    tasks: [],
-    loading: false,
-    error: null,
-  }
+const initialState = {
+  tasks: [],
+  loading: false,
+  error: null,
+};
 export const getTasks = createAsyncThunk("task/getTasks", async ({ id }) => {
   return fetch(`http://localhost:3000/users/${id}/tasks`).then((data) =>
     data.json()
@@ -39,24 +39,21 @@ export const getTasks = createAsyncThunk("task/getTasks", async ({ id }) => {
 //   }
 // );
 
-// export const deleteTaskToServer = createAsyncThunk(
-//   "task/deleteTask",
-//   async ({ id }) => {
-//     const res = await fetch(`http://localhost:3000/tasks/${id}`, {
-//       method: "DELETE",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     });
-//     return res;
-//   }
-// );
+export const deleteTask = createAsyncThunk("task/deleteTask", async ({ id }) => {
+  const res = await fetch(`http://localhost:3000/tasks/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return res;
+});
 
 const taskSlice = createSlice({
   name: "tasks",
   initialState,
   reducers: {
-    resetTasks:()=>initialState
+    resetTasks: () => initialState,
     // taskUpdated(state, action) {
     //   const modified = state.tasks.map((task) => {
     //     if (task.id == action.payload.id) {
@@ -77,7 +74,7 @@ const taskSlice = createSlice({
     },
     [getTasks.fulfilled]: (state, action) => {
       state.loading = false;
-      state.tasks = [action.payload];
+      state.tasks = action.payload;
     },
     [getTasks.rejected]: (state, action) => {
       state.loading = false;
@@ -115,19 +112,24 @@ const taskSlice = createSlice({
     //   state.loading = false;
     //   state.error = action.payload;
     // },
-    // [deleteTaskToServer.pending]: (state, action) => {
-    //   state.loading = true;
-    // },
-    // [deleteTaskToServer.fulfilled]: (state, { id }) => {
-    //   state.loading = false;
-    //   state.tasks = state.tasks.filter((item) => item.id !== id);
-    // },
-    // [deleteTaskToServer.rejected]: (state, action) => {
-    //   state.loading = false;
-    //   state.error = action.payload;
-    // },
+    [deleteTask.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [deleteTask.fulfilled]: (state, action) => {
+      state.loading = false;
+      const id= ((action.payload.url.split('/')).slice(-1))[0];
+       const indexOfTask = state.tasks.findIndex((item) => item.id == id);
+      state.tasks.splice(indexOfTask, 1)
+        state.tasks=state.tasks
+
+
+    },
+    [deleteTask.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
   },
 });
-export const {resetTasks } = taskSlice.actions;
+export const { resetTasks } = taskSlice.actions;
 
 export default taskSlice.reducer;

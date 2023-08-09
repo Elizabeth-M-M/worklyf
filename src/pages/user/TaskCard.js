@@ -3,10 +3,7 @@ import { ClockIcon, OpenIcon } from "../../assets/iconsandsvgs";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { toggleBtnStyle } from "../../assets/extramethods";
 import { useDispatch } from "react-redux";
-import {
-  deleteTaskToServer,
-  editTaskToServer,
-} from "../../features/tasks/TaskSlice";
+import { deleteTask, editTaskToServer } from "../../features/tasks/TaskSlice";
 
 export default function TaskCard({ task }) {
   const navigate = useNavigate();
@@ -35,7 +32,7 @@ export default function TaskCard({ task }) {
               onClick={() => {
                 navigate(
                   `/tasks/${task.id}?type=${
-                    type ? type : task.group_id == 1 ? "Work" : "Personal"
+                    type ? type : task.group_id == 2 ? "Work" : "Personal"
                   }`
                 );
               }}
@@ -89,7 +86,7 @@ export default function TaskCard({ task }) {
               )}
             </div>
             <div
-            // onClick={() => dispatch(deleteTaskToServer({ id: task.id }))}
+            onClick={() => dispatch(deleteTask({ id: task.id }))}
             >
               <button className="text-xs bg-pink-dark rounded py-1 px-3 hover:bg-white text-black">
                 Delete
