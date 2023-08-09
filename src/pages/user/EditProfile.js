@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Button from "../../components/Button";
 import { FingerPrintIcon } from "../../assets/iconsandsvgs";
 import { closeEditProfileTab } from "../../features/modal/ModalSlice";
-import { editUserProfileToServer } from "../../features/user/UserSlice";
+import { editProfile, getUser } from "../../features/user/UserSlice";
 
 export default function EditProfile() {
   const dispatch = useDispatch();
@@ -25,13 +25,20 @@ export default function EditProfile() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // dispatch(
-    //   editUserProfileToServer({
-    //     id: profileFormData.id,
-    //     profile: profileFormData,
-    //   })
-    // );
-    dispatch(closeEditProfileTab());
+    dispatch(
+      editProfile({
+        id: profileFormData.id,
+        profile: profileFormData,
+      })
+    ).then((data) => {
+      if (data.payload.errors === undefined) {
+        console.log(data.payload)
+        dispatch(getUser({ id: data.payload.user_id }));
+         dispatch(closeEditProfileTab());
+      }
+    });
+
+
   };
 
   return (

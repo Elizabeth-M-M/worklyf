@@ -34,7 +34,7 @@ export const getUser = createAsyncThunk("user/getUser", async ({ id }) => {
   return res;
 });
 
-export const editUserProfileToServer = createAsyncThunk(
+export const editProfile = createAsyncThunk(
   "user/editProfile",
   async ({ id, profile }) => {
     const res = await fetch(`http://localhost:3000/profiles/${id}`, {
@@ -94,6 +94,22 @@ const userSlice = createSlice({
       }
     },
     [signupUser.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    [editProfile.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [editProfile.fulfilled]: (state, action) => {
+      state.loading = false;
+      if (action.payload.hasOwnProperty("errors")) {
+        state.error = action.payload.errors;
+      } else {
+        state.error = null;
+        console.log(action.payload)
+      }
+    },
+    [editProfile.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
