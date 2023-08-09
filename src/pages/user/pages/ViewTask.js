@@ -10,7 +10,7 @@ import { BellIcon, HomeIcon } from "../../../assets/iconsandsvgs";
 import { useDispatch, useSelector } from "react-redux";
 import {
   deleteTaskToServer,
-  getTasks,
+
   taskDeleted,
 } from "../../../features/tasks/TaskSlice";
 import { userCookieValue } from "../../../assets/extramethods";
@@ -24,10 +24,6 @@ export default function ViewTask() {
   const { tasks, loading } = useSelector((state) => state.task);
   const [task, setTask] = useState(null);
   const userId = userCookieValue("userid=");
-
-  useEffect(() => {
-    dispatch(getTasks({ id: userId }));
-  }, [userId]);
 
   useEffect(() => {
     if (tasks[0] !== undefined && !loading) {

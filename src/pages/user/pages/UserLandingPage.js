@@ -19,7 +19,7 @@ import EditProfile from "../EditProfile";
 import ViewProfile from "../ViewProfile";
 import Button from "../../../components/Button";
 import LoadingSpinner from "../../../components/LoadingSpinner";
-import { getTasks, resetTasks } from "../../../features/tasks/TaskSlice";
+import { resetTasks } from "../../../features/tasks/TaskSlice";
 
 export default function UserLandingPage() {
   const navigate = useNavigate();
@@ -32,12 +32,6 @@ export default function UserLandingPage() {
   const { showEditProfileTab } = useSelector((state) => state.modal);
   const { showViewProfileTab } = useSelector((state) => state.modal);
   const { showTaskMenu } = useSelector((state) => state.modal);
-  // console.log(tasks, loading)
-
-  // useEffect(() => {
-  //   dispatch(getUser({ id: userId }));
-  //   dispatch(getTasks({ id: userId }));
-  // }, [userId]);
 
   return (
     <>

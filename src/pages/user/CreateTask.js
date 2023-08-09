@@ -5,7 +5,7 @@ import { categories } from "../../assets/tasks";
 import { ClockIcon } from "../../assets/iconsandsvgs";
 import { useDispatch, useSelector } from "react-redux";
 import { closeCreateTask } from "../../features/modal/ModalSlice";
-import { addTaskToServer, getTasks } from "../../features/tasks/TaskSlice";
+import { addTaskToServer} from "../../features/tasks/TaskSlice";
 import { toggleBtnStyle } from "../../assets/extramethods";
 
 export default function CreateTask() {
@@ -49,7 +49,7 @@ export default function CreateTask() {
     //   })
     // ).then((data) => {
     //   if (data.payload.errors === undefined) {
-    //     // dispatch(getTasks(user[0].id));
+
     //     dispatch(closeCreateTask());
     //     navigate(`/tasks?type=${type}`);
     //     settaskFormData({
