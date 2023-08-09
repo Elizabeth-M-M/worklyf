@@ -54,6 +54,7 @@ $ npm start
 
 5. The api should now be running on `https://worklyf.onrender.com`
 
+NB: The deployed API is super slow, so for faster response, you can clone and run the backend of this project and change the api url to `http://localhost:3000`
 The app uses an already deployed api for its backend. The backend repository for this front end is `https://github.com/Elizabeth-M-M/worklyf-backend-sqlite` and it's deployed version is at https://worklyf.onrender.com/
 
 ### Using the deployed front end
