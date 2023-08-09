@@ -10,11 +10,7 @@ import { categories } from "../../../assets/tasks";
 import { BellIcon, HomeIcon, LinkIcon } from "../../../assets/iconsandsvgs";
 import ToggleButton from "../../../components/ToggleButton";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  editTask,
-  taskAdded,
-  taskUpdated,
-} from "../../../features/tasks/TaskSlice";
+import { editTask } from "../../../features/tasks/TaskSlice";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 
 export default function EditTask() {
@@ -40,7 +36,6 @@ export default function EditTask() {
       event.target.type === "checkbox"
         ? event.target.checked
         : event.target.value;
-    console.log(taskFormData);
     settaskFormData({
       ...taskFormData,
       [event.target.name]: value,
@@ -54,7 +49,6 @@ export default function EditTask() {
         navigate(`/tasks/${id}?type=${type}`);
       }
     });
-
   };
 
   return (
@@ -289,7 +283,6 @@ export default function EditTask() {
                           </div>
                         </div>
                       </div>
-
                       <div className="text-center flex justify-between">
                         <div className="mx-auto">
                           <Button text={"Edit"} type={"submit"} />

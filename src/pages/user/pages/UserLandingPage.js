@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Spinner, UserIcon } from "../../../assets/iconsandsvgs";
+import {UserIcon } from "../../../assets/iconsandsvgs";
 import Status from "../Status";
 import Category from "../Category";
 import TaskCard from "../TaskCard";
@@ -29,7 +29,6 @@ export default function UserLandingPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userId = userCookieValue("userid=");
-  // const userId = 2
   const { user, loading } = useSelector((state) => state.user);
   const { tasks, loading: isLoading } = useSelector((state) => ({
     ...state.task,

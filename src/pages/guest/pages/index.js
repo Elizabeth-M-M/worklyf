@@ -28,7 +28,6 @@ export default function GuestMain() {
               </div>
             </div>
           </div>
-
           <div className="z-10  lg:col-span-1 col-span-1 relative xl:col-span-2">
             <div className="flex my-5 ">
               <div className="w-1/3 md:w-1/3">
@@ -38,10 +37,6 @@ export default function GuestMain() {
                 <img src={"images/task-1.png"} alt="girl juggling life" />
               </div>
             </div>
-            {/* <p className="text-xs md:text-sm text-center md:w-2/3">
-              Find your balance, draw the line. Unleash the power of separate
-              realms!.
-            </p> */}
             <div className="w-full h-full absolute  top-0 right-0 z-0 opacity-40 rounded-b-full overflow-hidden lg:-ms-40">
               <BokeDots />
             </div>

@@ -26,6 +26,7 @@ export default function CreateTask() {
     label: "",
     reminder: false,
     group_id: null,
+    status:false
   });
 
   const handleInputs = (event) => {

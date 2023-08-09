@@ -93,7 +93,7 @@ const taskSlice = createSlice({
       if (action.payload.hasOwnProperty("errors")) {
         state.error = action.payload.errors;
       } else {
-        console.log(action.payload);
+
         state.loading = false;
         state.error = null;
         state.tasks = state.tasks.map((task) => {

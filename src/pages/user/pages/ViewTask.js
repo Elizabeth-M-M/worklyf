@@ -8,9 +8,10 @@ import {
 import Button from "../../../components/Button";
 import { BellIcon, HomeIcon } from "../../../assets/iconsandsvgs";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteTask, taskDeleted } from "../../../features/tasks/TaskSlice";
+import { deleteTask} from "../../../features/tasks/TaskSlice";
 import { userCookieValue } from "../../../assets/extramethods";
 import { getUser } from "../../../features/user/UserSlice";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 
 export default function ViewTask() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -33,8 +34,8 @@ export default function ViewTask() {
     dispatch(deleteTask({ id }));
     dispatch(getUser({ id: userId }));
     navigate(`/tasks?type=${type}`);
-
   };
+
   return (
     <>
       {task && tasks !== undefined ? (
@@ -202,7 +203,7 @@ export default function ViewTask() {
           </div>
         </div>
       ) : (
-        <p>Loading....</p>
+       <LoadingSpinner/>
       )}
     </>
   );

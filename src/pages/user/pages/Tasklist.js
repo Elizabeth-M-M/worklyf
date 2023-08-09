@@ -1,11 +1,6 @@
 import React, { useEffect } from "react";
 import TaskCard from "../TaskCard";
-import {
-  FilterIcon,
-  HomeIcon,
-  SearchIcon,
-  Spinner,
-} from "../../../assets/iconsandsvgs";
+import { HomeIcon } from "../../../assets/iconsandsvgs";
 import Button from "../../../components/Button";
 import GuestNavbar from "../../guest/guestnavbar";
 import Modal from "../../../components/Modal";
@@ -21,8 +16,6 @@ export default function Tasklist() {
   const dispatch = useDispatch();
   const { showCreateTask } = useSelector((store) => store.modal);
   const { tasks, loading } = useSelector((store) => ({ ...store.task }));
-
-  useEffect(() => {}, [tasks]);
 
   let renderTasks;
   if (loading) {
@@ -86,7 +79,7 @@ export default function Tasklist() {
       );
     }
   }
-  console.log(tasks.length);
+  
   return (
     <div className="px-6 py-3 relative min-h-screen">
       <div>
