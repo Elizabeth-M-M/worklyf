@@ -3,13 +3,14 @@ import GuestNavbar from "../guestnavbar";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../components/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { checkUserInServer, getUser } from "../../../features/user/UserSlice";
+import { loginUser, getUser } from "../../../features/user/UserSlice";
 import { getTasks } from "../../../features/tasks/TaskSlice";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 
 export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { error } = useSelector((state) => state.user);
+  const { error, loading } = useSelector((state) => state.user);
   const [loginFormData, setloginFormData] = useState({
     email: "",
     password: "",
@@ -24,7 +25,7 @@ export default function Login() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(checkUserInServer(loginFormData)).then((data) => {
+    dispatch(loginUser(loginFormData)).then((data) => {
       if (data.payload.errors === undefined) {
         dispatch(getUser({ id: data.payload.id }));
         dispatch(getTasks({ id: data.payload.id }));
@@ -104,6 +105,7 @@ export default function Login() {
               />
             </div>
           </form>
+          {loading && <LoadingSpinner />}
           {error && error !== undefined
             ? error.map((err) => (
                 <p key={err} className="text-xs text-black mt-1 text-center">

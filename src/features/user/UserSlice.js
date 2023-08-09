@@ -4,34 +4,28 @@ const initialState = {
   loading: false,
   error: null,
 };
-export const checkUserInServer = createAsyncThunk(
-  "user/loginUser",
-  async (user) => {
-    const res = await fetch(`http://localhost:3000/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    }).then((resp) => resp.json());
-    document.cookie = `userid=${res.id}`;
-    return res;
-  }
-);
+export const loginUser = createAsyncThunk("user/loginUser", async (user) => {
+  const res = await fetch(`http://localhost:3000/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(user),
+  }).then((resp) => resp.json());
+  document.cookie = `userid=${res.id}`;
+  return res;
+});
 
-export const createUserInServer = createAsyncThunk(
-  "user/signupUser",
-  async (user) => {
-    const res = await fetch(`http://localhost:3000/signup`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    }).then((resp) => resp.json());
-    return res;
-  }
-);
+export const signupUser = createAsyncThunk("user/signupUser", async (user) => {
+  const res = await fetch(`http://localhost:3000/signup`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(user),
+  }).then((resp) => resp.json());
+  return res;
+});
 
 export const getUser = createAsyncThunk("user/getUser", async ({ id }) => {
   const res = await fetch(`http://localhost:3000/users/${id}`).then((data) =>
@@ -72,10 +66,10 @@ const userSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    [checkUserInServer.pending]: (state, action) => {
+    [loginUser.pending]: (state, action) => {
       state.loading = true;
     },
-    [checkUserInServer.fulfilled]: (state, action) => {
+    [loginUser.fulfilled]: (state, action) => {
       state.loading = false;
       if (action.payload.hasOwnProperty("errors")) {
         state.error = action.payload.errors;
@@ -84,14 +78,14 @@ const userSlice = createSlice({
         state.user = [action.payload];
       }
     },
-    [checkUserInServer.rejected]: (state, action) => {
+    [loginUser.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
-    [createUserInServer.pending]: (state, action) => {
+    [signupUser.pending]: (state, action) => {
       state.loading = true;
     },
-    [createUserInServer.fulfilled]: (state, action) => {
+    [signupUser.fulfilled]: (state, action) => {
       state.loading = false;
       if (action.payload.hasOwnProperty("errors")) {
         state.error = action.payload.errors;
@@ -99,11 +93,11 @@ const userSlice = createSlice({
         state.error = null;
       }
     },
-    [createUserInServer.rejected]: (state, action) => {
+    [signupUser.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
   },
 });
-export const { resetUser} = userSlice.actions;
+export const { resetUser } = userSlice.actions;
 export default userSlice.reducer;

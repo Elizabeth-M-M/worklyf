@@ -3,12 +3,13 @@ import GuestNavbar from "../guestnavbar";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../components/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { createUserInServer } from "../../../features/user/UserSlice";
+import { signupUser } from "../../../features/user/UserSlice";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 
 export default function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-    const { user, error } = useSelector((state) => state.user);
+  const { user, error, loading } = useSelector((state) => state.user);
   const [signUpFormData, setSignUpFormData] = useState({
     full_name: "",
     email: "",
@@ -25,17 +26,17 @@ export default function Register() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // dispatch(createUserInServer(signUpFormData)).then((data) => {
-    //   if (data.payload.errors === undefined) {
-    //     navigate("/login");
-    //     setSignUpFormData({
-    //       full_name: "",
-    //       email: "",
-    //       password: "",
-    //       password_confirmation: "",
-    //     });
-    //   }
-    // });
+    dispatch(signupUser(signUpFormData)).then((data) => {
+      if (data.payload.errors === undefined) {
+        navigate("/login");
+        setSignUpFormData({
+          full_name: "",
+          email: "",
+          password: "",
+          password_confirmation: "",
+        });
+      }
+    });
   };
 
   return (
@@ -139,6 +140,7 @@ export default function Register() {
               />
             </div>
           </form>
+          {loading&&<LoadingSpinner/>}
           {error && error !== undefined
             ? error.map((err) => (
                 <p key={err} className="text-xs text-black mt-1 text-center">
