@@ -63,14 +63,10 @@ function App() {
   useEffect(() => {
     if (userId !== undefined) {
       dispatch(getUser({ id: userId }));
-    }
-  }, [userId]);
-
-  useEffect(() => {
-    if (userId !== undefined) {
       dispatch(getTasks({ id: userId }));
     }
   }, [userId]);
+
   return (
     <div className="font-poppins text-gray-lighter">
       <RouterProvider router={router} />
