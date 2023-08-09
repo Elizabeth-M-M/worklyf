@@ -5,7 +5,7 @@ import { categories } from "../../assets/tasks";
 import { ClockIcon } from "../../assets/iconsandsvgs";
 import { useDispatch, useSelector } from "react-redux";
 import { closeCreateTask } from "../../features/modal/ModalSlice";
-import { addTaskToServer} from "../../features/tasks/TaskSlice";
+import { addTask } from "../../features/tasks/TaskSlice";
 import { toggleBtnStyle } from "../../assets/extramethods";
 
 export default function CreateTask() {
@@ -42,28 +42,28 @@ export default function CreateTask() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const selectedGroup = type == "Personal" ? 1 : 2;
-    // dispatch(
-    //   addTaskToServer({
-    //     id: user[0].id,
-    //     task: { ...taskFormData, group_id: selectedGroup },
-    //   })
-    // ).then((data) => {
-    //   if (data.payload.errors === undefined) {
+    dispatch(
+      addTask({
+        id: user[0].id,
+        task: { ...taskFormData, group_id: selectedGroup },
+      })
+    ).then((data) => {
+      if (data.payload.errors === undefined) {
 
-    //     dispatch(closeCreateTask());
-    //     navigate(`/tasks?type=${type}`);
-    //     settaskFormData({
-    //       title: "",
-    //       description: "",
-    //       start_date: "",
-    //       start_time: "",
-    //       end_date: "",
-    //       end_time: "",
-    //       category_id: "",
-    //       reminder: false,
-    //     });
-    //   }
-    // });
+        dispatch(closeCreateTask());
+        navigate(`/tasks?type=${type}`);
+        settaskFormData({
+          title: "",
+          description: "",
+          start_date: "",
+          start_time: "",
+          end_date: "",
+          end_time: "",
+          category_id: "",
+          reminder: false,
+        });
+      }
+    });
   };
 
   return (

@@ -6,24 +6,23 @@ const initialState = {
   error: null,
 };
 export const getTasks = createAsyncThunk("task/getTasks", async ({ id }) => {
-  return fetch(`http://localhost:3000/users/${id}/tasks`).then((data) =>
-    data.json()
+  return fetch(`http://localhost:3000/users/${id}/tasks`).then((res) =>
+    res.json()
   );
 });
 
-// export const addTaskToServer = createAsyncThunk(
-//   "task/addTask",
-//   async ({ id, task }) => {
-//     const res = await fetch(`http://localhost:3000/users/${id}/tasks`, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(task),
-//     }).then((resp) => resp.json());
-//     return res;
-//   }
-// );
+export const addTask = createAsyncThunk(
+  "task/addTask",
+  async ({ id, task }) => {
+    return fetch(`http://localhost:3000/users/${id}/tasks`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(task),
+    }).then((res) => res.json());
+  }
+);
 
 // export const editTaskToServer = createAsyncThunk(
 //   "task/editTask",
@@ -39,34 +38,24 @@ export const getTasks = createAsyncThunk("task/getTasks", async ({ id }) => {
 //   }
 // );
 
-export const deleteTask = createAsyncThunk("task/deleteTask", async ({ id }) => {
-  const res = await fetch(`http://localhost:3000/tasks/${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  return res;
-});
+export const deleteTask = createAsyncThunk(
+  "task/deleteTask",
+  async ({ id }) => {
+    const res = await fetch(`http://localhost:3000/tasks/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return res;
+  }
+);
 
 const taskSlice = createSlice({
   name: "tasks",
   initialState,
   reducers: {
     resetTasks: () => initialState,
-    // taskUpdated(state, action) {
-    //   const modified = state.tasks.map((task) => {
-    //     if (task.id == action.payload.id) {
-    //       return action.payload;
-    //     } else {
-    //       return task;
-    //     }
-    //   });
-    //   state.tasks = modified;
-    // },
-    // taskDeleted(state, action) {
-    //   state.tasks = state.tasks.filter((task) => task.id !== action.payload);
-    // },
   },
   extraReducers: {
     [getTasks.pending]: (state, action) => {
@@ -80,22 +69,22 @@ const taskSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    // [addTaskToServer.pending]: (state, action) => {
-    //   state.loading = true;
-    // },
-    // [addTaskToServer.fulfilled]: (state, action) => {
-    //   state.loading = false;
-    //   if (action.payload.hasOwnProperty("errors")) {
-    //     state.error = action.payload.errors;
-    //   } else {
-    //     state.error = null;
-    //     state.tasks.push(action.payload);
-    //   }
-    // },
-    // [addTaskToServer.rejected]: (state, action) => {
-    //   state.loading = false;
-    //   state.error = action.payload;
-    // },
+    [addTask.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [addTask.fulfilled]: (state, action) => {
+      state.loading = false;
+      if (action.payload.hasOwnProperty("errors")) {
+        state.error = action.payload.errors;
+      } else {
+        state.error = null;
+        state.tasks.push(action.payload);
+      }
+    },
+    [addTask.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
     // [editTaskToServer.pending]: (state, action) => {
     //   state.loading = true;
     // },
@@ -117,12 +106,10 @@ const taskSlice = createSlice({
     },
     [deleteTask.fulfilled]: (state, action) => {
       state.loading = false;
-      const id= ((action.payload.url.split('/')).slice(-1))[0];
-       const indexOfTask = state.tasks.findIndex((item) => item.id == id);
-      state.tasks.splice(indexOfTask, 1)
-        state.tasks=state.tasks
-
-
+      const id = action.payload.url.split("/").slice(-1)[0];
+      const indexOfTask = state.tasks.findIndex((item) => item.id == id);
+      state.tasks.splice(indexOfTask, 1);
+      state.tasks = state.tasks;
     },
     [deleteTask.rejected]: (state, action) => {
       state.loading = false;
