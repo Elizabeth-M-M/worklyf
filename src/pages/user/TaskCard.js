@@ -66,7 +66,7 @@ export default function TaskCard({ task }) {
             />
             <div className={toggleBtnStyle}></div>
             <span className="ml-3 text-sm font-medium ">
-              {task.status ? "Done" : "Mark as done"}
+              {task.status ? "Mark as undone" : "Mark as done"}
             </span>
           </label>
           <div className="flex items-center justify-between">

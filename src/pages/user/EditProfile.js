@@ -4,6 +4,7 @@ import Button from "../../components/Button";
 import { FingerPrintIcon } from "../../assets/iconsandsvgs";
 import { closeEditProfileTab } from "../../features/modal/ModalSlice";
 import { editProfile, getUser } from "../../features/user/UserSlice";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 export default function EditProfile() {
   const dispatch = useDispatch();
@@ -142,7 +143,7 @@ export default function EditProfile() {
           </div>
         </div>
       ) : (
-        <h4 className="text-white">Profile is loading...</h4>
+        <LoadingSpinner/>
       )}
     </div>
   );

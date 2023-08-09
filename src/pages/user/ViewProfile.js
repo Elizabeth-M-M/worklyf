@@ -10,6 +10,7 @@ import {
   AgeIcon,
 } from "../../assets/iconsandsvgs";
 import { closeViewProfileTab } from "../../features/modal/ModalSlice";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 export default function ViewProfile() {
   const navigate = useNavigate();
@@ -119,7 +120,7 @@ export default function ViewProfile() {
           </div>
         </div>
       ) : (
-        <h4 className="text-white">Profile is loading...</h4>
+        <LoadingSpinner/>
       )}
     </div>
   );
