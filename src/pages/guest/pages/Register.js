@@ -25,17 +25,17 @@ export default function Register() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(createUserInServer(signUpFormData)).then((data) => {
-      if (data.payload.errors === undefined) {
-        navigate("/login");
-        setSignUpFormData({
-          full_name: "",
-          email: "",
-          password: "",
-          password_confirmation: "",
-        });
-      }
-    });
+    // dispatch(createUserInServer(signUpFormData)).then((data) => {
+    //   if (data.payload.errors === undefined) {
+    //     navigate("/login");
+    //     setSignUpFormData({
+    //       full_name: "",
+    //       email: "",
+    //       password: "",
+    //       password_confirmation: "",
+    //     });
+    //   }
+    // });
   };
 
   return (

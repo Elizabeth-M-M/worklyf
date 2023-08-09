@@ -17,21 +17,26 @@ import Modal from "../../../components/Modal";
 import EditProfile from "../EditProfile";
 import ViewProfile from "../ViewProfile";
 import Button from "../../../components/Button";
+import LoadingSpinner from "../../../components/LoadingSpinner";
+import { getTasks } from "../../../features/tasks/TaskSlice";
 
 export default function UserLandingPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userId = userCookieValue("userid=");
+  // const userId = 2
   const { user, loading } = useSelector((state) => state.user);
-  const { tasks, loading: isLoading } = useSelector((state) => state.task);
+  const { tasks, loading: isLoading } = useSelector((state) => ({...state.task}));
   const { showProfileMenu } = useSelector((state) => state.modal);
   const { showEditProfileTab } = useSelector((state) => state.modal);
   const { showViewProfileTab } = useSelector((state) => state.modal);
   const { showTaskMenu } = useSelector((state) => state.modal);
+  // console.log(tasks, loading)
 
-  useEffect(() => {
-    dispatch(getUser({ id: userId }));
-  }, [userId]);
+  // useEffect(() => {
+  //   dispatch(getUser({ id: userId }));
+  //   dispatch(getTasks({ id: userId }));
+  // }, [userId]);
 
   return (
     <>
@@ -39,20 +44,14 @@ export default function UserLandingPage() {
         <div className="flex items-center w-full h-screen">
           <div className="mx-auto">
 
-            <div role="status" className="mx-auto">
-              <Spinner />
-              <span class="sr-only">Loading...</span>
-            </div>
+            <LoadingSpinner/>
           </div>
         </div>
       ) : !user ? (
         <div className="flex items-center w-full h-screen">
           <div className="mx-auto">
 
-            <div role="status">
-              <Spinner />
-              <span class="sr-only" className="mx-auto">Loading...</span>
-            </div>
+            <LoadingSpinner/>
           </div>
         </div>
       ) : (

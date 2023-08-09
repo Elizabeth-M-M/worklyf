@@ -46,12 +46,12 @@ export default function EditTask() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(editTaskToServer({ id: id, task: taskFormData })).then((data) => {
-      if (data.payload.errors === undefined) {
-        dispatch(taskUpdated(data.payload));
-        navigate(`/tasks/${id}?type=${type}`);
-      }
-    });
+    // dispatch(editTaskToServer({ id: id, task: taskFormData })).then((data) => {
+    //   if (data.payload.errors === undefined) {
+    //     dispatch(taskUpdated(data.payload));
+    //     navigate(`/tasks/${id}?type=${type}`);
+    //   }
+    // });
   };
 
   return (

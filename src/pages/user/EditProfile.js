@@ -25,12 +25,12 @@ export default function EditProfile() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(
-      editUserProfileToServer({
-        id: profileFormData.id,
-        profile: profileFormData,
-      })
-    );
+    // dispatch(
+    //   editUserProfileToServer({
+    //     id: profileFormData.id,
+    //     profile: profileFormData,
+    //   })
+    // );
     dispatch(closeEditProfileTab());
   };
 

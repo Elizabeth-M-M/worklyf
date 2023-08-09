@@ -67,8 +67,8 @@ function App() {
   }, [userId]);
 
   useEffect(() => {
-    if(userId!==undefined){
-      dispatch(getTasks(userId));
+    if (userId !== undefined) {
+      dispatch(getTasks({ id: userId }));
     }
   }, [userId]);
   return (

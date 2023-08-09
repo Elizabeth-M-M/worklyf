@@ -59,12 +59,12 @@ export default function TaskCard({ task }) {
               className="sr-only peer"
               checked={task.status}
               onChange={(event) => {
-                dispatch(
-                  editTaskToServer({
-                    id: task.id,
-                    task: { ...task, status: event.target.checked },
-                  })
-                );
+                // dispatch(
+                //   editTaskToServer({
+                //     id: task.id,
+                //     task: { ...task, status: event.target.checked },
+                //   })
+                // );
               }}
             />
             <div className={toggleBtnStyle}></div>
@@ -88,7 +88,9 @@ export default function TaskCard({ task }) {
                 <p className="text-xs tracking-wide ms-2 mb-2">Expired</p>
               )}
             </div>
-            <div onClick={() => dispatch(deleteTaskToServer({ id: task.id }))}>
+            <div
+            // onClick={() => dispatch(deleteTaskToServer({ id: task.id }))}
+            >
               <button className="text-xs bg-pink-dark rounded py-1 px-3 hover:bg-white text-black">
                 Delete
               </button>

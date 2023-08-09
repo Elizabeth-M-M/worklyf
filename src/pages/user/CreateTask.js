@@ -42,28 +42,28 @@ export default function CreateTask() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const selectedGroup = type == "Personal" ? 1 : 2;
-    dispatch(
-      addTaskToServer({
-        id: user[0].id,
-        task: { ...taskFormData, group_id: selectedGroup },
-      })
-    ).then((data) => {
-      if (data.payload.errors === undefined) {
-        dispatch(getTasks(user[0].id));
-        dispatch(closeCreateTask());
-        navigate(`/tasks?type=${type}`);
-        settaskFormData({
-          title: "",
-          description: "",
-          start_date: "",
-          start_time: "",
-          end_date: "",
-          end_time: "",
-          category_id: "",
-          reminder: false,
-        });
-      }
-    });
+    // dispatch(
+    //   addTaskToServer({
+    //     id: user[0].id,
+    //     task: { ...taskFormData, group_id: selectedGroup },
+    //   })
+    // ).then((data) => {
+    //   if (data.payload.errors === undefined) {
+    //     // dispatch(getTasks(user[0].id));
+    //     dispatch(closeCreateTask());
+    //     navigate(`/tasks?type=${type}`);
+    //     settaskFormData({
+    //       title: "",
+    //       description: "",
+    //       start_date: "",
+    //       start_time: "",
+    //       end_date: "",
+    //       end_time: "",
+    //       category_id: "",
+    //       reminder: false,
+    //     });
+    //   }
+    // });
   };
 
   return (

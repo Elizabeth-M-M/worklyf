@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 export const checkUserInServer = createAsyncThunk(
   "user/loginUser",
   async (user) => {
-    const res = await fetch(`https://worklyf.onrender.com/login`, {
+    const res = await fetch(`http://localhost:3000/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -18,7 +18,7 @@ export const checkUserInServer = createAsyncThunk(
 export const createUserInServer = createAsyncThunk(
   "user/signupUser",
   async (user) => {
-    const res = await fetch(`https://worklyf.onrender.com/signup`, {
+    const res = await fetch(`http://localhost:3000/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -30,8 +30,8 @@ export const createUserInServer = createAsyncThunk(
 );
 
 export const getUser = createAsyncThunk("user/getUser", async ({ id }) => {
-  const res = await fetch(`https://worklyf.onrender.com/users/${id}`).then(
-    (data) => data.json()
+  const res = await fetch(`http://localhost:3000/users/${id}`).then((data) =>
+    data.json()
   );
   return res;
 });
@@ -39,7 +39,7 @@ export const getUser = createAsyncThunk("user/getUser", async ({ id }) => {
 export const editUserProfileToServer = createAsyncThunk(
   "user/editProfile",
   async ({ id, profile }) => {
-    const res = await fetch(`https://worklyf.onrender.com/profiles/${id}`, {
+    const res = await fetch(`http://localhost:3000/profiles/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

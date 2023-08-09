@@ -8,7 +8,11 @@ import {
 import Button from "../../../components/Button";
 import { BellIcon, HomeIcon } from "../../../assets/iconsandsvgs";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteTaskToServer, getTasks, taskDeleted } from "../../../features/tasks/TaskSlice";
+import {
+  deleteTaskToServer,
+  getTasks,
+  taskDeleted,
+} from "../../../features/tasks/TaskSlice";
 import { userCookieValue } from "../../../assets/extramethods";
 
 export default function ViewTask() {
@@ -19,29 +23,26 @@ export default function ViewTask() {
   const { id } = useParams();
   const { tasks, loading } = useSelector((state) => state.task);
   const [task, setTask] = useState(null);
-   const userId = userCookieValue("userid=");
-
-   useEffect(() => {
-     dispatch(getTasks(userId));
-   }, [userId]);
+  const userId = userCookieValue("userid=");
 
   useEffect(() => {
-    if ( tasks[0] !== undefined && !loading) {
+    dispatch(getTasks({ id: userId }));
+  }, [userId]);
 
+  useEffect(() => {
+    if (tasks[0] !== undefined && !loading) {
       let found = tasks[0].filter((task) => task.id == id)[0];
       setTask(found);
     }
   }, [loading, tasks]);
 
-
   const handleDelete = () => {
-    dispatch(deleteTaskToServer({ id })).then((data) => {
-      if (data.payload.errors === undefined) {
-        dispatch(taskDeleted(id));
-         navigate(`/tasks?type=${type}`);
-      }
-    });
-
+    // dispatch(deleteTaskToServer({ id })).then((data) => {
+    //   if (data.payload.errors === undefined) {
+    //     dispatch(taskDeleted(id));
+    //     navigate(`/tasks?type=${type}`);
+    //   }
+    // });
   };
   return (
     <>
