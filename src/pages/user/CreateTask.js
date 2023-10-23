@@ -140,7 +140,7 @@ export default function CreateTask() {
                       name="start_time"
                       value={taskFormData.start_time}
                       onChange={handleInputs}
-                      required
+
                     />
                   </div>
                 </div>
@@ -159,7 +159,7 @@ export default function CreateTask() {
                       name="end_date"
                       value={taskFormData.end_date}
                       onChange={handleInputs}
-                      required
+
                     />
                   </div>
                   <div className="shadow-[inset_0_-2px_4px_rgba(0,0,0,0.6)] bg-gray-light rounded  p-2">
@@ -176,7 +176,7 @@ export default function CreateTask() {
                       name="end_time"
                       value={taskFormData.end_time}
                       onChange={handleInputs}
-                      required
+
                     />
                   </div>
                 </div>

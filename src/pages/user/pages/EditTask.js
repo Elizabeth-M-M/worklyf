@@ -154,7 +154,7 @@ export default function EditTask() {
                                       .split(" ")[4]
                                   }
                                   onChange={handleInputs}
-                                  required
+
                                 />
                               </div>
                             </div>
@@ -176,7 +176,7 @@ export default function EditTask() {
                                     taskFormData.end_date.split("T")[0]
                                   }
                                   onChange={handleInputs}
-                                  required
+
                                 />
                               </div>
                               <div className=" bg-gray-dark rounded bg-gray-light  p-2">
@@ -198,7 +198,7 @@ export default function EditTask() {
                                       .split(" ")[4]
                                   }
                                   onChange={handleInputs}
-                                  required
+                                  
                                 />
                               </div>
                             </div>
